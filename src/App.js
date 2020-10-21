@@ -1,12 +1,10 @@
 import React from 'react';
-import NavBar from './components/navbar/NavBar';
+import MiniDrawer from './components/navbar/MiniDrawer';
 
-function App() {
-  return (
-    <div className="App">
-      <NavBar />
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <MiniDrawer />
+  </div>
+);
 
 export default App;
