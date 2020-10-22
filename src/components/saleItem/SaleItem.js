@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -15,7 +15,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     borderRadius: spacing(3), // 16px
     transition: '0.3s',
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
-    // height: 300,
+    maxHeight: 300,
     position: 'relative',
     maxWidth: 700,
     marginLeft: 'auto',
@@ -35,11 +35,11 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: spacing(-3),
-    height: 0,
     paddingBottom: '48%',
     borderRadius: spacing(2),
     backgroundColor: '#fff',
     position: 'relative',
+
     [breakpoints.up('md')]: {
       width: '100%',
       marginLeft: spacing(-3),
@@ -75,7 +75,7 @@ export const SaleItem = React.memo(() => {
   } = useBlogTextInfoContentStyles();
   const shadowStyles = useOverShadowStyles();
   return (
-    <Card className={classnames(styles.root, shadowStyles.root)}>
+    <Card className={classNames(styles.root, shadowStyles.root)}>
       <CardMedia
         className={styles.media}
         image="https://upload.wikimedia.org/wikipedia/commons/f/f2/1990s_Mathmos_Astro.jpg"
