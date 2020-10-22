@@ -14,8 +14,7 @@ const fakeData = [
 const useStyles = makeStyles({
   root: {
     display: 'grid',
-    width: '90%',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))',
     justifyItems: 'center'
   }
 });
@@ -28,7 +27,7 @@ const SaleCardList = () => {
       <Grid
         className={classes.root}
         container
-        spacing={3}
+        spacing={2}
         wrap="wrap"
         component="div"
       >
