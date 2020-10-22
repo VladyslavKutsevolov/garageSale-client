@@ -12,12 +12,11 @@ import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
     margin: 'auto',
-    borderRadius: spacing(3), // 16px
+    borderRadius: spacing(2), // 16px
     transition: '0.3s',
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
-    maxHeight: 300,
     position: 'relative',
-    maxWidth: 700,
+    maxWidth: 500,
     marginLeft: 'auto',
     overflow: 'initial',
     background: '#ffffff',
@@ -27,24 +26,34 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     paddingBottom: spacing(2),
     [breakpoints.up('md')]: {
       flexDirection: 'row',
-      paddingTop: spacing(2)
-    }
+      paddingTop: spacing(2),
+    },
   },
   media: {
     width: '88%',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: spacing(-3),
+    height: 0,
     paddingBottom: '48%',
     borderRadius: spacing(2),
-    backgroundColor: '#fff',
     position: 'relative',
-
-    [breakpoints.up('md')]: {
+    // backgroundColor: 'transparent',
+    [breakpoints.down('md')]: {
+      border: '10px',
+      borderRadius: spacing(2),
       width: '100%',
       marginLeft: spacing(-3),
       marginTop: 0,
-      transform: 'translateX(-8px)'
+      transform: 'translateX(-8px)',
+    },
+    [breakpoints.down('sm')]: {
+      backgroundSize: '25%',
+      borderRadius: '30%',
+      width: '100%',
+      marginLeft: spacing(-3),
+      marginTop: 0,
+      transform: 'translateX(-8px)',
     },
     '&:after': {
       content: '" "',
@@ -55,16 +64,16 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
       height: '100%',
       // backgroundImage: 'linear-gradient(147deg, #fe8a39 0%, #fd3838 74%)',
       borderRadius: spacing(2), // 16
-      opacity: 0.5
-    }
+      opacity: 0.5,
+    },
   },
   content: {
-    padding: 24
+    padding: 24,
   },
   cta: {
     marginTop: 24,
-    textTransform: 'initial'
-  }
+    textTransform: 'initial',
+  },
 }));
 
 export const SaleItem = React.memo(() => {
@@ -82,7 +91,7 @@ export const SaleItem = React.memo(() => {
       />
       <CardContent>
         <TextInfoContent
-          classes={contentStyles}
+          className={contentStyles}
           heading="Lava Lamp $5.00"
           body="Git is a distributed version control system. Every dev has a working copy of the code and...Git is a distributed version control system. Every dev has a working copy of the code and..."
         />
