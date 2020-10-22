@@ -49,7 +49,6 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     },
     [breakpoints.down('sm')]: {
       backgroundSize: '25%',
-      borderRadius: '30%',
       width: '100%',
       marginLeft: spacing(-3),
       marginTop: 0,
@@ -76,7 +75,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-export const SaleItem = React.memo(() => {
+export const SaleItem = React.memo( props => {
   const styles = useStyles();
   const {
     button: buttonStyles,
@@ -85,15 +84,12 @@ export const SaleItem = React.memo(() => {
   const shadowStyles = useOverShadowStyles();
   return (
     <Card className={classNames(styles.root, shadowStyles.root)}>
-      <CardMedia
-        className={styles.media}
-        image="https://upload.wikimedia.org/wikipedia/commons/f/f2/1990s_Mathmos_Astro.jpg"
-      />
+      <CardMedia className={styles.media} image={props.image_url} />
       <CardContent>
         <TextInfoContent
           className={contentStyles}
-          heading="Lava Lamp $5.00"
-          body="Git is a distributed version control system. Every dev has a working copy of the code and...Git is a distributed version control system. Every dev has a working copy of the code and..."
+          heading={props.title}
+          body={props.description}
         />
         <Button className={buttonStyles}>Message seller</Button>
       </CardContent>

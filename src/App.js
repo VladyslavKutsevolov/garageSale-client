@@ -1,6 +1,6 @@
 import React from 'react';
 import MiniDrawer from './components/navbar/MiniDrawer';
-import SaleItem from './components/saleItem/SaleItem';
+import SaleItemList from './components/saleItem/SaleItemList';
 
 const App = () => (
   <div className="App">
@@ -8,7 +8,7 @@ const App = () => (
     <br></br>
     <br></br>
     <br></br>
-    <SaleItem />
+    <SaleItemList />
   </div>
 );
 
