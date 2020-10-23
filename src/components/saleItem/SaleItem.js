@@ -29,15 +29,25 @@ const useStyles = makeStyles(theme => ({
   },
   cover: {
     width: '20rem'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
   }
 }));
 
-export default function SaleItem({ imageUrl, title, price, description }) {
+export default function SaleItem({ imageUrl, title, price, product_summary }) {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
 
-  // Handles chevron for description
+  // Handles chevron for product_summary
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -71,8 +81,7 @@ export default function SaleItem({ imageUrl, title, price, description }) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Method:</Typography>
-            <Typography paragraph>{description}</Typography>
+            <Typography paragraph>{product_summary}</Typography>
           </CardContent>
         </Collapse>
       </div>
