@@ -1,6 +1,5 @@
 /* eslint-disable import/no-duplicates */
 import React from 'react';
-
 import classnames from 'classnames';
 import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -23,6 +22,7 @@ import { TextField, Avatar } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
 
 import SaleCardList from '../saleCard/SaleCardList';
+import SaleItemList from '../saleItem/saleItemList';
 
 const drawerWidth = 240;
 
@@ -186,7 +186,8 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div">
-          <SaleCardList />
+          {/* <SaleCardList /> */}
+          <SaleItemList />
         </Container>
       </main>
     </div>

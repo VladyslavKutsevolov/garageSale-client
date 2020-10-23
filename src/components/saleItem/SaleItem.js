@@ -1,100 +1,106 @@
-import React from 'react';
-import classNames from 'classnames';
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import TextInfoContent from '@mui-treasury/components/content/textInfo';
-import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
-import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import classNames from 'classnames';
+import IconButton from '@material-ui/core/IconButton';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
 
-const useStyles = makeStyles(({ breakpoints, spacing }) => ({
+
+const useStyles = makeStyles(theme => ({
   root: {
-    margin: 'auto',
-    borderRadius: spacing(2), // 16px
-    transition: '0.3s',
-    boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
-    position: 'relative',
-    maxWidth: 500,
-    marginLeft: 'auto',
-    overflow: 'initial',
-    background: '#ffffff',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingBottom: spacing(2),
-    [breakpoints.up('md')]: {
-      flexDirection: 'row',
-      paddingTop: spacing(2),
-    },
+    marginBottom: '2rem',
+    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)'
   },
-  media: {
-    width: '88%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: spacing(-3),
-    height: 0,
-    paddingBottom: '48%',
-    borderRadius: spacing(2),
-    position: 'relative',
-    // backgroundColor: 'transparent',
-    [breakpoints.down('md')]: {
-      border: '10px',
-      borderRadius: spacing(2),
-      width: '100%',
-      marginLeft: spacing(-3),
-      marginTop: 0,
-      transform: 'translateX(-8px)',
-    },
-    [breakpoints.down('sm')]: {
-      backgroundSize: '25%',
-      width: '100%',
-      marginLeft: spacing(-3),
-      marginTop: 0,
-      transform: 'translateX(-8px)',
-    },
-    '&:after': {
-      content: '" "',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      // backgroundImage: 'linear-gradient(147deg, #fe8a39 0%, #fd3838 74%)',
-      borderRadius: spacing(2), // 16
-      opacity: 0.5,
-    },
+  buttonCustomStyle: {
+    background:
+      'linear-gradient(135deg, rgba(164,66,255,1) 0%, rgba(68,17,187,1) 39%, rgba(38,70,227,1) 69%, rgba(38,70,227,1) 88%)',
+    color: '#fff',
+    marginTop: '.7rem'
   },
-  content: {
-    padding: 24,
+  details: {
+    display: 'flex'
   },
-  cta: {
-    marginTop: 24,
-    textTransform: 'initial',
+  cover: {
+    width: '20rem'
   },
+  cardActions: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    alignSelf: 'center',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    }),
+    alignSelf: 'flex-end'
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
+  }
 }));
 
-export const SaleItem = React.memo( props => {
-  const styles = useStyles();
-  const {
-    button: buttonStyles,
-    ...contentStyles
-  } = useBlogTextInfoContentStyles();
-  const shadowStyles = useOverShadowStyles();
+export default function SaleItem({ imageUrl, title, price, product_summary }) {
+  const classes = useStyles();
+
+  const [expanded, setExpanded] = React.useState(false);
+  const [carousel, setCarousel] = React.useState(false);
+  const [handleOpen, setHandleOpen] = useState({ open: false });
+
+
+  // Handles chevron for product_summary
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  // Has images issues on different breackpoints
   return (
-    <Card className={classNames(styles.root, shadowStyles.root)}>
-      <CardMedia className={styles.media} image={props.image_url} />
-      <CardContent>
-        <TextInfoContent
-          className={contentStyles}
-          heading={props.title}
-          body={props.description}
-        />
-        <Button className={buttonStyles}>Message seller</Button>
-      </CardContent>
+    <Card className={classes.root}>
+      <CardMedia className={classes.cover} image={imageUrl} />
+      <div className={classes.details}>
+        <CardContent className={classes.content}>
+          <Typography component="h5" variant="h5">
+            {title}
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary">
+            {`Price ${price}`}
+          </Typography>
+          <Button variant="contained" className={classes.buttonCustomStyle}>
+            Contact Seller
+          </Button>
+        </CardContent>
+        <CardActions className={classes.cardActions} disableSpacing>
+          <IconButton
+            className={classNames(classes.expand, {
+              [classes.expandOpen]: expanded
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Collapse
+          className={classes.collapse}
+          in={expanded}
+          timeout="auto"
+          unmountOnExit
+        >
+          <CardContent>
+            <Typography paragraph>{product_summary}</Typography>
+          </CardContent>
+        </Collapse>
+      </div>
     </Card>
   );
-});
-
-export default SaleItem;
+}
