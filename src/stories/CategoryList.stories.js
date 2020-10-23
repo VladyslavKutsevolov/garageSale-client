@@ -11,6 +11,7 @@ export default {
 };
 
 const fakeCategoryList = [
+  { id: 0, name: 'All' },
   { id: 1, name: 'Toys & Games' },
   { id: 2, name: 'Electronics' },
   { id: 3, name: 'Camera & Photo' },

@@ -15,11 +15,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CategoryList = ({ categories }) => {
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState(0);
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Category categoryName="All" />
       {categories.map(category => (
         <Category
           key={category.id}
