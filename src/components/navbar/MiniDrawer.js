@@ -23,6 +23,7 @@ import { ExitToApp } from '@material-ui/icons';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
+import Carousel from '../carousel/Carousel';
 
 const drawerWidth = 240;
 
@@ -189,6 +190,7 @@ export default function MiniDrawer() {
           {/* <SaleCardList /> */}
           <SaleItemList />
         </Container>
+        <Carousel />
       </main>
     </div>
   );

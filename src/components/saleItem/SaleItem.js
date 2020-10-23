@@ -42,7 +42,6 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest
     }),
-    alignSelf: 'flex-end'
   },
   expandOpen: {
     transform: 'rotate(180deg)'
@@ -53,8 +52,6 @@ export default function SaleItem({ imageUrl, title, price, product_summary }) {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
-  const [carousel, setCarousel] = React.useState(false);
-  const [handleOpen, setHandleOpen] = useState({ open: false });
 
 
   // Handles chevron for product_summary
