@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,12 +31,18 @@ const useStyles = makeStyles(theme => ({
   cover: {
     width: '20rem'
   },
+  cardActions: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
   expand: {
     transform: 'rotate(0deg)',
-    marginLeft: 'auto',
+    alignSelf: 'center',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest
-    })
+    }),
+    alignSelf: 'flex-end'
   },
   expandOpen: {
     transform: 'rotate(180deg)'
@@ -46,11 +53,15 @@ export default function SaleItem({ imageUrl, title, price, product_summary }) {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
+  const [carousel, setCarousel] = React.useState(false);
+  const [handleOpen, setHandleOpen] = useState({ open: false });
+
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
   // Has images issues on different breackpoints
   return (
     <Card className={classes.root}>
@@ -67,7 +78,7 @@ export default function SaleItem({ imageUrl, title, price, product_summary }) {
             Contact Seller
           </Button>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions className={classes.cardActions} disableSpacing>
           <IconButton
             className={classNames(classes.expand, {
               [classes.expandOpen]: expanded
@@ -79,7 +90,12 @@ export default function SaleItem({ imageUrl, title, price, product_summary }) {
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse
+          className={classes.collapse}
+          in={expanded}
+          timeout="auto"
+          unmountOnExit
+        >
           <CardContent>
             <Typography paragraph>{product_summary}</Typography>
           </CardContent>
