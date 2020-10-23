@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
-
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,7 +37,7 @@ export default function SaleItem({ imageUrl, title, price, description }) {
 
   const [expanded, setExpanded] = React.useState(false);
 
-  //handles chevron for description
+  // Handles chevron for description
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -51,9 +51,6 @@ export default function SaleItem({ imageUrl, title, price, description }) {
             {title}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {description}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
             {`Price ${price}`}
           </Typography>
           <Button variant="contained" className={classes.buttonCustomStyle}>
@@ -63,7 +60,7 @@ export default function SaleItem({ imageUrl, title, price, description }) {
         <CardActions disableSpacing>
           <IconButton
             className={classNames(classes.expand, {
-              [classes.expandOpen]: expanded,
+              [classes.expandOpen]: expanded
             })}
             onClick={handleExpandClick}
             aria-expanded={expanded}
@@ -72,6 +69,12 @@ export default function SaleItem({ imageUrl, title, price, description }) {
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>Method:</Typography>
+            <Typography paragraph>{description}</Typography>
+          </CardContent>
+        </Collapse>
       </div>
     </Card>
   );
