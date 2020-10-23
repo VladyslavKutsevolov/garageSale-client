@@ -1,9 +1,24 @@
 
-Core features: 
-  - have individual users with garage sale items listend individually 
-  - Users can enter search queries to see items
-  - items have a picture and price
-  - Users can interact to discuss price (messaging system or chat function)
+Main page: 
+  - Users can view a list of garage sales
+  - Users can filter garage sales by category, location (google maps API ?)
+  - By clicking on a sale, users are taken to the sale page
+  - Users can create a sale of their own
+
+  
+Sale page: 
+  - Users can see items listed for sale
+  - Users can click a button to launch a chat with the seller
+  - Users can mark items as sold
+  - Users can remove items from a sale
+
+
+Chat:
+  - Users are able to chat in real time with the seller
+  
+  
+
+
   - users can update listings - CRUD
   - It has an auction mode where people bid for an item 
   - It has a standard mode where people can buy the item 
