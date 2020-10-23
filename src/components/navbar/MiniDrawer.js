@@ -20,7 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
-
+import Button from '@material-ui/core/Button';
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
 import Carousel from '../carousel/Carousel';
@@ -188,9 +188,9 @@ export default function MiniDrawer() {
         <div className={classes.toolbar} />
         <Container component="div">
           {/* <SaleCardList /> */}
+          <Carousel />
           <SaleItemList />
         </Container>
-        <Carousel />
       </main>
     </div>
   );

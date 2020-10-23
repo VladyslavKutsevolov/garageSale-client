@@ -4,55 +4,77 @@ import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 const { red, blue, green } = require('@material-ui/core/colors');
 const Button = require('@material-ui/core/Button').default;
 
-export default function Carousel() {
-  const [open, setOpen] = React.useState(true);
+const fakeProductData = [
+  {
+    id: 1,
+    title: 'Lava lamp',
+    price: 5.0,
+    productSummary: 'Lava lamp in good condition. Lava still works.',
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/f/f2/1990s_Mathmos_Astro.jpg'
+  },
+  {
+    id: 2,
+    title: 'Monstera Plant',
+    price: 12.0,
+    productSummary: 'A nice plant. Grows. Needs water (not included).',
+    imageUrl: 'https://picsum.photos/300/210'
+  },
+  {
+    id: 3,
+    title: 'Used Xbox',
+    price: 80.0,
+    productSummary: "Comes with games. Selling because of son's bad behaviour.",
+    imageUrl: 'https://picsum.photos/300/210'
+  },
+  {
+    id: 4,
+    title: 'Scarf',
+    price: 22.5,
+    productSummary:
+      "Used it to keep my neck warm. No longer needed as my neck isn't cold now.",
+    imageUrl: 'https://picsum.photos/300/210'
+  },
+  {
+    id: 5,
+    title: 'Watch',
+    price: 8.99,
+    productSummary: 'Tells you the time. Needs a new battery',
+    imageUrl: 'https://picsum.photos/300/210'
+  }
+];
+
+
+export default function Carousel({ imageUrl, title, productSummary, price }) {
+  // probaby going to need to use this higher in component chain and pass open prop dowm
+  const [open, setOpen] = React.useState(false);
+  const [handleOpen, setHandleOpen] = useState({ open: false });
+  const handleClick = () => {
+    setHandleOpen({ open: true });
+  };
+
+
 
   return (
     <div>
-      <Button onClick={() => setOpen(true)}>Open carousel</Button>
+      <Button onClick={handleClick}> Click here to see carousel </Button>
       <AutoRotatingCarousel
         // label="Get started"
-        open={open}
-        onClose={() => setOpen(false)}
-        onStart={() => setOpen(false)}
+        open={handleOpen.open}
+        onClose={() => setHandleOpen({ open: false })}
+        onStart={() => setHandleOpen({ open: false })}
         style={{ position: 'absolute' }}
       >
-        <Slide
-          media={(
-            <img
-              src="http://www.icons101.com/icon_png/size_256/id_79394/youtube.png"
-              alt="slidephoto"
-            />
-          )}
-          mediaBackgroundStyle={{ backgroundColor: blue[400] }}
-          style={{ backgroundColor: blue[600] }}
-          title="This is a very cool feature"
-          subtitle="Just using this will blow your mind."
-        />
-        <Slide
-          media={(
-            <img
-              src="http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png"
-              alt="slidephoto"
-            />
-          )}
-          mediaBackgroundStyle={{ backgroundColor: blue[400] }}
-          style={{ backgroundColor: blue[600] }}
-          title="Ever wanted to be popular?"
-          subtitle="Well just mix two colors and your are good to go!"
-        />
-        <Slide
-          media={(
-            <img
-              src="http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png"
-              alt="slidephoto"
-            />
-          )}
-          mediaBackgroundStyle={{ backgroundColor: blue[400] }}
-          style={{ backgroundColor: blue[600] }}
-          title="May the force be with you"
-          subtitle="The Force is a metaphysical and ubiquitous power in the Star Wars fictional universe."
-        />
+
+        {fakeProductData.map(product => (
+          <Slide
+            media={<img src={product.imageUrl} alt={product.title} />}
+            mediaBackgroundStyle={{ backgroundColor: blue[400] }}
+            style={{ backgroundColor: blue[600] }}
+            title={`${product.title}: ${product.price}`}
+            subtitle={product.productSummary}
+          />
+        ))}
       </AutoRotatingCarousel>
     </div>
   );

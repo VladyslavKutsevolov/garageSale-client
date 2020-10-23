@@ -49,6 +49,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SaleItem({ imageUrl, title, price, product_summary }) {
+
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
