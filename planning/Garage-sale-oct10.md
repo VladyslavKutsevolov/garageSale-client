@@ -108,3 +108,20 @@ Useful links:
 https://thenounproject.com/
 https://undraw.co/illustrations
 https://coolors.co/
+
+
+
+## Updated core requirements
+
+Main page: 
+  - Users can view a list of garage sales
+  - Users can filter garage sales by category, location (google maps API ?)
+  - By clicking on a sale, users are taken to the sale page
+  - Users can create a sale of their own
+Sale page: 
+  - Users can see items listed for sale
+  - Users can click a button to launch a chat with the seller
+  - Users can mark items as sold
+  - Users can add/remove items from a sale
+Chat:
+  - Users are able to chat in real time with the seller

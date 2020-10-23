@@ -6,6 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import classNames from 'classnames';
+import IconButton from '@material-ui/core/IconButton';
+import CardActions from '@material-ui/core/CardActions';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,6 +34,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function SaleItem({ imageUrl, title, price, description }) {
   const classes = useStyles();
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  //handles chevron for description
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   // Has images issues on different breackpoints
   return (
     <Card className={classes.root}>
@@ -48,6 +60,18 @@ export default function SaleItem({ imageUrl, title, price, description }) {
             Contact Seller
           </Button>
         </CardContent>
+        <CardActions disableSpacing>
+          <IconButton
+            className={classNames(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
       </div>
     </Card>
   );
