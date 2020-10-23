@@ -81,6 +81,7 @@
     "no-param-reassign": 0,
     "function-paren-newline": 0,
     "no-alert": 0,
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "object-curly-newline": 0
   }
 }
