@@ -22,7 +22,8 @@ const fakeProductData = [
     id: 3,
     title: 'Used Xbox',
     price: 80.0,
-    product_summary: "Comes with games. Selling because of son's bad behaviour.",
+    product_summary:
+      "Comes with games. Selling because of son's bad behaviour.",
     image_url: 'https://picsum.photos/300/210'
   },
   {
@@ -48,7 +49,7 @@ const SaleItemList = () => {
       key={product.id}
       title={product.title}
       price={product.price}
-      product_summary={product.product_summary}
+      productSummary={product.product_summary}
       imageUrl={product.image_url}
     />
   ));
