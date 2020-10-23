@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,12 +12,20 @@ import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
+    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
+    maxWidth: '40rem'
+  },
+  cardContentRoot: {
+    padding: 0,
+    '&:last-child': {
+      paddingBottom: 0
+    }
+  },
+  actionButtons: {
     display: 'flex',
-    marginBottom: '2rem',
-    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)'
+    justifyContent: 'space-between'
   },
   buttonCustomStyle: {
     background:
@@ -26,36 +34,32 @@ const useStyles = makeStyles(theme => ({
     marginTop: '.7rem'
   },
   details: {
-    display: 'flex'
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   cover: {
-    width: '20rem'
-  },
-  cardActions: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-end'
+    width: '25rem',
+    height: '15rem'
   },
   expand: {
     transform: 'rotate(0deg)',
-    alignSelf: 'center',
+    marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest
-    }),
-    alignSelf: 'flex-end'
+    })
   },
   expandOpen: {
     transform: 'rotate(180deg)'
   }
 }));
 
-export default function SaleItem({ imageUrl, title, price, product_summary }) {
+export default function SaleItem({ imageUrl, title, price, productSummary }) {
   const classes = useStyles();
 
-  const [expanded, setExpanded] = React.useState(false);
-  const [carousel, setCarousel] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [carousel, setCarousel] = useState(false);
   const [handleOpen, setHandleOpen] = useState({ open: false });
-
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
@@ -65,42 +69,56 @@ export default function SaleItem({ imageUrl, title, price, product_summary }) {
   // Has images issues on different breackpoints
   return (
     <Card className={classes.root}>
-      <CardMedia className={classes.cover} image={imageUrl} />
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {title}
+      <CardContent className={classes.cardContentRoot}>
+        <div className={classes.details}>
+          <CardMedia className={classes.cover} image={imageUrl} />
+          <div>
+            <Typography component="h5" variant="h5">
+              {title}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              {`Price ${price}`}
+            </Typography>
+            <div className={classes.actionButtons}>
+              <Button variant="contained" className={classes.buttonCustomStyle}>
+                Contact Seller
+              </Button>
+              <CardActions disableSpacing>
+                <IconButton
+                  className={classNames(classes.expand, {
+                    [classes.expandOpen]: expanded
+                  })}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </CardActions>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Method:</Typography>
+          <Typography paragraph>
+            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
+            set aside for 10 minutes.
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {`Price ${price}`}
+          <Typography paragraph>
+            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
+            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
+            stirring occasionally until lightly browned, 6 to 8 minutes.
+            Transfer shrimp to a large plate and set aside, leaving chicken and
+            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
+            onion, salt and pepper, and cook, stirring often until thickened and
+            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
+            cups chicken broth; bring to a boil.
           </Typography>
-          <Button variant="contained" className={classes.buttonCustomStyle}>
-            Contact Seller
-          </Button>
         </CardContent>
-        <CardActions className={classes.cardActions} disableSpacing>
-          <IconButton
-            className={classNames(classes.expand, {
-              [classes.expandOpen]: expanded
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse
-          className={classes.collapse}
-          in={expanded}
-          timeout="auto"
-          unmountOnExit
-        >
-          <CardContent>
-            <Typography paragraph>{product_summary}</Typography>
-          </CardContent>
-        </Collapse>
-      </div>
+      </Collapse>
     </Card>
   );
 }
