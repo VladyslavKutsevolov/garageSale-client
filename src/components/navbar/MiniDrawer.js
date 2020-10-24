@@ -20,11 +20,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
-import MailIcon from '@material-ui/icons/Mail';
-import Badge from '@material-ui/core/Badge';
-
+import Button from '@material-ui/core/Button';
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
+import Carousel from '../carousel/Carousel';
 
 const drawerWidth = 240;
 
@@ -42,8 +41,6 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    background:
-      'linear-gradient(135deg, rgba(164,66,255,1) 0%, rgba(68,17,187,1) 39%, rgba(38,70,227,1) 69%, rgba(38,70,227,1) 88%)',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -178,11 +175,6 @@ export default function MiniDrawer() {
               />
             </ListItemIcon>
             <ListItemText primary="Profile" />
-          </ListItem>
-          <ListItem>
-            <Badge badgeContent={4} color="primary">
-              <MailIcon />
-            </Badge>
           </ListItem>
           <ListItem button>
             <ListItemIcon>

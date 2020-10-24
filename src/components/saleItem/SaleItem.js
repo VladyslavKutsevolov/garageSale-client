@@ -47,19 +47,18 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest
-    })
+    }),
   },
   expandOpen: {
     transform: 'rotate(180deg)'
   }
 }));
 
-export default function SaleItem({ imageUrl, title, price, productSummary }) {
+export default function SaleItem({ imageUrl, title, price, product_summary }) {
+
   const classes = useStyles();
 
-  const [expanded, setExpanded] = useState(false);
-  const [carousel, setCarousel] = useState(false);
-  const [handleOpen, setHandleOpen] = useState({ open: false });
+  const [expanded, setExpanded] = React.useState(false);
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {

@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 import React from 'react';
 import SaleItem from './SaleItem';
+import Carousel from '../carousel/Carousel'
 
 const fakeProductData = [
   {
@@ -52,9 +53,9 @@ const SaleItemList = () => {
       productSummary={product.product_summary}
       imageUrl={product.image_url}
     />
-  ));
+    ));
 
-  return days;
+    return days;
 };
 
 export default SaleItemList;
