@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
+import { makeStyles } from '@material-ui/core/styles';
 
 const { red, blue, green } = require('@material-ui/core/colors');
 const Button = require('@material-ui/core/Button').default;
@@ -45,7 +46,15 @@ const fakeProductData = [
 ];
 
 
-export default function Carousel({ imageUrl, title, productSummary, price }) {
+const useStyles = makeStyles(() => ({
+  root: {
+    display: 'flex',
+    marginBottom: '2rem',
+    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)'
+  }
+}));
+
+export default function Carousel() {
   // probaby going to need to use this higher in component chain and pass open prop dowm
   const [open, setOpen] = React.useState(false);
   const [handleOpen, setHandleOpen] = useState({ open: false });
@@ -53,11 +62,11 @@ export default function Carousel({ imageUrl, title, productSummary, price }) {
     setHandleOpen({ open: true });
   };
 
-
+  const classes = useStyles();
 
   return (
     <div>
-      <Button onClick={handleClick}> Click here to see carousel </Button>
+      <Button className={classes.root} onClick={handleClick}> Click here to see carousel </Button>
       <AutoRotatingCarousel
         // label="Get started"
         open={handleOpen.open}
