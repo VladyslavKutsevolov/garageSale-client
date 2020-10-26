@@ -2,22 +2,6 @@
   "name": "garagesale-client",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@mui-treasury/components": "^1.9.1",
-    "@mui-treasury/styles": "^1.13.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "classnames": "^2.2.6",
-    "material-auto-rotating-carousel": "^3.0.2",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
-    "react-swipeable-views": "^0.13.9"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -66,5 +50,23 @@
     "node-sass": "^4.14.1",
     "prettier": "2.1.2",
     "react-is": "^16.13.1"
-  }
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@mui-treasury/components": "^1.9.1",
+    "@mui-treasury/styles": "^1.13.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.21.0",
+    "classnames": "^2.2.6",
+    "material-auto-rotating-carousel": "^3.0.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.3",
+    "react-swipeable-views": "^0.13.9"
+  },
+  "proxy": "http://localhost:3001"
 }

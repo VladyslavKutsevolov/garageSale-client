@@ -25,6 +25,7 @@ import Badge from '@material-ui/core/Badge';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
+import SaleItemForm from '../saleItem/SaleItemForm';
 
 const drawerWidth = 240;
 
@@ -196,7 +197,8 @@ export default function MiniDrawer() {
         <div className={classes.toolbar} />
         <Container component="div">
           {/* <SaleCardList /> */}
-          <SaleItemList />
+          {/* <SaleItemList /> */}
+          <SaleItemForm />
         </Container>
       </main>
     </div>
