@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -40,6 +41,13 @@ const useStyles = makeStyles(theme => ({
   },
   upload: {
     marginTop: '1.2rem'
+  },
+  uploadButtonControl: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  filename: {
+    marginLeft: '1rem'
   }
 }));
 
@@ -49,11 +57,10 @@ const initialState = {
   price: ''
 };
 
-const SaleItemForm = () => {
+const SaleItemForm = ({ handleClose, open }) => {
   const classes = useStyles();
   const [form, setForm] = useState(initialState);
   const [productImg, setProductImg] = useState(null);
-  const [open, setOpen] = useState(false);
   const [modalStyle] = React.useState(getModalStyle);
   const [fileName, setFileName] = useState('');
 
@@ -72,14 +79,6 @@ const SaleItemForm = () => {
     setForm(initialState);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
@@ -96,9 +95,6 @@ const SaleItemForm = () => {
 
   return (
     <>
-      <button type="button" onClick={handleOpen}>
-        Open Modal
-      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -107,7 +103,7 @@ const SaleItemForm = () => {
       >
         <div style={modalStyle} className={classes.paper}>
           <Typography variant="h6" gutterBottom>
-            Product Information
+            Create Product for Sale
           </Typography>
           <form onSubmit={handleSubmit} action="/product/new" method="POST">
             <TextField
@@ -131,22 +127,25 @@ const SaleItemForm = () => {
             />
             <div className={classes.upload}>
               <label htmlFor="product-img">
-                <Fab
-                  color="secondary"
-                  size="small"
-                  component="span"
-                  aria-label="add"
-                  variant="extended"
-                >
-                  <AddIcon />
-                  Upload photo
-                </Fab>
+                <div className={classes.uploadButtonControl}>
+                  <Fab
+                    color="secondary"
+                    size="small"
+                    component="span"
+                    aria-label="add"
+                    variant="extended"
+                  >
+                    <AddIcon />
+                    Upload photo
+                  </Fab>
+                  <p className={classes.filename}>{fileName}</p>
+                </div>
                 <input
                   id="product-img"
                   name="product-img"
                   type="file"
                   onChange={getImg}
-                  // style={{ display: 'none' }}
+                  style={{ display: 'none' }}
                 />
               </label>
             </div>
@@ -159,7 +158,11 @@ const SaleItemForm = () => {
               >
                 Create Product
               </Button>
-              <Button variant="outlined" color="secondary">
+              <Button
+                onClick={handleClose}
+                variant="outlined"
+                color="secondary"
+              >
                 Cancel
               </Button>
             </div>
