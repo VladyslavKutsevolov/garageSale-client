@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -69,11 +70,10 @@ const initialState = {
   province: ''
 };
 
-const SaleForm = () => {
+const SaleForm = ({ handleClose, open }) => {
   const classes = useStyles();
   const [form, setForm] = useState(initialState);
   const [saleImg, setSaleImg] = useState(null);
-  const [open, setOpen] = useState(false);
   const [modalStyle] = useState(getModalStyle);
   const [fileName, setFileName] = useState('');
 
@@ -93,14 +93,6 @@ const SaleForm = () => {
     setForm(initialState);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
@@ -118,9 +110,6 @@ const SaleForm = () => {
 
   return (
     <>
-      <button type="button" onClick={handleOpen}>
-        Open Modal
-      </button>
       <Modal
         open={open}
         onClose={handleClose}

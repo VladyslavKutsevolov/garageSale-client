@@ -1,5 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import React from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
 import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -18,13 +18,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
-import { TextField, Avatar } from '@material-ui/core';
+import { TextField, Avatar, Fab } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
+import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
+
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
 import SaleItemForm from '../saleItem/SaleItemForm';
-
+import SaleForm from '../saleCard/SaleForm';
 
 const drawerWidth = 240;
 
@@ -101,7 +103,25 @@ const useStyles = makeStyles(theme => ({
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openNewGarageForm, setNewGarageForm] = useState(false);
+  const [openNewProductForm, setNewProductForm] = useState(false);
+
+  const handleProductOpen = () => {
+    setNewProductForm(true);
+  };
+
+  const handleProductClose = () => {
+    setNewProductForm(false);
+  };
+
+  const handleGarageFormOpen = () => {
+    setNewGarageForm(true);
+  };
+
+  const handleGarageFormClose = () => {
+    setNewGarageForm(false);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -177,6 +197,22 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <ListItemText primary="Profile" />
           </ListItem>
+          <ListItem button onClick={handleGarageFormOpen}>
+            <ListItemIcon>
+              <Fab color="primary" aria-label="add" size="small">
+                <AddIcon />
+              </Fab>
+            </ListItemIcon>
+            <ListItemText primary="Create GarageSale" />
+          </ListItem>
+          <ListItem button onClick={handleProductOpen}>
+            <ListItemIcon>
+              <Fab color="secondary" aria-label="add" size="small">
+                <AddIcon />
+              </Fab>
+            </ListItemIcon>
+            <ListItemText primary="Create new Product" />
+          </ListItem>
           <ListItem button>
             <ListItemIcon>
               <ExitToApp />
@@ -188,9 +224,16 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div">
-          {/* <SaleCardList /> */}
+          <SaleCardList />
+          <SaleForm
+            open={openNewGarageForm}
+            handleClose={handleGarageFormClose}
+          />
+          <SaleItemForm
+            open={openNewProductForm}
+            handleClose={handleProductClose}
+          />
           {/* <SaleItemList /> */}
-          <SaleItemForm />
         </Container>
       </main>
     </div>
