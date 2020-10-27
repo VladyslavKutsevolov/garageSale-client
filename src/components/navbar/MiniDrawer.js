@@ -1,5 +1,7 @@
 /* eslint-disable import/no-duplicates */
 import React, { useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
+
 import classnames from 'classnames';
 import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -224,7 +226,10 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div">
-          <SaleCardList />
+          <Switch>
+            <Route path="/" exact component={SaleCardList} />
+            <Route path="/products" exact component={SaleItemList} />
+          </Switch>
           <SaleForm
             open={openNewGarageForm}
             handleClose={handleGarageFormClose}
@@ -233,7 +238,6 @@ export default function MiniDrawer() {
             open={openNewProductForm}
             handleClose={handleProductClose}
           />
-          {/* <SaleItemList /> */}
         </Container>
       </main>
     </div>
