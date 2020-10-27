@@ -7,9 +7,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      marginBottom: '8%',
+      width: '94%'
+
     },
-  },
+  }
 }));
 
 // Set to bypass error. Need product Id from backend.

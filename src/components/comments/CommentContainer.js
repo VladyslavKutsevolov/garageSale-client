@@ -30,7 +30,7 @@ const CommentContainer = () => {
         style={{
           border:'2px solid #ac9beb',
           backgroundColor: '#e2dce8',
-          borderBottomRightRadius: '25%'
+          borderBottomRightRadius: '20%'
           }}>
           <CommentList />
           <CommentInput />

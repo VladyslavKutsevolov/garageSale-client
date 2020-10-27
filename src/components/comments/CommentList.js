@@ -3,8 +3,33 @@ import Comment from './Comment';
 
 
 
-const commentData = ["Hello this is nice", "Great product how much", "It costs $80", "Can I come look at it?"]
-
+const commentData = [
+  {
+    productId: 1,
+    authorId: 4,
+    createdAt: "November 6th",
+    commentText: "Wow this is nice"
+  },
+  {
+    productId: 1,
+    authorId: 2,
+    createdAt: "November 6th",
+    commentText: "Can I come and view it today?"
+  },
+  {
+    productId: 1,
+    authorId: 1,
+    createdAt: "November 6th",
+    commentText: "Yes I'm available all day"
+  },
+  {
+    productId: 1,
+    authorId: 2,
+    createdAt: "November 6th",
+    commentText: "Sounds good"
+  }
+]
+const saleData = { saleId: 4, sellerId: 1}
 
 
 
@@ -14,7 +39,11 @@ const CommentList = () => {
 
 
     <Comment
-      comment={comment}
+      comment={comment.commentText}
+      authorId={comment.authorId}
+      createdAt={comment.createdAt}
+      authorId={comment.authorId}
+      saleData={saleData}
     />
     ));
 
