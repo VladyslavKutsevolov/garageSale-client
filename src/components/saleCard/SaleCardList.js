@@ -24,12 +24,9 @@ const SaleCardList = () => {
     state,
     getSaleData,
     openNewGarageForm,
-    handleGarageFormClose,
-    openNewProductForm,
-    handleProductClose
+    handleGarageFormClose
   } = useStateData();
 
-  console.log('openNewProductForm', openNewProductForm);
   useEffect(() => {
     fetchSales();
   }, []);
