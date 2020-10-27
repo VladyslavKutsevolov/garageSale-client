@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
+import CancelIcon from '@material-ui/icons/Cancel';
 
 
 
@@ -11,21 +11,40 @@ const useStyles = makeStyles(() => ({
     borderRadius: '5px',
     padding: '2%',
     margin: '2%',
-    backgroundColor: '#ebeded'
+    backgroundColor: '#ebeded',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'relative'
+
   },
   seller: {
     border: '2px solid #ebd173',
     borderRadius: '5px',
     padding: '2%',
     margin: '2%',
-    backgroundColor: '#f0e1aa'
+    backgroundColor: '#f0e1aa',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'relative'
+
+  },
+  icon: {
+    color: "#9c9c9c",
+    position: 'absolute',
+    top: '-25%',
+    right: 0
+
   }
 
 }));
 
 
+
 const Comment = ({comment, authorId, createdAt, saleData}) => {
 
+  saleData = { saleId: 4, sellerId: 1}
   let sellerComment = false;
 
   if (saleData.sellerId === authorId) {
@@ -45,27 +64,21 @@ const Comment = ({comment, authorId, createdAt, saleData}) => {
       <>
         <div className={classes.seller}>
           <Typography variant="body1">
-    Name (seller): {comment}
+            Name (seller): {comment}
           </Typography>
-          <Typography variant="caption">
-            {createdAt}
-          </Typography>
+          <CancelIcon className={classes.icon}/>
         </div>
       </>
 
     )
     :
     (
-      <>
-        <div className={classes.root}>
-          <Typography variant="body1">
-            Name: {comment}
-          </Typography>
-          <Typography variant="caption">
-            {createdAt}
-          </Typography>
-        </div>
-      </>
+      <div className={classes.root}>
+        <Typography variant="body1">
+        Name: {comment}
+        </Typography>
+        <CancelIcon className={classes.icon}/>
+      </div>
     )
 
   );
