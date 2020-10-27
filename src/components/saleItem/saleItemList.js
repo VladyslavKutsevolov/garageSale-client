@@ -6,7 +6,9 @@ import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';
 
 const SaleItemList = () => {
-  const { state } = useStateData();
+  const { state, openNewProductForm, handleProductClose } = useStateData();
+  console.log('openNewProductForm', openNewProductForm);
+
   return (
     <>
       {state.saleData.map(product => (
@@ -18,6 +20,10 @@ const SaleItemList = () => {
           imageUrl={product.image_url}
         />
       ))}
+      <SaleItemForm
+        open={openNewProductForm}
+        handleClose={handleProductClose}
+      />
     </>
   );
 };

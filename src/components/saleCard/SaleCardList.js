@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -29,6 +29,7 @@ const SaleCardList = () => {
     handleProductClose
   } = useStateData();
 
+  console.log('openNewProductForm', openNewProductForm);
   useEffect(() => {
     fetchSales();
   }, []);
@@ -52,10 +53,6 @@ const SaleCardList = () => {
         ))}
       </Grid>
       <SaleForm open={openNewGarageForm} handleClose={handleGarageFormClose} />
-      <SaleItemForm
-        open={openNewProductForm}
-        handleClose={handleProductClose}
-      />
     </>
   );
 };

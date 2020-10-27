@@ -1,8 +1,10 @@
 /* eslint-disable import/no-duplicates */
 
-import { Switch, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
+import axios from 'axios';
+
 import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -21,22 +23,17 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
-import { ExitToApp, TouchApp } from '@material-ui/icons';
+import { ExitToApp } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
 
-
 import { useStateData } from '../../context/appContext';
 
-import SaleItemForm from '../saleItem/SaleItemForm';
-import SaleForm from '../saleCard/SaleForm';
 import Login from '../auth/Login';
 import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
-import axios from "axios";
-
 
 const drawerWidth = 240;
 
@@ -54,6 +51,8 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    background:
+      'linear-gradient(135deg, rgba(164,66,255,1) 0%, rgba(68,17,187,1) 39%, rgba(38,70,227,1) 69%, rgba(38,70,227,1) 88%)',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -120,10 +119,9 @@ export default function MiniDrawer() {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    axios.get('/users')
-          .then(res => {
-            setUsername(res.data.username);
-          });
+    axios.get('http://localhost:3001/users').then(res => {
+      setUsername(res.data.username);
+    });
   }, [username]);
 
   const handleDrawerOpen = () => {
@@ -132,10 +130,6 @@ export default function MiniDrawer() {
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-
-  const handleLoginOpen = () => {
-    setLoginForm(true);
   };
 
   const handleLoginClose = () => {
@@ -234,30 +228,30 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItem>
-
-
-
-          {username && (<LogOut username={username} setUsername={setUsername} />)}
-          {!username && (<Login username={username} setUsername={setUsername} setLoginForm={setLoginForm}/>)}
-
-
+          {username ? (
+            <LogOut username={username} setUsername={setUsername} />
+          ) : (
+            <Login
+              username={username}
+              setUsername={setUsername}
+              setLoginForm={setLoginForm}
+            />
+          )}
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div">
-
           <Switch>
             <Route path="/" exact component={SaleCardList} />
             <Route path="/products" exact component={SaleItemList} />
           </Switch>
-          
+
           <LoginForm
             open={openLogin}
             handleClose={handleLoginClose}
             setUsername={setUsername}
           />
-
         </Container>
       </main>
     </div>
