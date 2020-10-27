@@ -1,17 +1,35 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable camelcase */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/prop-types */
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
-const SaleCard = () => (
+const SaleCard = ({
+  selectSale,
+  title,
+  description,
+  cover_photo_url,
+  city,
+  province
+}) => (
   <>
-    <div className="img-card-wrapper">
-      <img src="https://picsum.photos/300/210" alt="garage" />
-    </div>
+    <Link to="/products">
+      <div className="img-card-wrapper" onClick={selectSale}>
+        <img src={cover_photo_url} alt="garage" />
+      </div>
+    </Link>
     <div className="sale-card__info-position">
       <div className="sale-card__info">
-        <h4>Title</h4>
-        <p>Location</p>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <h4>{title}</h4>
+        <p>
+          <strong>Location:</strong>
+          {city}
+          {', '}
+          {province}
+        </p>
+        <p>{description}</p>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
     </div>

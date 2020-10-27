@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useStateData } from '../../context/appContext';
 
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -72,13 +73,13 @@ const initialState = {
 
 const SaleForm = ({ handleClose, open }) => {
   const classes = useStyles();
+  const { createSale } = useStateData();
   const [form, setForm] = useState(initialState);
   const [saleImg, setSaleImg] = useState(null);
   const [modalStyle] = useState(getModalStyle);
   const [fileName, setFileName] = useState('');
 
   const handleChange = ({ target }) => {
-    console.log(form);
     setForm({
       ...form,
       [target.name]: target.value
@@ -103,7 +104,7 @@ const SaleForm = ({ handleClose, open }) => {
     formData.append('city', form.city);
     formData.append('province', form.province);
 
-    axios.post('http://localhost:3001/sales/new', formData);
+    createSale(formData);
     clearInputFields();
     handleClose();
   };

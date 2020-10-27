@@ -1,4 +1,6 @@
 /* eslint-disable import/no-duplicates */
+
+import { Switch, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { Container } from '@material-ui/core';
@@ -21,16 +23,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
 import { ExitToApp, TouchApp } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
+
+
+import { useStateData } from '../../context/appContext';
+
 import SaleItemForm from '../saleItem/SaleItemForm';
 import SaleForm from '../saleCard/SaleForm';
 import Login from '../auth/Login';
 import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import axios from "axios";
+
 
 const drawerWidth = 240;
 
@@ -39,8 +45,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   small: {
-    width: theme.spacing(4),
-    height: theme.spacing(4)
+    width: theme.spacing(5),
+    height: theme.spacing(5)
   },
   large: {
     width: theme.spacing(7),
@@ -107,9 +113,8 @@ const useStyles = makeStyles(theme => ({
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
+  const { handleGarageFormOpen, handleProductOpen, state } = useStateData();
   const [open, setOpen] = useState(false);
-  const [openNewGarageForm, setNewGarageForm] = useState(false);
-  const [openNewProductForm, setNewProductForm] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
 
   const [username, setUsername] = useState('');
@@ -120,22 +125,6 @@ export default function MiniDrawer() {
             setUsername(res.data.username);
           });
   }, [username]);
-
-  const handleProductOpen = () => {
-    setNewProductForm(true);
-  };
-
-  const handleProductClose = () => {
-    setNewProductForm(false);
-  };
-
-  const handleGarageFormOpen = () => {
-    setNewGarageForm(true);
-  };
-
-  const handleGarageFormClose = () => {
-    setNewGarageForm(false);
-  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -214,51 +203,61 @@ export default function MiniDrawer() {
               <Avatar
                 alt="user"
                 className={classes.small}
-                src="https://lh3.googleusercontent.com/proxy/m-QPOjBKO7rRpIKWrjSES9JzNJ0TsZZCVxfT6fhCfYZefw3ijMSnAsVFucIv8oQVbVLbfDzu3-21X8J2G_KRW9Wp0LbKoYZxrwnUVHg-dTYiin7xNYVEuzo9JysG1K11erYkxA"
+                src="https://www.blexar.com/avatar.png"
               />
             </ListItemIcon>
             <ListItemText primary="Profile" />
           </ListItem>
-          <ListItem button onClick={handleGarageFormOpen}>
+
+          {!state.saleData.length ? (
+            <ListItem button onClick={handleGarageFormOpen}>
+              <ListItemIcon>
+                <Fab color="primary" aria-label="add" size="small">
+                  <AddIcon />
+                </Fab>
+              </ListItemIcon>
+              <ListItemText primary="Create GarageSale" />
+            </ListItem>
+          ) : (
+            <ListItem button onClick={handleProductOpen}>
+              <ListItemIcon>
+                <Fab color="secondary" aria-label="add" size="small">
+                  <AddIcon />
+                </Fab>
+              </ListItemIcon>
+              <ListItemText primary="Create new Product" />
+            </ListItem>
+          )}
+          <ListItem button>
             <ListItemIcon>
-              <Fab color="primary" aria-label="add" size="small">
-                <AddIcon />
-              </Fab>
+              <ExitToApp />
             </ListItemIcon>
-            <ListItemText primary="Create GarageSale" />
+            <ListItemText primary="Logout" />
           </ListItem>
-          <ListItem button onClick={handleProductOpen}>
-            <ListItemIcon>
-              <Fab color="secondary" aria-label="add" size="small">
-                <AddIcon />
-              </Fab>
-            </ListItemIcon>
-            <ListItemText primary="Create new Product" />
-          </ListItem>
+
+
 
           {username && (<LogOut username={username} setUsername={setUsername} />)}
           {!username && (<Login username={username} setUsername={setUsername} setLoginForm={setLoginForm}/>)}
+
 
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div">
-          <SaleCardList />
-          <SaleForm
-            open={openNewGarageForm}
-            handleClose={handleGarageFormClose}
-          />
-          <SaleItemForm
-            open={openNewProductForm}
-            handleClose={handleProductClose}
-          />
+
+          <Switch>
+            <Route path="/" exact component={SaleCardList} />
+            <Route path="/products" exact component={SaleItemList} />
+          </Switch>
+          
           <LoginForm
             open={openLogin}
             handleClose={handleLoginClose}
             setUsername={setUsername}
           />
-          {/* <SaleItemList /> */}
+
         </Container>
       </main>
     </div>
