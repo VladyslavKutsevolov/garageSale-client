@@ -1,7 +1,7 @@
 /* eslint-disable import/no-duplicates */
-import React, { useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
 
+import { Switch, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -21,13 +21,22 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
-import { ExitToApp } from '@material-ui/icons';
+import { ExitToApp, TouchApp } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
 
+
 import { useStateData } from '../../context/appContext';
+
+import SaleItemForm from '../saleItem/SaleItemForm';
+import SaleForm from '../saleCard/SaleForm';
+import Login from '../auth/Login';
+import LogOut from '../auth/LogOut';
+import LoginForm from '../auth/LoginForm';
+import axios from "axios";
+
 
 const drawerWidth = 240;
 
@@ -106,7 +115,16 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const { handleGarageFormOpen, handleProductOpen, state } = useStateData();
   const [open, setOpen] = useState(false);
-  console.log('state.saleData.length', state.saleData.length);
+  const [openLogin, setLoginForm] = useState(false);
+
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    axios.get('/users')
+          .then(res => {
+            setUsername(res.data.username);
+          });
+  }, [username]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -114,6 +132,14 @@ export default function MiniDrawer() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleLoginOpen = () => {
+    setLoginForm(true);
+  };
+
+  const handleLoginClose = () => {
+    setLoginForm(false);
   };
 
   return (
@@ -182,6 +208,7 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <ListItemText primary="Profile" />
           </ListItem>
+
           {!state.saleData.length ? (
             <ListItem button onClick={handleGarageFormOpen}>
               <ListItemIcon>
@@ -207,15 +234,30 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItem>
+
+
+
+          {username && (<LogOut username={username} setUsername={setUsername} />)}
+          {!username && (<Login username={username} setUsername={setUsername} setLoginForm={setLoginForm}/>)}
+
+
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div">
+
           <Switch>
             <Route path="/" exact component={SaleCardList} />
             <Route path="/products" exact component={SaleItemList} />
           </Switch>
+          
+          <LoginForm
+            open={openLogin}
+            handleClose={handleLoginClose}
+            setUsername={setUsername}
+          />
+
         </Container>
       </main>
     </div>
