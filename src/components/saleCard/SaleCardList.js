@@ -1,15 +1,10 @@
+import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
-import SaleCard from './SaleCard';
 
-const fakeData = [
-  { title: 'title1', location: 'location', description: 'description' },
-  { title: 'title2', location: 'location', description: 'description' },
-  { title: 'title3', location: 'location', description: 'description' },
-  { title: 'title4', location: 'location', description: 'description' },
-  { title: 'title5', location: 'location', description: 'description' }
-];
+import { useStateData } from '../../context/appContext';
+
+import SaleCard from './SaleCard';
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +16,15 @@ const useStyles = makeStyles({
 
 const SaleCardList = () => {
   const classes = useStyles();
+  const { fetchSales, state, getSaleData } = useStateData();
+
+  useEffect(() => {
+    fetchSales();
+  }, [fetchSales]);
+
+  const goToSale = id => {
+    getSaleData(id);
+  };
 
   return (
     <>
@@ -31,9 +35,9 @@ const SaleCardList = () => {
         wrap="wrap"
         component="div"
       >
-        {fakeData.map(data => (
-          <Grid item key={data.title}>
-            <SaleCard {...data} />
+        {state.sales.map(data => (
+          <Grid item key={data.id}>
+            <SaleCard selectSale={() => goToSale(data.id)} {...data} />
           </Grid>
         ))}
       </Grid>
