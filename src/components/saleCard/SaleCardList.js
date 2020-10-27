@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useStateData } from '../../context/appContext';
 
 import SaleCard from './SaleCard';
+import SaleForm from './SaleForm';
+import SaleItemForm from '../saleItem/SaleItemForm';
 
 const useStyles = makeStyles({
   root: {
@@ -16,7 +19,15 @@ const useStyles = makeStyles({
 
 const SaleCardList = () => {
   const classes = useStyles();
-  const { fetchSales, state, getSaleData } = useStateData();
+  const {
+    fetchSales,
+    state,
+    getSaleData,
+    openNewGarageForm,
+    handleGarageFormClose,
+    openNewProductForm,
+    handleProductClose
+  } = useStateData();
 
   useEffect(() => {
     fetchSales();
@@ -25,7 +36,6 @@ const SaleCardList = () => {
   const goToSale = id => {
     getSaleData(id);
   };
-
   return (
     <>
       <Grid
@@ -41,6 +51,11 @@ const SaleCardList = () => {
           </Grid>
         ))}
       </Grid>
+      <SaleForm open={openNewGarageForm} handleClose={handleGarageFormClose} />
+      <SaleItemForm
+        open={openNewProductForm}
+        handleClose={handleProductClose}
+      />
     </>
   );
 };

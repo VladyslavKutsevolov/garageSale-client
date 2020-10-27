@@ -23,6 +23,9 @@ const initialState = {
 
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  const [openNewGarageForm, setNewGarageForm] = useState(false);
+  const [openNewProductForm, setNewProductForm] = useState(false);
+
   const {
     request,
     error,
@@ -31,6 +34,23 @@ const StateProvider = ({ children }) => {
     setMessage,
     message
   } = useHttp();
+
+  const handleProductOpen = () => {
+    console.log('click', openNewProductForm);
+    setNewProductForm(true);
+  };
+
+  const handleProductClose = () => {
+    setNewProductForm(false);
+  };
+
+  const handleGarageFormOpen = () => {
+    setNewGarageForm(true);
+  };
+
+  const handleGarageFormClose = () => {
+    setNewGarageForm(false);
+  };
 
   const fetchSales = async () => {
     try {
@@ -66,7 +86,18 @@ const StateProvider = ({ children }) => {
     clearMessage();
   }, [error, clearError, message, clearMessage]);
 
-  const value = { fetchSales, state, createSale, getSaleData };
+  const value = {
+    fetchSales,
+    state,
+    createSale,
+    getSaleData,
+    openNewGarageForm,
+    openNewProductForm,
+    handleGarageFormClose,
+    handleGarageFormOpen,
+    handleProductOpen,
+    handleProductClose
+  };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
 };

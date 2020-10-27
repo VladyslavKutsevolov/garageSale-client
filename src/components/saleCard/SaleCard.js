@@ -26,6 +26,7 @@ const SaleCard = ({
         <p>
           <strong>Location:</strong>
           {city}
+          {', '}
           {province}
         </p>
         <p>{description}</p>
