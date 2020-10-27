@@ -20,7 +20,7 @@ const SaleCardList = () => {
 
   useEffect(() => {
     fetchSales();
-  }, [fetchSales]);
+  }, []);
 
   const goToSale = id => {
     getSaleData(id);
