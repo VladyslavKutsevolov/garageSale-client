@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -25,6 +26,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
@@ -186,6 +188,14 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
+          <Link to="/">
+            <ListItem button>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+          </Link>
           <ListItem button>
             <ListItemIcon>
               <SearchIcon />
