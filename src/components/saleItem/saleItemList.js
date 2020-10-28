@@ -4,10 +4,10 @@ import { useStateData } from '../../context/appContext';
 
 import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';
+import SendMsg from './SendMsg';
 
 const SaleItemList = () => {
-  const { state, openNewProductForm, handleProductClose } = useStateData();
-  console.log('openNewProductForm', openNewProductForm);
+  const { state, openNewProductForm, handleProductClose, openBuyForm, handleBuyClose } = useStateData();
 
   return (
     <>
@@ -23,6 +23,16 @@ const SaleItemList = () => {
       <SaleItemForm
         open={openNewProductForm}
         handleClose={handleProductClose}
+      />
+      <SendMsg
+        open={openBuyForm}
+        handleClose={handleBuyClose}
+        title={"Jae test"}
+        price={40}
+        buyer={'buy_user'}
+        buyerPhone={12042938913}
+        seller={'sell_user'}
+        sellerPhone={12042938913}
       />
     </>
   );

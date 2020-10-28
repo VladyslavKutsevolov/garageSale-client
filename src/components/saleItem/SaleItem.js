@@ -12,6 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 
+import { useStateData } from '../../context/appContext';
+
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
@@ -57,6 +59,7 @@ const useStyles = makeStyles(theme => ({
 export default function SaleItem({ imageUrl, title, price, product_summary }) {
 
   const classes = useStyles();
+  const { handleBuyOpen } = useStateData();
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -79,6 +82,9 @@ export default function SaleItem({ imageUrl, title, price, product_summary }) {
               {`Price ${price}`}
             </Typography>
             <div className={classes.actionButtons}>
+              <Button variant="contained" className={classes.buttonCustomStyle} onClick={handleBuyOpen}>
+                  I WILL BUY!
+              </Button>
               <Button variant="contained" className={classes.buttonCustomStyle}>
                 Contact Seller
               </Button>
