@@ -71,6 +71,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+
   const createSale = async saleData => {
     try {
       const {
@@ -87,6 +88,16 @@ const StateProvider = ({ children }) => {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
       dispatch({ type: GET_SALE_DATA, payload: { garageData } });
+    } catch (e) {}
+  };
+
+  const fetchComments = async (productId) => {
+    try {
+      const {
+        data: { listOfSales }
+      } = await request('http://localhost:3001/sales');
+
+      dispatch({ type: GET_ALL_SALES, payload: { listOfSales } });
     } catch (e) {}
   };
 
