@@ -28,8 +28,8 @@ const CommentContainer = () => {
       <div>
         <Container
         style={{
-          border:'1px solid #ac9beb',
-          backgroundColor: '#e2dce8',
+          border:'1px solid #bfbfbf',
+          borderRadius: '5px'
           }}>
           <CommentList />
           <CommentInput />

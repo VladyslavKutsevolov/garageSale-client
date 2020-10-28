@@ -6,8 +6,16 @@ import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';
 import SendMsg from './SendMsg';
 
+
+
+
 const SaleItemList = () => {
-  const { state, openNewProductForm, handleProductClose, openBuyForm, handleBuyClose } = useStateData();
+  const { state, openNewProductForm, handleProductClose, openBuyForm, handleBuyClose, setProductId, productId } = useStateData();
+  console.log("productId", productId)
+  const getProductId = (id) => {
+    console.log("id consol", id)
+    setProductId(id);
+  }
 
   return (
     <>
@@ -18,11 +26,13 @@ const SaleItemList = () => {
           price={product.price}
           productSummary={product.product_summary}
           imageUrl={product.image_url}
+          getProductId={() => getProductId(product.id)}
         />
       ))}
       <SaleItemForm
         open={openNewProductForm}
         handleClose={handleProductClose}
+
       />
       <SendMsg
         open={openBuyForm}

@@ -1,7 +1,6 @@
-import React, { makeStyles } from 'react';
+import React, { makeStyles, useEffect } from 'react';
 import Comment from './Comment';
-
-
+import { useStateData } from '../../context/appContext';
 
 const commentData = [
   {
@@ -33,7 +32,16 @@ const saleData = { saleId: 4, sellerId: 1}
 
 
 
+
 const CommentList = () => {
+
+  const { state, fetchComments, productId } = useStateData();
+  // const productId = state.products.productId
+  useEffect(() => {
+    fetchComments(productId);
+  }, []);
+
+  console.log("product is", state);
 
   const comments = commentData.map( comment => (
 
@@ -45,6 +53,7 @@ const CommentList = () => {
       authorId={comment.authorId}
       saleData={saleData}
     />
+
     ));
 
   return comments;

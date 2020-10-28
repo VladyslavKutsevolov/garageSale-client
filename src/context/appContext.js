@@ -7,7 +7,12 @@ import React, {
   useReducer,
   useEffect
 } from 'react';
-import { GET_ALL_SALES, CREATE_SALE, GET_SALE_DATA } from './types';
+import {
+  GET_ALL_SALES,
+  CREATE_SALE,
+  GET_SALE_DATA,
+  GET_ALL_COMMENTS
+} from './types';
 
 import useHttp from '../hooks/useHttp';
 
@@ -26,6 +31,7 @@ const StateProvider = ({ children }) => {
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
   const [openBuyForm, setBuyForm] = useState(false);
+  const [productId, setProductId] = useState(null);
 
   const {
     request,
@@ -71,7 +77,6 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-
   const createSale = async saleData => {
     try {
       const {
@@ -91,13 +96,23 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const fetchComments = async (productId) => {
+  const fetchComments = async productId => {
     try {
       const {
-        data: { listOfSales }
-      } = await request('http://localhost:3001/sales');
+        data: { listOfComments }
+      } = await request(`http://localhost:3001/comments/${productId}`);
 
-      dispatch({ type: GET_ALL_SALES, payload: { listOfSales } });
+      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments } });
+    } catch (e) {}
+  };
+
+  const createComment = async productId => {
+    try {
+      const {
+        data: { message: responseMsg, sale }
+      } = await request('http://localhost:3001/sales/new', 'POST', saleData);
+      dispatch({ type: CREATE_SALE, payload: { sale } });
+      setMessage(responseMsg);
     } catch (e) {}
   };
 
@@ -108,6 +123,8 @@ const StateProvider = ({ children }) => {
 
   const value = {
     fetchSales,
+    fetchComments,
+    createComment,
     state,
     createSale,
     getSaleData,
@@ -119,7 +136,9 @@ const StateProvider = ({ children }) => {
     handleProductOpen,
     handleProductClose,
     handleBuyClose,
-    handleBuyOpen
+    handleBuyOpen,
+    productId,
+    setProductId
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
