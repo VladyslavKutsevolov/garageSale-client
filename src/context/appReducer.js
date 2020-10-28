@@ -1,4 +1,9 @@
-import { CREATE_SALE, GET_ALL_SALES, GET_SALE_DATA } from './types';
+import {
+  CREATE_SALE,
+  GET_ALL_SALES,
+  GET_SALE_DATA,
+  CREATE_PRODUCT
+} from './types';
 
 const appReducer = (state, { type, payload }) => {
   if (type === GET_ALL_SALES) {
@@ -21,6 +26,14 @@ const appReducer = (state, { type, payload }) => {
       saleData: payload.garageData
     };
   }
+
+  if (type === CREATE_PRODUCT) {
+    return {
+      ...state,
+      saleData: [payload.product, ...state.saleData]
+    };
+  }
+
   return state;
 };
 

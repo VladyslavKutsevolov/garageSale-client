@@ -7,7 +7,6 @@ import SaleItemForm from './SaleItemForm';
 
 const SaleItemList = () => {
   const { state, openNewProductForm, handleProductClose } = useStateData();
-  console.log('openNewProductForm', openNewProductForm);
 
   return (
     <>

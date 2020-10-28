@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Fab, Button, Modal } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { useStateData } from '../../context/appContext';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 
@@ -63,6 +64,7 @@ const SaleItemForm = ({ handleClose, open }) => {
   const [productImg, setProductImg] = useState(null);
   const [modalStyle] = React.useState(getModalStyle);
   const [fileName, setFileName] = useState('');
+  const { createProduct, saleId } = useStateData();
 
   const handleChange = ({ target }) => {
     setForm({
@@ -87,8 +89,9 @@ const SaleItemForm = ({ handleClose, open }) => {
     formData.append('title', form.title);
     formData.append('description', form.description);
     formData.append('price', form.price);
+    formData.append('sale_id', saleId);
 
-    axios.post('/products/new', formData);
+    createProduct(formData);
     clearInputFields();
     handleClose();
   };
