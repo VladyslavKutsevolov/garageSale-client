@@ -14,6 +14,7 @@ const SaleItemList = () => {
       {state.saleData.map(product => (
         <SaleItem
           key={product.id}
+          id={product.id}
           title={product.title}
           price={product.price}
           productSummary={product.product_summary}
