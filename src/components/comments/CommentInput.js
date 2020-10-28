@@ -8,6 +8,7 @@ import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '100%',
+
     display: 'flex',
     '& > *': {
       margin: theme.spacing(1)
@@ -53,6 +54,10 @@ const CommentInput = () => {
       <div>
         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} action={`comments/${productId}/new`}  method="POST">
           <TextField
+            InputLabelProps={{
+              style: {
+                fontSize: 12
+              } }}
             value={comment}
             className={classes.inputStyle}
             id="filled-multiline-static"
