@@ -124,7 +124,7 @@ export default function MiniDrawer() {
     axios.get('http://localhost:3001/users').then(res => {
       setUsername(res.data.username);
     });
-  }, [username]);
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
