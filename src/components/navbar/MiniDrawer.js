@@ -232,12 +232,6 @@ export default function MiniDrawer() {
               <ListItemText primary="Create new Product" />
             </ListItem>
           )}
-          <ListItem button>
-            <ListItemIcon>
-              <ExitToApp />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItem>
           {username ? (
             <LogOut username={username} setUsername={setUsername} />
           ) : (
