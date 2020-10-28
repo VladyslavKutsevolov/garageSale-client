@@ -72,7 +72,7 @@ const Comment = ({ comment, authorId, createdAt, saleData }) => {
         </Typography>
         {myComment && (
           // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
-          <IconButton className={classes.iconDiv} onclick={deleteHandler}>
+          <IconButton className={classes.iconDiv} onClick={deleteHandler}>
             <CancelIcon className={classes.icon}/>
           </IconButton>
         )}
@@ -86,7 +86,7 @@ const Comment = ({ comment, authorId, createdAt, saleData }) => {
       </Typography>
       {myComment && (
         // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
-        <IconButton className={classes.iconDiv}  onclick={deleteHandler}>
+        <IconButton className={classes.iconDiv}  onClick={deleteHandler}>
           <CancelIcon className={classes.icon} />
         </IconButton>
       )}

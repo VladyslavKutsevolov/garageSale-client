@@ -63,6 +63,7 @@ const CommentInput = () => {
           />
           <IconButton
             className={classes.icon}
+            onClick={handleSubmit}
           >
             <SendIcon
               // size="small"
