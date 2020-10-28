@@ -3,13 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { IconButton } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    maxWidth: '100%',
+    display: 'flex',
     '& > *': {
-      margin: theme.spacing(1),
-
+      margin: theme.spacing(1)
     }
+  },
+  icon: {
+    height: '30px',
+    padding: 0,
+    margin: '20px 0px'
   }
 }));
 
@@ -54,7 +61,13 @@ const CommentInput = () => {
             fullWidth
             onChange={(e) => setComment(e.target.value)}
           />
-          <IconButton />
+          <IconButton
+            className={classes.icon}
+          >
+            <SendIcon
+              // size="small"
+            />
+          </IconButton>
         </form>
       </div>
     </>
