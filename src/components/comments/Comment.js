@@ -6,10 +6,10 @@ import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(() => ({
   root: {
-    border: '2px solid #cacccc',
+    border: '1px solid #cacccc',
     borderRadius: '5px',
-    padding: '2%',
-    margin: '2%',
+    padding: '7px',
+    margin: '5px',
     backgroundColor: '#ebeded',
     display: 'flex',
     flexDirection: 'row',
@@ -17,21 +17,24 @@ const useStyles = makeStyles(() => ({
     position: 'relative'
   },
   seller: {
-    border: '2px solid #ebd173',
+    border: '1px solid #ebd173',
     borderRadius: '5px',
-    padding: '2%',
-    margin: '2%',
+    padding: '7px',
+    margin: '5px',
     backgroundColor: '#f0e1aa',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'relative'
   },
+  iconDiv: {
+    position: 'absolute',
+    top: '-17px',
+    right: '-20px'
+  },
   icon: {
     color: '#9c9c9c',
-    position: 'absolute',
-    top: '-11px',
-    right: '-10px'
+    maxHeight: '1rem'
   }
 }));
 
@@ -54,37 +57,37 @@ const Comment = ({ comment, authorId, createdAt, saleData }) => {
   // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
   const classes = useStyles();
 
-  const hoveredStyle = {
-    cursor: 'initial'
-  }
+
 
   const deleteHandler = () => {
-    
+
   }
 
   return sellerComment ? (
     <>
       <div className={classes.seller}>
-        <Typography variant="body1">
+        <Typography variant="caption">
           Name (seller):
           {comment}
         </Typography>
         {myComment && (
-          <IconButton className={classes.icon} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
-            <CancelIcon />
+          // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
+          <IconButton className={classes.iconDiv} onclick={deleteHandler}>
+            <CancelIcon className={classes.icon}/>
           </IconButton>
         )}
       </div>
     </>
   ) : (
     <div className={classes.root}>
-      <Typography variant="body1">
+      <Typography variant="caption">
         Name:
-        {comment}
+        {" " + comment}
       </Typography>
       {myComment && (
-        <IconButton className={classes.icon} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
-          <CancelIcon />
+        // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
+        <IconButton className={classes.iconDiv}  onclick={deleteHandler}>
+          <CancelIcon className={classes.icon} />
         </IconButton>
       )}
 

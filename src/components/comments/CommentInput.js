@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      marginBottom: '8%',
-      width: '94%'
 
-    },
+    }
   }
 }));
 
@@ -38,8 +37,9 @@ const CommentInput = () => {
     //     alert('Your comment could not be posted. Please try again.')
     //   })
 
-      setComment('');
-  }
+    setComment('');
+  };
+
 
   return (
     <>
@@ -47,12 +47,14 @@ const CommentInput = () => {
         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} action={`comments/${productId}/new`}  method="POST">
           <TextField
             value={comment}
+            className={classes.inputStyle}
             id="filled-multiline-static"
             label="Write a comment..."
             variant="filled"
             fullWidth
             onChange={(e) => setComment(e.target.value)}
           />
+          <IconButton />
         </form>
       </div>
     </>
