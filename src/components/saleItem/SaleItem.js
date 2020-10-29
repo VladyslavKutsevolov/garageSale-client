@@ -35,6 +35,12 @@ const useStyles = makeStyles(theme => ({
     color: '#fff',
     marginTop: '.7rem'
   },
+  soldOutButton: {
+    background:
+      'linear-gradient(135deg, rgba(160,166,10,1) 0%, rgba(200,117,87,1) 39%, rgba(200,70,27,1) 69%, rgba(255,70,27,1) 88%)',
+    color: '#fff',
+    marginTop: '.7rem'
+  },
   details: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -56,16 +62,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SaleItem({ id, imageUrl, title, price, product_summary, setItemId }) {
-
+export default function SaleItem({ id, imageUrl, title, price, product_summary, setItemId, sold }) {
+  const { state } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
 
   const getProductInfo = () => {
-    setItemId(id);
-  };
+    if (state.loginUser.username) {
+      setItemId(id);
+    } else {
+      alert('Please Login First!');
+    };
 
+  };
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
@@ -86,9 +96,17 @@ export default function SaleItem({ id, imageUrl, title, price, product_summary, 
               {`Price ${price}`}
             </Typography>
             <div className={classes.actionButtons}>
-              <Button variant="contained" className={classes.buttonCustomStyle} onClick={getProductInfo}>
-                  I WILL BUY!
+
+              {sold? (
+                <Button variant="contained" className={classes.soldOutButton} onClick={()=>alert('Sorry Sold Out') }>
+                 PENDING
               </Button>
+              ) : (
+                <Button variant="contained" className={classes.buttonCustomStyle} onClick={getProductInfo}>
+                  I WILL BUY!
+                </Button>
+                )}
+
               <Button variant="contained" className={classes.buttonCustomStyle}>
                 Contact Seller
               </Button>

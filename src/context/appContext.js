@@ -95,8 +95,6 @@ const StateProvider = ({ children }) => {
       const {
         data: { loginUser: userData }
       } = await request(`http://localhost:3001/users/${username}`);
-
-      console.log('Use Context', userData)
       dispatch({ type: GET_USER_DATA, payload: { userData } });
     } catch (e) {}
   };

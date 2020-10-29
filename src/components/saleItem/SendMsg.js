@@ -5,6 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button, Modal } from '@material-ui/core';
 
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+
 const rand = () => Math.round(Math.random() * 20) - 10;
 
 const getModalStyle = () => {
@@ -59,22 +64,39 @@ const SendMsg = (props) => {
   const [modalStyle] = React.useState(getModalStyle);
   const [msg, setMsg] = useState(initialMsg);
   const { text } = msg
+  const [open, setOpen] = useState(false);
 
   useEffect(()=>{
-    setMsg({ text: { ...text, textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. ` } })
+    setMsg({ text: { ...text, textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. ` } });
+    props.setItemId(null);
   },[props]);
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  };
+
+  const handleClose = () => {
+    setOpen(false)
+  };
+
+  const handleDisagree = () => {
+    handleClose();
+  };
 
   const clearInputFields = () => {
     setMsg(initialMsg)
   };
 
+  const handleSendClose = () => {
+    props.handleClose();
+  }
 
   const sendText = () => {
 
-    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=$ ${text.textMessage} ${text.textComment} Seller: ${props.sellerPhone}`)
+    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `)
     .catch(err => console.error(err));
 
-    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=$ ${text.textMessage} ${text.textComment} Buyer: ${props.buyerPhone}`)
+    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `)
     .catch(err => console.error(err));
 
     clearInputFields();
@@ -101,10 +123,12 @@ const SendMsg = (props) => {
               readOnly: true,
             }}
             variant="filled"
+            multiline
+            rows={3}
             fullWidth
           />
           <TextField
-            rows={3}
+            rows={2}
             value={text.textComment}
             onChange={e => setMsg({ text: { ...text, textComment: e.target.value } })}
             label="Extra Comments?"
@@ -112,20 +136,43 @@ const SendMsg = (props) => {
           />
           <div className={classes.actionButtons}>
             <Button
-              onClick={sendText}
+              onClick={handleClickOpen}
               variant="contained"
               color="primary"
               className={classes.submitButton}
             >
               Send BUY MSG!
             </Button>
+
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  Confirm Your Purchase
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                 <Button onClick={sendText} color="primary" autoFocus>
+                  BUY
+                </Button>
+                <Button onClick={handleDisagree} color="primary">
+                  Cancel
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             <Button
-              onClick={props.handleClose}
+              onClick={handleSendClose}
               variant="outlined"
               color="secondary"
             >
               Cancel
             </Button>
+
           </div>
         </div>
       </Modal>
