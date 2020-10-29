@@ -43,6 +43,8 @@ const Comment = ({ comment, author, authorId, createdAt }) => {
   const classes = useStyles();
   let sellerComment = false;
   const myComment = true;
+
+  console.log("cookiegrab", Cookies.get())
   // TODO: grab userCookie
   // if (!userId === authorId) {myComment = true;}
 
