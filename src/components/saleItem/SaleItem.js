@@ -55,14 +55,22 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest
-    }),
+    })
   },
   expandOpen: {
     transform: 'rotate(180deg)'
   }
 }));
 
-export default function SaleItem({ id, imageUrl, title, price, product_summary, setItemId, sold }) {
+export default function SaleItem({
+  id,
+  imageUrl,
+  title,
+  price,
+  product_summary,
+  setItemId,
+  sold
+}) {
   const { state } = useStateData();
   const classes = useStyles();
 
@@ -73,8 +81,7 @@ export default function SaleItem({ id, imageUrl, title, price, product_summary, 
       setItemId(id);
     } else {
       alert('Please Login First!');
-    };
-
+    }
   };
 
   // Handles chevron for product_summary
@@ -96,16 +103,23 @@ export default function SaleItem({ id, imageUrl, title, price, product_summary, 
               {`Price ${price}`}
             </Typography>
             <div className={classes.actionButtons}>
-
-              {sold? (
-                <Button variant="contained" className={classes.soldOutButton} onClick={()=>alert('Sorry Sold Out') }>
-                 PENDING
-              </Button>
+              {sold ? (
+                <Button
+                  variant="contained"
+                  className={classes.soldOutButton}
+                  onClick={() => alert('Sorry Sold Out')}
+                >
+                  PENDING
+                </Button>
               ) : (
-                <Button variant="contained" className={classes.buttonCustomStyle} onClick={getProductInfo}>
+                <Button
+                  variant="contained"
+                  className={classes.buttonCustomStyle}
+                  onClick={getProductInfo}
+                >
                   I WILL BUY!
                 </Button>
-                )}
+              )}
 
               <Button variant="contained" className={classes.buttonCustomStyle}>
                 Contact Seller

@@ -12,14 +12,13 @@ const SaleItemList = () => {
   const [productInfo, setProductInfo] = useState({});
 
   useEffect(() => {
-    const filterItemData = () => {
-      return state.saleData.filter(item => item.id === itemId);
-    };
+    const filterItemData = () =>
+      state.saleData.filter(item => item.id === itemId);
 
     const productData = filterItemData();
-    if (productData.length>0) {
+    if (productData.length > 0) {
       setProductInfo(productData[0]);
-    };
+    }
   }, [itemId, setProductInfo]);
 
   return (
@@ -42,7 +41,7 @@ const SaleItemList = () => {
       />
       <SendMsg
         open={Object.keys(productInfo).length !== 0}
-        handleClose={()=>setProductInfo({})}
+        handleClose={() => setProductInfo({})}
         title={productInfo.title}
         price={productInfo.price}
         buyer={state.loginUser.username}

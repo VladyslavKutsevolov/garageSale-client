@@ -5,10 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button, Modal } from '@material-ui/core';
 
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 
@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SendMsg = (props) => {
+const SendMsg = props => {
   const initialMsg = {
     text: {
       textMessage: '',
@@ -63,20 +63,25 @@ const SendMsg = (props) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [msg, setMsg] = useState(initialMsg);
-  const { text } = msg
+  const { text } = msg;
   const [open, setOpen] = useState(false);
 
-  useEffect(()=>{
-    setMsg({ text: { ...text, textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. ` } });
+  useEffect(() => {
+    setMsg({
+      text: {
+        ...text,
+        textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. `
+      }
+    });
     props.setItemId(null);
-  },[props]);
+  }, [props]);
 
   const handleClickOpen = () => {
-    setOpen(true)
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false)
+    setOpen(false);
   };
 
   const handleDisagree = () => {
@@ -84,20 +89,20 @@ const SendMsg = (props) => {
   };
 
   const clearInputFields = () => {
-    setMsg(initialMsg)
+    setMsg(initialMsg);
   };
 
   const handleSendClose = () => {
     props.handleClose();
-  }
+  };
 
   const sendText = () => {
+    fetch(
+      `http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `
+    ).catch(err => console.error(err));
 
-    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `)
-    .catch(err => console.error(err));
-
-    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `)
-    .catch(err => console.error(err));
+    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `
+    ).catch(err => console.error(err))
 
     clearInputFields();
     props.handleClose();
@@ -111,31 +116,32 @@ const SendMsg = (props) => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-       <div style={modalStyle} className={classes.paper}>
+        <div style={modalStyle} className={classes.paper}>
           <Typography variant="h6" gutterBottom>
-            Send Text Message
+           Send Text Message
           </Typography>
           <TextField
-            id="filled-read-only-input"
-            label="Preview: Text Message"
-            defaultValue={`${text.textMessage}`}
-            InputProps={{
-              readOnly: true,
+           id="filled-read-only-input"
+           label="Preview: Text Message"
+           defaultValue={`${text.textMessage}`}
+           InputProps={{
+              readOnly: true
             }}
-            variant="filled"
-            multiline
-            rows={3}
-            fullWidth
-          />
+           variant="filled"
+           multiline
+           rows={3}
+           fullWidth
+         />
           <TextField
-            rows={2}
-            value={text.textComment}
-            onChange={e => setMsg({ text: { ...text, textComment: e.target.value } })}
-            label="Extra Comments?"
-            fullWidth
-          />
+           rows={2}
+           value={text.textComment}
+           onChange={e =>
+              setMsg({ text: { ...text, textComment: e.target.value } })}
+           label="Extra Comments?"
+           fullWidth
+         />
           <div className={classes.actionButtons}>
-            <Button
+           <Button
               onClick={handleClickOpen}
               variant="contained"
               color="primary"
@@ -144,7 +150,7 @@ const SendMsg = (props) => {
               Send BUY MSG!
             </Button>
 
-            <Dialog
+           <Dialog
               open={open}
               onClose={handleClose}
               aria-labelledby="alert-dialog-title"
@@ -156,7 +162,7 @@ const SendMsg = (props) => {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                 <Button onClick={sendText} color="primary" autoFocus>
+                <Button onClick={sendText} color="primary" autoFocus>
                   BUY
                 </Button>
                 <Button onClick={handleDisagree} color="primary">
@@ -165,15 +171,14 @@ const SendMsg = (props) => {
               </DialogActions>
             </Dialog>
 
-            <Button
+           <Button
               onClick={handleSendClose}
               variant="outlined"
               color="secondary"
             >
               Cancel
             </Button>
-
-          </div>
+         </div>
         </div>
       </Modal>
     </>
