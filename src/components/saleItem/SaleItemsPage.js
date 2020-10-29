@@ -9,15 +9,17 @@ import SaleItemList from './saleItemList';
 
 const useStyle = makeStyles({
   innerContainer: {
-    marginTop: '4.1rem',
-    flexBasis: '45%'
+    marginTop: '6rem',
+    flexBasis: '25%'
   },
   root: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-evenly'
   },
-  categoryContainer: {
-    position: 'fixed',
-    textAlign: 'center'
+  category: {
+    marginBottom: '2rem'
+  },
+  saleInfo: {
+    marginTop: '6rem'
   }
 });
 
@@ -36,15 +38,11 @@ const SaleItemsPage = () => {
     getSaleData(saleId);
   }, [saleId]);
 
-
   return (
     <>
-      <Grid container className={classes.root} wrap="wrap">
-        <Grid item>
-          <div className={classes.categoryContainer}>
-            <div>
-              <CategoryList />
-            </div>
+      <Grid container className={classes.root} wrap="wrap" justify="center">
+        <Grid item justifyContent="center">
+          <div className={classes.saleInfo}>
             {state.saleInfo && (
               <SaleInfo
                 saleImg={state.saleInfo.cover_photo_url}
@@ -55,6 +53,10 @@ const SaleItemsPage = () => {
           </div>
         </Grid>
         <Grid className={classes.innerContainer} container justify="center">
+          <Grid item className={classes.category}>
+            <CategoryList />
+          </Grid>
+
           <Grid item>
             <SaleItemList />
           </Grid>
