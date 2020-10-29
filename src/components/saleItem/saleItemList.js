@@ -1,5 +1,5 @@
 /* eslint-disable quotes */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStateData } from '../../context/appContext';
 
 import SaleItem from './SaleItem';
@@ -11,22 +11,37 @@ import SendMsg from './SendMsg';
 
 const SaleItemList = () => {
   const { state, openNewProductForm, handleProductClose, openBuyForm, handleBuyClose, setProductId, productId } = useStateData();
-  console.log("productId", productId)
+  const [itemId, setItemId] = useState(null);
+  const [productInfo, setProductInfo] = useState({});
+
   const getProductId = (id) => {
-    console.log("id consol", id)
+
     setProductId(id);
   }
+
+  useEffect(() => {
+    const filterItemData = () => {
+      return state.saleData.filter(item => item.id === itemId);
+    };
+
+    const productData = filterItemData();
+    if (productData.length>0) {
+      setProductInfo(productData[0]);
+    };
+  }, [itemId, setProductInfo]);
 
   return (
     <>
       {state.saleData.map(product => (
         <SaleItem
           key={product.id}
+          id={product.id}
           title={product.title}
           price={product.price}
           productSummary={product.product_summary}
           imageUrl={product.image_url}
           getProductId={() => getProductId(product.id)}
+          setItemId={setItemId}
         />
       ))}
       <SaleItemForm
@@ -35,14 +50,15 @@ const SaleItemList = () => {
 
       />
       <SendMsg
-        open={openBuyForm}
-        handleClose={handleBuyClose}
-        title={"Jae test"}
-        price={40}
-        buyer={'buy_user'}
-        buyerPhone={12042938913}
-        seller={'sell_user'}
-        sellerPhone={12042938913}
+        open={Object.keys(productInfo).length !== 0}
+        handleClose={()=>setProductInfo({})}
+        title={productInfo.title}
+        price={productInfo.price}
+        buyer={state.loginUser.username}
+        buyerPhone={state.loginUser.phone}
+        seller={productInfo.username}
+        sellerPhone={productInfo.phone}
+
       />
     </>
   );

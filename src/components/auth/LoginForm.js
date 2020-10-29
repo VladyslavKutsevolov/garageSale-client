@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button, Modal } from '@material-ui/core';
+import { useStateData } from '../../context/appContext';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 
@@ -50,24 +51,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginForm = ({ handleClose, open, setUsername }) => {
+const LoginForm = ({ handleClose, open, setUser }) => {
   const classes = useStyles();
-  const [user, setUser] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [modalStyle] = React.useState(getModalStyle);
+  const { getLoginUser } = useStateData();
 
   const clearInputFields = () => {
-    setUser('');
+    setUsername('');
     setPassword('');
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    const formData = {username: user , password: password };
+    const formData = {username: username , password: password };
 
     axios.post("/users/login", formData)
          .then(res => {
-           setUsername(res.data.username);
+           console.log('res in', res.data.username)
+           getLoginUser(res.data.username);
+           setUser(res.data.username);
            alert(res.data.message);
          })
          .catch(err => {
@@ -91,8 +95,8 @@ const LoginForm = ({ handleClose, open, setUsername }) => {
           </Typography>
           <form onSubmit={handleSubmit} action="/users/login" method="POST">
             <TextField
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
               name="username"
               label="ENTER USERNAME"
               fullWidth

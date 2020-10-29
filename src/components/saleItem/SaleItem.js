@@ -56,12 +56,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SaleItem({ imageUrl, title, price, product_summary, getProductId }) {
+export default function SaleItem({ id, imageUrl, title, price, product_summary, setItemId, getProductId }) {
 
   const classes = useStyles();
-  const { handleBuyOpen } = useStateData();
 
   const [expanded, setExpanded] = React.useState(false);
+
+  const getProductInfo = () => {
+    setItemId(id);
+  };
+
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
@@ -83,7 +87,7 @@ export default function SaleItem({ imageUrl, title, price, product_summary, getP
               {`Price ${price}`}
             </Typography>
             <div className={classes.actionButtons}>
-              <Button variant="contained" className={classes.buttonCustomStyle} onClick={handleBuyOpen}>
+              <Button variant="contained" className={classes.buttonCustomStyle} onClick={getProductInfo}>
                   I WILL BUY!
               </Button>
               <Button variant="contained" className={classes.buttonCustomStyle}>

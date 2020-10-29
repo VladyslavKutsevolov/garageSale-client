@@ -48,26 +48,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const initialState = {
-  text: {
-    textMessage: '',
-    textComment: ''
-  }
-};
-
 const SendMsg = (props) => {
+  const initialMsg = {
+    text: {
+      textMessage: '',
+      textComment: ''
+    }
+  };
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
-  const [state, setState] = useState(initialState);
-  const { text } = state;
+  const [msg, setMsg] = useState(initialMsg);
+  const { text } = msg
 
-  useEffect(() => {
-    setState({ text: { ...text, textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. ` } })
-  }, []);
+  useEffect(()=>{
+    setMsg({ text: { ...text, textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. ` } })
+  },[props]);
 
   const clearInputFields = () => {
-    setState(initialState)
+    setMsg(initialMsg)
   };
+
 
   const sendText = () => {
 
@@ -96,7 +96,7 @@ const SendMsg = (props) => {
           <TextField
             id="filled-read-only-input"
             label="Preview: Text Message"
-            defaultValue={`${state.text.textMessage} ${state.text.textComment}`}
+            defaultValue={`${text.textMessage}`}
             InputProps={{
               readOnly: true,
             }}
@@ -106,10 +106,10 @@ const SendMsg = (props) => {
           <TextField
             rows={3}
             value={text.textComment}
-            onChange={e => setState({ text: { ...text, textComment: e.target.value } })}
+            onChange={e => setMsg({ text: { ...text, textComment: e.target.value } })}
             label="Extra Comments?"
             fullWidth
-              />
+          />
           <div className={classes.actionButtons}>
             <Button
               onClick={sendText}

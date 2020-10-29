@@ -12,7 +12,7 @@ const LogOut = (props) => {
 
     axios.post("/users/logout")
          .then(res => {
-          props.setUsername('');
+          props.setUser('');
           alert(res.data.message);
          })
     };

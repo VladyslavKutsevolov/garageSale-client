@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import { Container } from '@material-ui/core';
@@ -24,13 +23,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
-import { ExitToApp } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import SaleItemList from '../saleItem/saleItemList';
-
 import { useStateData } from '../../context/appContext';
 
 import Login from '../auth/Login';
@@ -118,13 +115,7 @@ export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
 
-  const [username, setUsername] = useState('');
-
-  useEffect(() => {
-    axios.get('http://localhost:3001/users').then(res => {
-      setUsername(res.data.username);
-    });
-  }, []);
+  const [user, setUser] = useState('');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -232,12 +223,10 @@ export default function MiniDrawer() {
               <ListItemText primary="Create new Product" />
             </ListItem>
           )}
-          {username ? (
-            <LogOut username={username} setUsername={setUsername} />
+          {user? (
+            <LogOut setUser={setUser} />
           ) : (
             <Login
-              username={username}
-              setUsername={setUsername}
               setLoginForm={setLoginForm}
             />
           )}
@@ -254,7 +243,7 @@ export default function MiniDrawer() {
           <LoginForm
             open={openLogin}
             handleClose={handleLoginClose}
-            setUsername={setUsername}
+            setUser={setUser}
           />
         </Container>
       </main>
