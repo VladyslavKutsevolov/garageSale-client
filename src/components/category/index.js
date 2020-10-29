@@ -20,7 +20,10 @@ const fakeCategoryList = [
   { name: 'Handbags', id: 4 },
   { name: 'wallets', id: 5 },
   { name: 'electronics', id: 6 },
-  { name: 'products', id: 7 }
+  { name: 'products', id: 7 },
+  { name: 'products', id: 8 },
+  { name: 'products', id: 9 },
+  { name: 'products', id: 10 }
 ];
 const CategoryList = ({ categories }) => {
   const [categoryId, setCategoryId] = useState(0);
