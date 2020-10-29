@@ -78,8 +78,6 @@ export default function SaleItem({
 
   const [expanded, setExpanded] = React.useState(false);
 
-  console.log('username in state', state)
-
   const getProductInfo = () => {
     if (state.loginUser.username) {
       setItemId(id);
