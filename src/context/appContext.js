@@ -98,7 +98,7 @@ const StateProvider = ({ children }) => {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
-      dispatch({ type: GET_SALE_DATA, payload: { garageData } });
+      dispatch({ type: GET_SALE_DATA, payload: { garageData, saleId: id } });
     } catch (e) {}
   };
 
@@ -166,6 +166,7 @@ const StateProvider = ({ children }) => {
     fetchComments,
     createComment,
     state,
+    dispatch,
     createSale,
     getSaleData,
     getLoginUser,

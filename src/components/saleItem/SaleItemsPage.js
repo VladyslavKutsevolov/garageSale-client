@@ -23,43 +23,38 @@ const useStyle = makeStyles({
 
 const SaleItemsPage = () => {
   const classes = useStyle();
-  const { state, saleId } = useStateData();
-
-  const getSaleData = () => state.sales.filter(sale => sale.id === saleId)[0];
-
-  const [saleInfo, setSaleinfo] = useState(getSaleData());
+  const { state, saleId, getSaleData, setSaleId, fetchSales } = useStateData();
 
   useEffect(() => {
-    localStorage.setItem('saleInfo', JSON.stringify(saleInfo));
-  }, [saleInfo]);
+    if (saleId) {
+      localStorage.setItem('saleId', saleId);
+    } else {
+      setSaleId(localStorage.getItem('saleId'));
+      fetchSales();
+    }
 
-  useEffect(() => {
-    setSaleinfo(JSON.parse(localStorage.getItem('saleInfo')));
-  }, []);
+    getSaleData(saleId);
+  }, [saleId]);
+
 
   return (
     <>
-      <Grid container className={classes.root} wrap>
+      <Grid container className={classes.root} wrap="wrap">
         <Grid item>
           <div className={classes.categoryContainer}>
             <div>
               <CategoryList />
             </div>
-            {saleInfo && (
+            {state.saleInfo && (
               <SaleInfo
-                saleImg={saleInfo.cover_photo_url}
-                title={saleInfo.title}
-                description={saleInfo.description}
+                saleImg={state.saleInfo.cover_photo_url}
+                title={state.saleInfo.title}
+                description={state.saleInfo.description}
               />
             )}
           </div>
         </Grid>
-        <Grid
-          className={classes.innerContainer}
-          container
-          justify="center"
-          wrap
-        >
+        <Grid className={classes.innerContainer} container justify="center">
           <Grid item>
             <SaleItemList />
           </Grid>

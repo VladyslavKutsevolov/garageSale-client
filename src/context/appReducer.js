@@ -30,10 +30,14 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === GET_SALE_DATA) {
+    const getSaleInfo = () =>
+      state.sales.filter(sale => sale.id === Number(payload.saleId))[0];
+
     return {
       ...state,
       sales: state.sales,
-      saleData: payload.garageData
+      saleData: payload.garageData,
+      saleInfo: getSaleInfo()
     };
   }
 

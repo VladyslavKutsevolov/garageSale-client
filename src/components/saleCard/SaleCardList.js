@@ -32,7 +32,6 @@ const SaleCardList = () => {
   }, []);
 
   const goToSale = id => {
-    getSaleData(id);
     setSaleId(id);
   };
 

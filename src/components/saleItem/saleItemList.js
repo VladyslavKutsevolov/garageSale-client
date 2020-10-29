@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 import React, { useState, useEffect } from 'react';
 import { useStateData } from '../../context/appContext';
+import { GET_SALE_DATA } from '../../context/types';
 
 import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';
@@ -11,10 +12,8 @@ const SaleItemList = () => {
     state,
     openNewProductForm,
     handleProductClose,
-    openBuyForm,
-    handleBuyClose,
     setProductId,
-    productId
+    dispatch
   } = useStateData();
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
@@ -23,7 +22,6 @@ const SaleItemList = () => {
     setProductId(id);
   };
 
-  console.log('state insitde saleitem', state);
   useEffect(() => {
     const filterItemData = () =>
       state.saleData.filter(item => item.id === itemId);
@@ -34,13 +32,17 @@ const SaleItemList = () => {
     }
   }, [itemId, setProductInfo]);
 
-  useEffect(() => {
-    state.saleData = JSON.parse(localStorage.getItem('state-data'));
-  }, []);
+  // useEffect(() => {
+  //   // state.saleData = JSON.parse(localStorage.getItem('state-data'));
+  //   dispatch({
+  //     type: GET_SALE_DATA,
+  //     payload: { garageData: JSON.parse(localStorage.getItem('state-data')) }
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem('state-data', JSON.stringify(state.saleData));
-  }, [state]);
+  // useEffect(() => {
+  //   localStorage.setItem('state-data', JSON.stringify(state.saleData));
+  // }, [state]);
 
   return (
     <>
