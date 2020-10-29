@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -38,29 +38,27 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Comment = ({ comment, author, authorId, createdAt, saleData }) => {
-  saleData = { saleId: 4, sellerId: 1 };
-
-  let sellerComment = false;
-
-  const myComment = true;
-  // TODO: grab userCookie
-  // if (!userId === authorId) {myComment = true;}
-
-  if (saleData.sellerId === authorId) {
-    sellerComment = true;
-  }
-
-  // State needed: comment data
-  // Backend data needed: comments, name of author (retrieved by author_id), seller_id (retrieved from sales table from sale_id), sale_id
-  // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
-  // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
+const Comment = ({ comment, author, authorId, createdAt }) => {
   const classes = useStyles();
 
 
 
-  const deleteHandler = () => {
+  let sellerComment = false;
+  const myComment = true;
+  // TODO: grab userCookie
+  // if (!userId === authorId) {myComment = true;}
 
+  // if (saleData.sellerId === authorId) {
+  //   sellerComment = true;
+  // };
+
+
+
+  // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
+  // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
+
+  const handleDelete = () => {
+    console.log("delete")
   }
 
   return sellerComment ? (
@@ -71,7 +69,7 @@ const Comment = ({ comment, author, authorId, createdAt, saleData }) => {
         </Typography>
         {myComment && (
           // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
-          <IconButton className={classes.iconDiv} onClick={deleteHandler}>
+          <IconButton className={classes.iconDiv} onClick={handleDelete}>
             <CancelIcon className={classes.icon}/>
           </IconButton>
         )}
@@ -84,7 +82,7 @@ const Comment = ({ comment, author, authorId, createdAt, saleData }) => {
       </Typography>
       {myComment && (
         // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
-        <IconButton className={classes.iconDiv}  onClick={deleteHandler}>
+        <IconButton className={classes.iconDiv}  onClick={handleDelete}>
           <CancelIcon className={classes.icon} />
         </IconButton>
       )}

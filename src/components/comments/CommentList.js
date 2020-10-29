@@ -3,7 +3,7 @@ import Comment from './Comment';
 import { useStateData } from '../../context/appContext';
 
 
-const saleData = { saleId: 4, sellerId: 1 };
+
 
 const CommentList = () => {
   const { state, fetchComments, productId } = useStateData();
@@ -22,10 +22,9 @@ const CommentList = () => {
           comment={comment.comment_text}
           author={comment.author}
           createdAt={comment.created_at}
-          saleData={saleData}
+          // saleData={saleData}
         />
       ))}
-      ;
     </>
   );
 };

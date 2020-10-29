@@ -103,7 +103,6 @@ const StateProvider = ({ children }) => {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${productId}`);
       dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, productId } });
-      console.log("comments list", listOfComments);
     } catch (e) {}
   };
 
@@ -112,6 +111,7 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${productId}/newComment`, 'POST', commentData);
+      console.log("after async call")
       dispatch({ type: CREATE_COMMENT, payload: { listOfComments, productId } });
     } catch (e) {}
   };
