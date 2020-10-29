@@ -37,7 +37,6 @@ const SaleItemsPage = () => {
     setSaleinfo(JSON.parse(localStorage.getItem('saleInfo')));
   }, []);
 
-
   return (
     <>
       <Grid container className={classes.root}>
