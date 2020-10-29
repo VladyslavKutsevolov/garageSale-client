@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Comment = ({ comment, authorId, createdAt, saleData }) => {
+const Comment = ({ comment, author, authorId, createdAt, saleData }) => {
   saleData = { saleId: 4, sellerId: 1 };
 
   let sellerComment = false;
@@ -67,8 +67,7 @@ const Comment = ({ comment, authorId, createdAt, saleData }) => {
     <>
       <div className={classes.seller}>
         <Typography variant="caption">
-          Name (seller):
-          {comment}
+         {author + " (seller): "}
         </Typography>
         {myComment && (
           // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
@@ -81,8 +80,7 @@ const Comment = ({ comment, authorId, createdAt, saleData }) => {
   ) : (
     <div className={classes.root}>
       <Typography variant="caption">
-        Name:
-        {" " + comment}
+        {author + ": " + comment}
       </Typography>
       {myComment && (
         // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>

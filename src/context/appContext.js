@@ -11,7 +11,8 @@ import {
   GET_ALL_SALES,
   CREATE_SALE,
   GET_SALE_DATA,
-  GET_ALL_COMMENTS
+  GET_ALL_COMMENTS,
+  CREATE_COMMENT
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -101,18 +102,17 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${productId}`);
-
-      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments } });
+      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, productId } });
+      console.log("comments list", listOfComments);
     } catch (e) {}
   };
 
-  const createComment = async productId => {
+  const createComment = async (productId, commentData) => {
     try {
       const {
-        data: { message: responseMsg, sale }
-      } = await request('http://localhost:3001/sales/new', 'POST', saleData);
-      dispatch({ type: CREATE_SALE, payload: { sale } });
-      setMessage(responseMsg);
+        data: { listOfComments }
+      } = await request(`http://localhost:3001/comments/${productId}/newComment`, 'POST', commentData);
+      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, productId } });
     } catch (e) {}
   };
 

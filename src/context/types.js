@@ -2,3 +2,4 @@ export const GET_ALL_SALES = 'GET_ALL_SALES';
 export const CREATE_SALE = 'CREATE_SALE';
 export const GET_SALE_DATA = 'GET_SALE_DATA';
 export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS';
+export const CREATE_COMMENT = 'CREATE_COMMENT';

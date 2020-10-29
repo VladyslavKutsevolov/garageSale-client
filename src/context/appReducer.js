@@ -28,10 +28,15 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === GET_ALL_COMMENTS) {
-    return {
-      ...state,
-      comments: payload.listOfComments
-    };
+    // console.log("listcomments", payload.listOfComments)
+    // console.log("payloadid", payload.productId)
+    const filteredComments = () =>
+      payload.listOfComments.filter(comment => comment.product_id === payload.productId);
+      console.log("function cal", filteredComments())
+      return {
+        ...state,
+        comments: filteredComments()
+      };
   }
   return state;
 };
