@@ -13,7 +13,7 @@ import {
   CREATE_SALE,
   GET_SALE_DATA,
   GET_ALL_COMMENTS,
-  CREATE_COMMENT
+  CREATE_COMMENT,
   GET_PRODUCT_DATA,
   GET_USER_DATA,
   CREATE_PRODUCT
@@ -103,22 +103,44 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const fetchComments = async productId => {
+  const fetchComments = async itemId => {
     try {
       const {
         data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${productId}`);
-      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, productId } });
+      } = await request(`http://localhost:3001/comments/${itemId}`);
+      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
 
-  const createComment = async (productId, commentData) => {
+  const getProductData = async id => {
+    try {
+      const {
+        data: { product: productData }
+      } = await request(`http://localhost:3001/products/${id}`);
+      dispatch({ type: GET_PRODUCT_DATA, payload: { productData } });
+    } catch (e) {}
+  };
+
+  const getLoginUser = async username => {
+    try {
+      const {
+        data: { loginUser: userData }
+      } = await request(`http://localhost:3001/users/${username}`);
+      dispatch({ type: GET_USER_DATA, payload: { userData } });
+    } catch (e) {}
+  };
+
+  const createComment = async (itemId, commentData) => {
     try {
       const {
         data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${productId}/newComment`, 'POST', commentData);
+      } = await request(
+        `http://localhost:3001/comments/${itemId}/newComment`,
+        'POST',
+        commentData
+      );
       console.log("after async call")
-      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, productId } });
+      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
   const createProduct = useCallback(async productData => {
@@ -162,7 +184,7 @@ const StateProvider = ({ children }) => {
     handleBuyClose,
     handleBuyOpen,
     productId,
-    setProductId
+    setProductId,
     saleId,
     setSaleId
   };

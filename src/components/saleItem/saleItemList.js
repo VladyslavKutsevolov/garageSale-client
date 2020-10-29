@@ -10,7 +10,15 @@ import SendMsg from './SendMsg';
 
 
 const SaleItemList = () => {
-  const { state, openNewProductForm, handleProductClose, openBuyForm, handleBuyClose, setProductId, productId } = useStateData();
+  const {
+    state,
+    openNewProductForm,
+    handleProductClose,
+    openBuyForm,
+    handleBuyClose,
+    setProductId,
+    productId
+  } = useStateData();
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
 
@@ -19,7 +27,7 @@ const SaleItemList = () => {
     setProductId(id);
   }
 
-  console.log("state insitde saleitem", state)
+
   useEffect(() => {
     const filterItemData = () =>
       state.saleData.filter(item => item.id === itemId);
@@ -30,9 +38,9 @@ const SaleItemList = () => {
     }
   }, [itemId, setProductInfo]);
 
-  useEffect(() => {
-    state.saleData = JSON.parse(localStorage.getItem('state-data'));
-  }, []);
+  // useEffect(() => {
+  //   state.saleData = JSON.parse(localStorage.getItem('state-data'));
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));

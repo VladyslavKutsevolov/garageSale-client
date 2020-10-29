@@ -33,9 +33,9 @@ const SaleItemsPage = () => {
     localStorage.setItem('saleInfo', JSON.stringify(saleInfo));
   }, [saleInfo]);
 
-  useEffect(() => {
-    setSaleinfo(JSON.parse(localStorage.getItem('saleInfo')));
-  }, []);
+  // useEffect(() => {
+  //   setSaleinfo(JSON.parse(localStorage.getItem('saleInfo')));
+  // }, []);
 
   return (
     <>

@@ -7,11 +7,12 @@ import { useStateData } from '../../context/appContext';
 
 const CommentList = () => {
   const { state, fetchComments, productId } = useStateData();
+  console.log("state in comment list", state)
 
   // leave til later
   const [comments, setComments] = useState([]);
 
-  
+
 
   useEffect(() => {
     fetchComments(productId);

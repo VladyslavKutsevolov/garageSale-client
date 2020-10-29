@@ -68,16 +68,10 @@ export default function SaleItem({
   imageUrl,
   title,
   price,
-<<<<<<< HEAD
-  product_summary,
+  productSummary,
   setItemId,
   sold,
   getProductId
-=======
-  productSummary,
-  setItemId,
-  sold
->>>>>>> e5a11f5e37b049c45e096a4822606a7408c7461a
 }) {
   const { state } = useStateData();
   const classes = useStyles();
@@ -157,12 +151,9 @@ export default function SaleItem({
         onClick={getProductId}
       >
         <CardContent>
-<<<<<<< HEAD
           <CommentContainer />
-=======
           <Typography paragraph>Description:</Typography>
-          {productSummary}
->>>>>>> e5a11f5e37b049c45e096a4822606a7408c7461a
+          {/* {productSummary} */}
         </CardContent>
       </Collapse>
     </Card>
