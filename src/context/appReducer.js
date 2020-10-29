@@ -23,6 +23,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === GET_SALE_DATA) {
     return {
       ...state,
+      sales: state.sales,
       saleData: payload.garageData
     };
   }
