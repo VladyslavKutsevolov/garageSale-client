@@ -7,7 +7,7 @@ import React, {
   useReducer,
   useEffect
 } from 'react';
-import { GET_ALL_SALES, CREATE_SALE, GET_SALE_DATA, GET_PRODUCT_DATA, GET_USER_DATA } from './types';
+import { GET_ALL_SALES, CREATE_SALE, GET_SALE_DATA, GET_USER_DATA } from './types';
 
 import useHttp from '../hooks/useHttp';
 
@@ -81,15 +81,6 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const getProductData = async id => {
-    try {
-      const {
-        data: { product: productData }
-      } = await request(`http://localhost:3001/products/${id}`);
-      dispatch({ type: GET_PRODUCT_DATA, payload: { productData } });
-    } catch (e) {}
-  };
-
   const getLoginUser = async username => {
     try {
       const {
@@ -109,7 +100,6 @@ const StateProvider = ({ children }) => {
     state,
     createSale,
     getSaleData,
-    getProductData,
     getLoginUser,
     openNewGarageForm,
     openNewProductForm,

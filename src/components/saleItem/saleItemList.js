@@ -17,7 +17,7 @@ const SaleItemList = () => {
     };
 
     const productData = filterItemData();
-    if (productData.length>0) {
+    if (productData.length > 0) {
       setProductInfo(productData[0]);
     };
   }, [itemId, setProductInfo]);
@@ -42,7 +42,7 @@ const SaleItemList = () => {
       />
       <SendMsg
         open={Object.keys(productInfo).length !== 0}
-        handleClose={()=>setProductInfo({})}
+        handleClose={() => setProductInfo({})}
         title={productInfo.title}
         price={productInfo.price}
         buyer={state.loginUser.username}
