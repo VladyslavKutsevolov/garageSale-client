@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
-import Cookies from 'js-cookie';
 import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(() => ({

@@ -23,6 +23,7 @@ const CommentList = () => {
     <>
       {state.comments && state.comments.map(comment => (
         <Comment
+          key={comment.id}
           comment={comment.comment_text}
           author={comment.author}
           createdAt={comment.created_at}

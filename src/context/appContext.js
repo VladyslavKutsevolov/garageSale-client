@@ -124,16 +124,18 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createComment = async (itemId, commentData) => {
+  const createComment = async (authorId, itemId, commentData) => {
+    const commentInfo = { authorId, commentData };
+
     try {
       const {
         data: { listOfComments }
       } = await request(
         `http://localhost:3001/comments/${itemId}/newComment`,
         'POST',
-        commentData
+        commentInfo
       );
-      console.log("after async call")
+      console.log('after async call');
       dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
     } catch (e) {}
   };

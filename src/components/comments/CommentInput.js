@@ -29,14 +29,17 @@ const productId = 100;
 
 const CommentInput = () => {
   const classes = useStyles();
-  const { createComment } = useStateData();
+  const { createComment, state, productId } = useStateData();
   const [comment, setComment] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Comment posted successfully:", comment)
-    createComment(productId, comment);
-    setComment('');
+    console.log("user", state)
+    if (state.loginUser.id) {
+
+      createComment(state.loginUser.id, productId, comment);
+      setComment('');
+    }
   };
 
 
