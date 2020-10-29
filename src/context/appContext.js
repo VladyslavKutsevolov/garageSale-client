@@ -5,7 +5,8 @@ import React, {
   createContext,
   useContext,
   useReducer,
-  useEffect
+  useEffect,
+  useCallback
 } from 'react';
 import {
   GET_ALL_SALES,
@@ -67,7 +68,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createSale = async saleData => {
+  const createSale = useCallback(async saleData => {
     try {
       const {
         data: { message: responseMsg, sale }
@@ -76,19 +77,18 @@ const StateProvider = ({ children }) => {
       dispatch({ type: CREATE_SALE, payload: { sale } });
       setMessage(responseMsg);
     } catch (e) {}
-  };
+  }, []);
 
   const getSaleData = async id => {
     try {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
-
       dispatch({ type: GET_SALE_DATA, payload: { garageData } });
     } catch (e) {}
   };
 
-  const createProduct = async productData => {
+  const createProduct = useCallback(async productData => {
     try {
       const {
         data: { message: responseMsg, product }
@@ -102,7 +102,7 @@ const StateProvider = ({ children }) => {
 
       setMessage(responseMsg);
     } catch (e) {}
-  };
+  }, []);
 
   useEffect(() => {
     clearError();
