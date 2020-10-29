@@ -21,15 +21,22 @@ const SaleItemList = () => {
 
   console.log("state insitde saleitem", state)
   useEffect(() => {
-    const filterItemData = () => {
-      return state.saleData.filter(item => item.id === itemId);
-    };
+    const filterItemData = () =>
+      state.saleData.filter(item => item.id === itemId);
 
     const productData = filterItemData();
-    if (productData.length>0) {
+    if (productData.length > 0) {
       setProductInfo(productData[0]);
-    };
+    }
   }, [itemId, setProductInfo]);
+
+  useEffect(() => {
+    state.saleData = JSON.parse(localStorage.getItem('state-data'));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('state-data', JSON.stringify(state.saleData));
+  }, [state]);
 
   return (
     <>
@@ -39,7 +46,7 @@ const SaleItemList = () => {
           id={product.id}
           title={product.title}
           price={product.price}
-          productSummary={product.product_summary}
+          productSummary={product.description}
           sold={product.sold}
           imageUrl={product.image_url}
           getProductId={() => getProductId(product.id)}
@@ -53,7 +60,7 @@ const SaleItemList = () => {
       />
       <SendMsg
         open={Object.keys(productInfo).length !== 0}
-        handleClose={()=>setProductInfo({})}
+        handleClose={() => setProductInfo({})}
         title={productInfo.title}
         price={productInfo.price}
         // buyer={state.loginUser.username}

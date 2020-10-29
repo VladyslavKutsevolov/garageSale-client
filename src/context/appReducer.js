@@ -3,6 +3,9 @@ import {
   GET_ALL_SALES,
   GET_SALE_DATA,
   GET_ALL_COMMENTS
+  GET_PRODUCT_DATA,
+  GET_USER_DATA,
+  CREATE_PRODUCT
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -23,6 +26,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === GET_SALE_DATA) {
     return {
       ...state,
+      sales: state.sales,
       saleData: payload.garageData
     };
   }
@@ -38,6 +42,13 @@ const appReducer = (state, { type, payload }) => {
         comments: filteredComments()
       };
   }
+  if (type === CREATE_PRODUCT) {
+    return {
+      ...state,
+      saleData: [payload.product, ...state.saleData]
+    };
+  }
+
   return state;
 };
 

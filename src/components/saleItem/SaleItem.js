@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,7 +17,8 @@ import CommentContainer from '../comments/CommentContainer';
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
-    maxWidth: '40rem'
+    minWidth: '40rem',
+    marginBottom: '2rem'
   },
   cardContentRoot: {
     padding: 0,
@@ -67,10 +68,16 @@ export default function SaleItem({
   imageUrl,
   title,
   price,
+<<<<<<< HEAD
   product_summary,
   setItemId,
   sold,
   getProductId
+=======
+  productSummary,
+  setItemId,
+  sold
+>>>>>>> e5a11f5e37b049c45e096a4822606a7408c7461a
 }) {
   const { state } = useStateData();
   const classes = useStyles();
@@ -150,7 +157,12 @@ export default function SaleItem({
         onClick={getProductId}
       >
         <CardContent>
+<<<<<<< HEAD
           <CommentContainer />
+=======
+          <Typography paragraph>Description:</Typography>
+          {productSummary}
+>>>>>>> e5a11f5e37b049c45e096a4822606a7408c7461a
         </CardContent>
       </Collapse>
     </Card>

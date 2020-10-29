@@ -27,18 +27,22 @@ import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 
 import SaleCardList from '../saleCard/SaleCardList';
-import SaleItemList from '../saleItem/saleItemList';
 import { useStateData } from '../../context/appContext';
 
 import Login from '../auth/Login';
 import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
+import SaleItemsPage from '../saleItem/SaleItemsPage';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
+  },
+  container: {
+    maxWidth: '90%',
+    margin: 'auto'
   },
   small: {
     width: theme.spacing(5),
@@ -111,7 +115,14 @@ const useStyles = makeStyles(theme => ({
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
-  const { handleGarageFormOpen, handleProductOpen, state } = useStateData();
+  const {
+    handleGarageFormOpen,
+    handleProductOpen,
+    saleId,
+    setSaleId,
+    error,
+    message
+  } = useStateData();
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
 
@@ -180,7 +191,7 @@ export default function MiniDrawer() {
         <Divider />
         <List>
           <Link to="/">
-            <ListItem button>
+            <ListItem button onClick={() => setSaleId(null)}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -204,7 +215,7 @@ export default function MiniDrawer() {
             <ListItemText primary="Profile" />
           </ListItem>
 
-          {!state.saleData.length ? (
+          {!saleId ? (
             <ListItem button onClick={handleGarageFormOpen}>
               <ListItemIcon>
                 <Fab color="primary" aria-label="add" size="small">
@@ -223,21 +234,19 @@ export default function MiniDrawer() {
               <ListItemText primary="Create new Product" />
             </ListItem>
           )}
-          {user? (
+          {user ? (
             <LogOut setUser={setUser} />
           ) : (
-            <Login
-              setLoginForm={setLoginForm}
-            />
+            <Login setLoginForm={setLoginForm} />
           )}
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Container component="div">
+        <Container component="div" className={classes.container}>
           <Switch>
             <Route path="/" exact component={SaleCardList} />
-            <Route path="/products" exact component={SaleItemList} />
+            <Route path="/products" exact component={SaleItemsPage} />
           </Switch>
 
           <LoginForm

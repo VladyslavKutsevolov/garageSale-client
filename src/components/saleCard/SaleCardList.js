@@ -7,7 +7,6 @@ import { useStateData } from '../../context/appContext';
 
 import SaleCard from './SaleCard';
 import SaleForm from './SaleForm';
-import SaleItemForm from '../saleItem/SaleItemForm';
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +23,8 @@ const SaleCardList = () => {
     state,
     getSaleData,
     openNewGarageForm,
-    handleGarageFormClose
+    handleGarageFormClose,
+    setSaleId
   } = useStateData();
 
   useEffect(() => {
@@ -34,6 +34,7 @@ const SaleCardList = () => {
 
   const goToSale = id => {
     getSaleData(id);
+    setSaleId(id);
   };
   
   return (
