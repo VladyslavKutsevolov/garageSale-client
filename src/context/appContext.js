@@ -28,7 +28,8 @@ const appContext = createContext();
 const initialState = {
   sales: [],
   saleData: [],
-  products: []
+  products: [],
+  loginUser: []
 };
 
 const StateProvider = ({ children }) => {
@@ -36,7 +37,6 @@ const StateProvider = ({ children }) => {
   const [saleId, setSaleId] = useState(null);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
-  const [openBuyForm, setBuyForm] = useState(false);
   const [productId, setProductId] = useState(null);
 
   const {
@@ -63,14 +63,6 @@ const StateProvider = ({ children }) => {
 
   const handleGarageFormClose = () => {
     setNewGarageForm(false);
-  };
-
-  const handleBuyOpen = () => {
-    setBuyForm(true);
-  };
-
-  const handleBuyClose = () => {
-    setBuyForm(false);
   };
 
   const fetchSales = async () => {
@@ -104,7 +96,6 @@ const StateProvider = ({ children }) => {
   };
 
   const fetchComments = async itemId => {
-
     try {
       const {
         data: { listOfComments }
@@ -180,13 +171,10 @@ const StateProvider = ({ children }) => {
     createProduct,
     openNewGarageForm,
     openNewProductForm,
-    openBuyForm,
     handleGarageFormClose,
     handleGarageFormOpen,
     handleProductOpen,
     handleProductClose,
-    handleBuyClose,
-    handleBuyOpen,
     productId,
     setProductId,
     saleId,

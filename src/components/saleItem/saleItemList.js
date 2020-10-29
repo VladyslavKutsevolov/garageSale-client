@@ -6,16 +6,11 @@ import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';
 import SendMsg from './SendMsg';
 
-
-
-
 const SaleItemList = () => {
   const {
     state,
     openNewProductForm,
     handleProductClose,
-    openBuyForm,
-    handleBuyClose,
     setProductId,
     productId
   } = useStateData();
@@ -23,10 +18,8 @@ const SaleItemList = () => {
   const [productInfo, setProductInfo] = useState({});
 
   const getProductId = (id) => {
-
     setProductId(id);
-  }
-
+  };
 
   useEffect(() => {
     const filterItemData = () =>
@@ -71,8 +64,8 @@ const SaleItemList = () => {
         handleClose={() => setProductInfo({})}
         title={productInfo.title}
         price={productInfo.price}
-        // buyer={state.loginUser.username}
-        // buyerPhone={state.loginUser.phone}
+        buyer={state.loginUser.username}
+        buyerPhone={state.loginUser.phone}
         seller={productInfo.username}
         sellerPhone={productInfo.phone}
         setItemId={setItemId}

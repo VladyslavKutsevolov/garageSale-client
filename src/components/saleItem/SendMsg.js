@@ -101,8 +101,9 @@ const SendMsg = props => {
       `http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `
     ).catch(err => console.error(err));
 
-    fetch(`http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `
-    ).catch(err => console.error(err))
+    fetch(
+      `http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `
+    ).catch(err => console.error(err));
 
     clearInputFields();
     props.handleClose();
@@ -118,30 +119,30 @@ const SendMsg = props => {
       >
         <div style={modalStyle} className={classes.paper}>
           <Typography variant="h6" gutterBottom>
-           Send Text Message
+            Send Text Message
           </Typography>
           <TextField
-           id="filled-read-only-input"
-           label="Preview: Text Message"
-           defaultValue={`${text.textMessage}`}
-           InputProps={{
+            id="filled-read-only-input"
+            label="Preview: Text Message"
+            defaultValue={`${text.textMessage}`}
+            InputProps={{
               readOnly: true
             }}
-           variant="filled"
-           multiline
-           rows={3}
-           fullWidth
-         />
+            variant="filled"
+            multiline
+            rows={3}
+            fullWidth
+          />
           <TextField
-           rows={2}
-           value={text.textComment}
-           onChange={e =>
+            rows={2}
+            value={text.textComment}
+            onChange={e =>
               setMsg({ text: { ...text, textComment: e.target.value } })}
-           label="Extra Comments?"
-           fullWidth
-         />
+            label="Extra Comments?"
+            fullWidth
+          />
           <div className={classes.actionButtons}>
-           <Button
+            <Button
               onClick={handleClickOpen}
               variant="contained"
               color="primary"
@@ -150,7 +151,7 @@ const SendMsg = props => {
               Send BUY MSG!
             </Button>
 
-           <Dialog
+            <Dialog
               open={open}
               onClose={handleClose}
               aria-labelledby="alert-dialog-title"
@@ -171,14 +172,14 @@ const SendMsg = props => {
               </DialogActions>
             </Dialog>
 
-           <Button
+            <Button
               onClick={handleSendClose}
               variant="outlined"
               color="secondary"
             >
               Cancel
             </Button>
-         </div>
+          </div>
         </div>
       </Modal>
     </>

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import Typography from '@material-ui/core/Typography';
@@ -71,6 +71,8 @@ const LoginForm = ({ handleClose, open, setUser }) => {
       .post('/users/login', formData)
       .then(res => {
         getLoginUser(res.data.username);
+        setUser(res.data.username);
+        alert(res.data.message);
       })
       .catch(err => {
         console.log(err);
