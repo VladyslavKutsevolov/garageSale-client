@@ -30,7 +30,6 @@ const SaleCard = ({
           {province}
         </p>
         <p>{description}</p>
-        <p>Lorem ipsum dolor sit amet.</p>
       </div>
     </div>
   </>
