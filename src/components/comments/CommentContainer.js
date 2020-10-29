@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 
 // }));
 
-const CommentContainer = ({ state }) => {
+const CommentContainer = (state) => {
   console.log("comment container state", state)
   // State needed: comments
   // Backend data needed: comments, name of author (retrieved by author_id)

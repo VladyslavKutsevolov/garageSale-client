@@ -35,8 +35,9 @@ const appReducer = (state, { type, payload }) => {
     // console.log("payloadid", payload.productId)
     const filteredComments = () =>
       payload.listOfComments.filter(
-        comment => comment.product_id === payload.productId
+        comment => comment.product_id === payload.itemId
       );
+
     return {
       ...state,
       comments: filteredComments()

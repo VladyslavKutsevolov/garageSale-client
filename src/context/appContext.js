@@ -104,10 +104,12 @@ const StateProvider = ({ children }) => {
   };
 
   const fetchComments = async itemId => {
+
     try {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
+
       dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
@@ -117,6 +119,7 @@ const StateProvider = ({ children }) => {
       const {
         data: { product: productData }
       } = await request(`http://localhost:3001/products/${id}`);
+
       dispatch({ type: GET_PRODUCT_DATA, payload: { productData } });
     } catch (e) {}
   };
