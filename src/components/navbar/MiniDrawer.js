@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   container: {
-    maxWidth: '90%',
+    maxWidth: '96%',
     margin: 'auto'
   },
   small: {
