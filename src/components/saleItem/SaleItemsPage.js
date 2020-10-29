@@ -39,7 +39,7 @@ const SaleItemsPage = () => {
 
   return (
     <>
-      <Grid container className={classes.root}>
+      <Grid container className={classes.root} wrap>
         <Grid item>
           <div className={classes.categoryContainer}>
             <div>
@@ -54,7 +54,12 @@ const SaleItemsPage = () => {
             )}
           </div>
         </Grid>
-        <Grid className={classes.innerContainer} container justify="center">
+        <Grid
+          className={classes.innerContainer}
+          container
+          justify="center"
+          wrap
+        >
           <Grid item>
             <SaleItemList />
           </Grid>

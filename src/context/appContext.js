@@ -13,8 +13,7 @@ import {
   CREATE_SALE,
   GET_SALE_DATA,
   GET_ALL_COMMENTS,
-  CREATE_COMMENT
-  GET_PRODUCT_DATA,
+  CREATE_COMMENT,
   GET_USER_DATA,
   CREATE_PRODUCT
 } from './types';
@@ -103,24 +102,35 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const fetchComments = async productId => {
+  const fetchComments = async itemId => {
     try {
       const {
         data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${productId}`);
-      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, productId } });
+      } = await request(`http://localhost:3001/comments/${itemId}`);
+      dispatch({
+        type: GET_ALL_COMMENTS,
+        payload: { listOfComments, itemId }
+      });
     } catch (e) {}
   };
 
-  const createComment = async (productId, commentData) => {
+  const createComment = async (itemId, commentData) => {
     try {
       const {
         data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${productId}/newComment`, 'POST', commentData);
-      console.log("after async call")
-      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, productId } });
+      } = await request(
+        `http://localhost:3001/comments/${itemId}/newComment`,
+        'POST',
+        commentData
+      );
+      console.log('after async call');
+      dispatch({
+        type: CREATE_COMMENT,
+        payload: { listOfComments, itemId }
+      });
     } catch (e) {}
   };
+
   const createProduct = useCallback(async productData => {
     try {
       const {
@@ -137,6 +147,15 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
+  const getLoginUser = async username => {
+    try {
+      const {
+        data: { loginUser: userData }
+      } = await request(`http://localhost:3001/users/${username}`);
+      dispatch({ type: GET_USER_DATA, payload: { userData } });
+    } catch (e) {}
+  };
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -149,7 +168,6 @@ const StateProvider = ({ children }) => {
     state,
     createSale,
     getSaleData,
-    getProductData,
     getLoginUser,
     createProduct,
     openNewGarageForm,
@@ -162,7 +180,7 @@ const StateProvider = ({ children }) => {
     handleBuyClose,
     handleBuyOpen,
     productId,
-    setProductId
+    setProductId,
     saleId,
     setSaleId
   };

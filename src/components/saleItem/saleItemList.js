@@ -6,20 +6,24 @@ import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';
 import SendMsg from './SendMsg';
 
-
-
-
 const SaleItemList = () => {
-  const { state, openNewProductForm, handleProductClose, openBuyForm, handleBuyClose, setProductId, productId } = useStateData();
+  const {
+    state,
+    openNewProductForm,
+    handleProductClose,
+    openBuyForm,
+    handleBuyClose,
+    setProductId,
+    productId
+  } = useStateData();
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
 
-  const getProductId = (id) => {
-
+  const getProductId = id => {
     setProductId(id);
-  }
+  };
 
-  console.log("state insitde saleitem", state)
+  console.log('state insitde saleitem', state);
   useEffect(() => {
     const filterItemData = () =>
       state.saleData.filter(item => item.id === itemId);
@@ -56,7 +60,6 @@ const SaleItemList = () => {
       <SaleItemForm
         open={openNewProductForm}
         handleClose={handleProductClose}
-
       />
       <SendMsg
         open={Object.keys(productInfo).length !== 0}

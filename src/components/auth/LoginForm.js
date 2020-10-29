@@ -65,18 +65,19 @@ const LoginForm = ({ handleClose, open, setUser }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const formData = {username: username , password: password };
+    const formData = { username, password };
 
-    axios.post("/users/login", formData)
-         .then(res => {
-           console.log('res in', res.data.username)
-           getLoginUser(res.data.username);
-           setUser(res.data.username);
-           alert(res.data.message);
-         })
-         .catch(err => {
-           console.log(err)
-         });
+    axios
+      .post('http://localhost:3001/users/login', formData)
+      .then(res => {
+        console.log('res in', res.data.username);
+        getLoginUser(res.data.username);
+        setUser(res.data.username);
+        alert(res.data.message);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     clearInputFields();
     handleClose();
   };
@@ -95,15 +96,15 @@ const LoginForm = ({ handleClose, open, setUser }) => {
           </Typography>
           <form onSubmit={handleSubmit} action="/users/login" method="POST">
             <TextField
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={e => setUsername(e.target.value)}
               value={username}
               name="username"
               label="ENTER USERNAME"
               fullWidth
             />
             <TextField
-              onChange={(e) => setPassword(e.target.value)}
-              type='password'
+              onChange={e => setPassword(e.target.value)}
+              type="password"
               value={password}
               name="password"
               label="ENTER PASSWORD"
