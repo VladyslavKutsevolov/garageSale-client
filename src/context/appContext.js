@@ -5,9 +5,17 @@ import React, {
   createContext,
   useContext,
   useReducer,
-  useEffect
+  useEffect,
+  useCallback
 } from 'react';
-import { GET_ALL_SALES, CREATE_SALE, GET_SALE_DATA, GET_PRODUCT_DATA, GET_USER_DATA } from './types';
+import {
+  GET_ALL_SALES,
+  CREATE_SALE,
+  GET_SALE_DATA,
+  GET_PRODUCT_DATA,
+  GET_USER_DATA,
+  CREATE_PRODUCT
+} from './types';
 
 import useHttp from '../hooks/useHttp';
 
@@ -24,6 +32,7 @@ const initialState = {
 
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  const [saleId, setSaleId] = useState(null);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
 
@@ -62,15 +71,16 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createSale = async saleData => {
+  const createSale = useCallback(async saleData => {
     try {
       const {
         data: { message: responseMsg, sale }
       } = await request('http://localhost:3001/sales/new', 'POST', saleData);
+
       dispatch({ type: CREATE_SALE, payload: { sale } });
       setMessage(responseMsg);
     } catch (e) {}
-  };
+  }, []);
 
   const getSaleData = async id => {
     try {
@@ -98,6 +108,21 @@ const StateProvider = ({ children }) => {
       dispatch({ type: GET_USER_DATA, payload: { userData } });
     } catch (e) {}
   };
+  const createProduct = useCallback(async productData => {
+    try {
+      const {
+        data: { message: responseMsg, product }
+      } = await request(
+        'http://localhost:3001/products/new',
+        'POST',
+        productData
+      );
+
+      dispatch({ type: CREATE_PRODUCT, payload: { product } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  }, []);
 
   useEffect(() => {
     clearError();
@@ -111,12 +136,15 @@ const StateProvider = ({ children }) => {
     getSaleData,
     getProductData,
     getLoginUser,
+    createProduct,
     openNewGarageForm,
     openNewProductForm,
     handleGarageFormClose,
     handleGarageFormOpen,
     handleProductOpen,
-    handleProductClose
+    handleProductClose,
+    saleId,
+    setSaleId
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

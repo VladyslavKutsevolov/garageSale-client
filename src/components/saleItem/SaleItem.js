@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,7 +17,8 @@ import { useStateData } from '../../context/appContext';
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
-    maxWidth: '40rem'
+    minWidth: '40rem',
+    marginBottom: '2rem'
   },
   cardContentRoot: {
     padding: 0,
@@ -55,14 +56,22 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest
-    }),
+    })
   },
   expandOpen: {
     transform: 'rotate(180deg)'
   }
 }));
 
-export default function SaleItem({ id, imageUrl, title, price, product_summary, setItemId, sold }) {
+export default function SaleItem({
+  id,
+  imageUrl,
+  title,
+  price,
+  productSummary,
+  setItemId,
+  sold
+}) {
   const { state } = useStateData();
   const classes = useStyles();
 
@@ -73,8 +82,7 @@ export default function SaleItem({ id, imageUrl, title, price, product_summary, 
       setItemId(id);
     } else {
       alert('Please Login First!');
-    };
-
+    }
   };
 
   // Handles chevron for product_summary
@@ -96,16 +104,23 @@ export default function SaleItem({ id, imageUrl, title, price, product_summary, 
               {`Price ${price}`}
             </Typography>
             <div className={classes.actionButtons}>
-
-              {sold? (
-                <Button variant="contained" className={classes.soldOutButton} onClick={()=>alert('Sorry Sold Out') }>
-                 PENDING
-              </Button>
+              {sold ? (
+                <Button
+                  variant="contained"
+                  className={classes.soldOutButton}
+                  onClick={() => alert('Sorry Sold Out')}
+                >
+                  PENDING
+                </Button>
               ) : (
-                <Button variant="contained" className={classes.buttonCustomStyle} onClick={getProductInfo}>
+                <Button
+                  variant="contained"
+                  className={classes.buttonCustomStyle}
+                  onClick={getProductInfo}
+                >
                   I WILL BUY!
                 </Button>
-                )}
+              )}
 
               <Button variant="contained" className={classes.buttonCustomStyle}>
                 Contact Seller
@@ -129,21 +144,8 @@ export default function SaleItem({ id, imageUrl, title, price, product_summary, 
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
+          <Typography paragraph>Description:</Typography>
+          {productSummary}
         </CardContent>
       </Collapse>
     </Card>
