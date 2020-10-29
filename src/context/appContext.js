@@ -5,9 +5,19 @@ import React, {
   createContext,
   useContext,
   useReducer,
-  useEffect
+  useEffect,
+  useCallback
 } from 'react';
-import { GET_ALL_SALES, CREATE_SALE, GET_SALE_DATA, GET_PRODUCT_DATA, GET_USER_DATA } from './types';
+import {
+  GET_ALL_SALES,
+  CREATE_SALE,
+  GET_SALE_DATA,
+  GET_ALL_COMMENTS,
+  CREATE_COMMENT,
+  GET_PRODUCT_DATA,
+  GET_USER_DATA,
+  CREATE_PRODUCT
+} from './types';
 
 import useHttp from '../hooks/useHttp';
 
@@ -18,14 +28,16 @@ const appContext = createContext();
 const initialState = {
   sales: [],
   saleData: [],
-  products: [],
-  loginUser: []
+  products: []
 };
 
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  const [saleId, setSaleId] = useState(null);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
+  const [openBuyForm, setBuyForm] = useState(false);
+  const [productId, setProductId] = useState(null);
 
   const {
     request,
@@ -37,6 +49,7 @@ const StateProvider = ({ children }) => {
   } = useHttp();
 
   const handleProductOpen = () => {
+    console.log('click', openNewProductForm);
     setNewProductForm(true);
   };
 
@@ -52,6 +65,14 @@ const StateProvider = ({ children }) => {
     setNewGarageForm(false);
   };
 
+  const handleBuyOpen = () => {
+    setBuyForm(true);
+  };
+
+  const handleBuyClose = () => {
+    setBuyForm(false);
+  };
+
   const fetchSales = async () => {
     try {
       const {
@@ -62,15 +83,16 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createSale = async saleData => {
+  const createSale = useCallback(async saleData => {
     try {
       const {
         data: { message: responseMsg, sale }
       } = await request('http://localhost:3001/sales/new', 'POST', saleData);
+
       dispatch({ type: CREATE_SALE, payload: { sale } });
       setMessage(responseMsg);
     } catch (e) {}
-  };
+  }, []);
 
   const getSaleData = async id => {
     try {
@@ -78,6 +100,15 @@ const StateProvider = ({ children }) => {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
       dispatch({ type: GET_SALE_DATA, payload: { garageData } });
+    } catch (e) {}
+  };
+
+  const fetchComments = async itemId => {
+    try {
+      const {
+        data: { listOfComments }
+      } = await request(`http://localhost:3001/comments/${itemId}`);
+      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
 
@@ -99,6 +130,35 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const createComment = async (itemId, commentData) => {
+    try {
+      const {
+        data: { listOfComments }
+      } = await request(
+        `http://localhost:3001/comments/${itemId}/newComment`,
+        'POST',
+        commentData
+      );
+      console.log("after async call")
+      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
+    } catch (e) {}
+  };
+  const createProduct = useCallback(async productData => {
+    try {
+      const {
+        data: { message: responseMsg, product }
+      } = await request(
+        'http://localhost:3001/products/new',
+        'POST',
+        productData
+      );
+
+      dispatch({ type: CREATE_PRODUCT, payload: { product } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  }, []);
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -106,17 +166,27 @@ const StateProvider = ({ children }) => {
 
   const value = {
     fetchSales,
+    fetchComments,
+    createComment,
     state,
     createSale,
     getSaleData,
     getProductData,
     getLoginUser,
+    createProduct,
     openNewGarageForm,
     openNewProductForm,
+    openBuyForm,
     handleGarageFormClose,
     handleGarageFormOpen,
     handleProductOpen,
-    handleProductClose
+    handleProductClose,
+    handleBuyClose,
+    handleBuyOpen,
+    productId,
+    setProductId,
+    saleId,
+    setSaleId
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

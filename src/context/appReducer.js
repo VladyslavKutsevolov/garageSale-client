@@ -1,4 +1,11 @@
-import { CREATE_SALE, GET_ALL_SALES, GET_SALE_DATA, GET_PRODUCT_DATA, GET_USER_DATA } from './types';
+import {
+  CREATE_SALE,
+  GET_ALL_SALES,
+  GET_SALE_DATA,
+  GET_ALL_COMMENTS,
+  GET_USER_DATA,
+  CREATE_PRODUCT
+} from './types';
 
 const appReducer = (state, { type, payload }) => {
   if (type === GET_ALL_SALES) {
@@ -18,23 +25,34 @@ const appReducer = (state, { type, payload }) => {
   if (type === GET_SALE_DATA) {
     return {
       ...state,
+      sales: state.sales,
       saleData: payload.garageData
     };
   }
 
-  if (type === GET_PRODUCT_DATA) {
+  if (type === GET_ALL_COMMENTS) {
+    // console.log("listcomments", payload.listOfComments)
+    // console.log("payloadid", payload.productId)
+    const filteredComments = () =>
+      payload.listOfComments.filter(
+        comment => comment.product_id === payload.productId
+      );
     return {
       ...state,
-      products: payload.productData
+      comments: filteredComments()
+    };
+  }
+  if (type === CREATE_PRODUCT) {
+    return {
+      ...state,
+      saleData: [payload.product, ...state.saleData]
     };
   }
 
   if (type === GET_USER_DATA) {
-    return {
-      ...state,
-      loginUser: payload.userData
-    };
+    return { ...state, loginUser: payload.userData };
   }
+
   return state;
 };
 

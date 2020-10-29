@@ -12,8 +12,8 @@ import Container from '@material-ui/core/Container';
 
 // }));
 
-const CommentContainer = () => {
-
+const CommentContainer = ({ state }) => {
+  console.log("comment container state", state)
   // State needed: comments
   // Backend data needed: comments, name of author (retrieved by author_id)
   // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
@@ -28,8 +28,8 @@ const CommentContainer = () => {
       <div>
         <Container
         style={{
-          border:'1px solid #ac9beb',
-          backgroundColor: '#e2dce8',
+          border:'1px solid #bfbfbf',
+          borderRadius: '5px'
           }}>
           <CommentList />
           <CommentInput />

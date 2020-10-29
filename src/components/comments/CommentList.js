@@ -1,53 +1,36 @@
-import React, { makeStyles } from 'react';
+import React, { makeStyles, useEffect, useState } from 'react';
 import Comment from './Comment';
+import { useStateData } from '../../context/appContext';
 
-
-
-const commentData = [
-  {
-    productId: 1,
-    authorId: 4,
-    createdAt: "November 6th",
-    commentText: "Wow this is nice"
-  },
-  {
-    productId: 1,
-    authorId: 2,
-    createdAt: "November 6th",
-    commentText: "Can I come and view it today?"
-  },
-  {
-    productId: 1,
-    authorId: 1,
-    createdAt: "November 6th",
-    commentText: "Yes I'm available all day"
-  },
-  {
-    productId: 1,
-    authorId: 2,
-    createdAt: "November 6th",
-    commentText: "Sounds good"
-  }
-]
-const saleData = { saleId: 4, sellerId: 1}
 
 
 
 const CommentList = () => {
+  const { state, fetchComments, productId } = useStateData();
+  console.log("state in comment list", state)
 
-  const comments = commentData.map( comment => (
+  // leave til later
+  const [comments, setComments] = useState([]);
 
 
-    <Comment
-      comment={comment.commentText}
-      authorId={comment.authorId}
-      createdAt={comment.createdAt}
-      authorId={comment.authorId}
-      saleData={saleData}
-    />
-    ));
 
-  return comments;
+  useEffect(() => {
+    fetchComments(productId);
+  }, []);
+
+
+  return (
+    <>
+      {state.comments && state.comments.map(comment => (
+        <Comment
+          comment={comment.comment_text}
+          author={comment.author}
+          createdAt={comment.created_at}
+          // saleData={saleData}
+        />
+      ))}
+    </>
+  );
 };
 
 export default CommentList;

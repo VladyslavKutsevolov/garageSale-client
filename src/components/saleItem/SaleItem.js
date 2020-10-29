@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,13 +11,14 @@ import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-
 import { useStateData } from '../../context/appContext';
+import CommentContainer from '../comments/CommentContainer';
 
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
-    maxWidth: '40rem'
+    minWidth: '40rem',
+    marginBottom: '2rem'
   },
   cardContentRoot: {
     padding: 0,
@@ -67,14 +68,17 @@ export default function SaleItem({
   imageUrl,
   title,
   price,
-  product_summary,
+  productSummary,
   setItemId,
-  sold
+  sold,
+  getProductId
 }) {
   const { state } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
+
+  console.log('username in state', state)
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
@@ -87,6 +91,7 @@ export default function SaleItem({
   // Handles chevron for product_summary
   const handleExpandClick = () => {
     setExpanded(!expanded);
+    getProductId();
   };
 
   // Has images issues on different breackpoints
@@ -141,23 +146,16 @@ export default function SaleItem({
         </div>
       </CardContent>
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse
+        in={expanded}
+        timeout="auto"
+        unmountOnExit
+        onClick={getProductId}
+      >
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
+          <CommentContainer />
+          <Typography paragraph>Description:</Typography>
+          {/* {productSummary} */}
         </CardContent>
       </Collapse>
     </Card>
