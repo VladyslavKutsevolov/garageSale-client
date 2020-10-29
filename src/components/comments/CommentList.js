@@ -12,8 +12,6 @@ const CommentList = () => {
     fetchComments(productId);
   }, []);
 
-  console.log("commenlist", state)
-
 
   return (
     <>
