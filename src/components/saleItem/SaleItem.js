@@ -56,16 +56,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SaleItem({ id, imageUrl, title, price, product_summary, setItemId, itemId }) {
+export default function SaleItem({ id, imageUrl, title, price, product_summary, setItemId }) {
 
   const classes = useStyles();
-  const { state, handleBuyOpen } = useStateData();
 
   const [expanded, setExpanded] = React.useState(false);
 
   const getProductInfo = () => {
     setItemId(id);
-    handleBuyOpen();
   };
 
 

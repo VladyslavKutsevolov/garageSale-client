@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button, Modal } from '@material-ui/core';
-import { useStateData } from '../../context/appContext';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 

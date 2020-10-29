@@ -7,7 +7,7 @@ import React, {
   useReducer,
   useEffect
 } from 'react';
-import { GET_ALL_SALES, CREATE_SALE, GET_SALE_DATA, GET_PRODUCT_DATA } from './types';
+import { GET_ALL_SALES, CREATE_SALE, GET_SALE_DATA, GET_PRODUCT_DATA, GET_USER_DATA } from './types';
 
 import useHttp from '../hooks/useHttp';
 
@@ -18,14 +18,14 @@ const appContext = createContext();
 const initialState = {
   sales: [],
   saleData: [],
-  products: []
+  products: [],
+  loginUser: []
 };
 
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
-  const [openBuyForm, setBuyForm] = useState(false);
 
   const {
     request,
@@ -37,7 +37,6 @@ const StateProvider = ({ children }) => {
   } = useHttp();
 
   const handleProductOpen = () => {
-    console.log('click', openNewProductForm);
     setNewProductForm(true);
   };
 
@@ -51,14 +50,6 @@ const StateProvider = ({ children }) => {
 
   const handleGarageFormClose = () => {
     setNewGarageForm(false);
-  };
-
-  const handleBuyOpen = () => {
-    setBuyForm(true);
-  };
-
-  const handleBuyClose = () => {
-    setBuyForm(false);
   };
 
   const fetchSales = async () => {
@@ -86,7 +77,7 @@ const StateProvider = ({ children }) => {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
-      await dispatch({ type: GET_SALE_DATA, payload: { garageData } });
+      dispatch({ type: GET_SALE_DATA, payload: { garageData } });
     } catch (e) {}
   };
 
@@ -96,6 +87,17 @@ const StateProvider = ({ children }) => {
         data: { product: productData }
       } = await request(`http://localhost:3001/products/${id}`);
       dispatch({ type: GET_PRODUCT_DATA, payload: { productData } });
+    } catch (e) {}
+  };
+
+  const getLoginUser = async username => {
+    try {
+      const {
+        data: { loginUser: userData }
+      } = await request(`http://localhost:3001/users/${username}`);
+
+      console.log('Use Context', userData)
+      dispatch({ type: GET_USER_DATA, payload: { userData } });
     } catch (e) {}
   };
 
@@ -110,15 +112,13 @@ const StateProvider = ({ children }) => {
     createSale,
     getSaleData,
     getProductData,
+    getLoginUser,
     openNewGarageForm,
     openNewProductForm,
-    openBuyForm,
     handleGarageFormClose,
     handleGarageFormOpen,
     handleProductOpen,
-    handleProductClose,
-    handleBuyClose,
-    handleBuyOpen
+    handleProductClose
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

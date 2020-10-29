@@ -6,15 +6,8 @@ import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';
 import SendMsg from './SendMsg';
 
-const intitialInfo = {
-  title: '',
-  username: '',
-  phone: '',
-  price: ''
-}
-
 const SaleItemList = () => {
-  const { state, openNewProductForm, handleProductClose, openBuyForm, handleBuyClose, getProductData } = useStateData();
+  const { state, openNewProductForm, handleProductClose } = useStateData();
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
 
@@ -28,7 +21,6 @@ const SaleItemList = () => {
       setProductInfo(productData[0]);
     };
   }, [itemId, setProductInfo]);
-  console.log('product Information', productInfo)
 
   return (
     <>
@@ -52,8 +44,8 @@ const SaleItemList = () => {
         handleClose={()=>setProductInfo({})}
         title={productInfo.title}
         price={productInfo.price}
-        buyer={'buy_user'}
-        buyerPhone={12042938913}
+        buyer={state.loginUser.username}
+        buyerPhone={state.loginUser.phone}
         seller={productInfo.username}
         sellerPhone={productInfo.phone}
 
