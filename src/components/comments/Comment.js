@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
+import Cookies from 'js-cookie';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -40,9 +41,6 @@ const useStyles = makeStyles(() => ({
 
 const Comment = ({ comment, author, authorId, createdAt }) => {
   const classes = useStyles();
-
-
-
   let sellerComment = false;
   const myComment = true;
   // TODO: grab userCookie
@@ -59,14 +57,13 @@ const Comment = ({ comment, author, authorId, createdAt }) => {
 
   const handleDelete = () => {
     console.log("delete")
+    console.log('cookie', Cookies.get('userId'));
   }
 
   return sellerComment ? (
     <>
       <div className={classes.seller}>
-        <Typography variant="caption">
-         {author + " (seller): "}
-        </Typography>
+        <Typography variant="caption">{author + ' (seller): '}</Typography>
         {myComment && (
           // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
           <IconButton className={classes.iconDiv} onClick={handleDelete}>
