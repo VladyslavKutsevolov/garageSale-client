@@ -40,6 +40,7 @@ const SaleItemList = () => {
           title={product.title}
           price={product.price}
           productSummary={product.product_summary}
+          sold={product.sold}
           imageUrl={product.image_url}
           getProductId={() => getProductId(product.id)}
           setItemId={setItemId}
@@ -59,7 +60,7 @@ const SaleItemList = () => {
         // buyerPhone={state.loginUser.phone}
         seller={productInfo.username}
         sellerPhone={productInfo.phone}
-
+        setItemId={setItemId}
       />
     </>
   );
