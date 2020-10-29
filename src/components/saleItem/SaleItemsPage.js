@@ -30,12 +30,13 @@ const SaleItemsPage = () => {
   const [saleInfo, setSaleinfo] = useState(getSaleData());
 
   useEffect(() => {
+    localStorage.setItem('saleInfo', JSON.stringify(saleInfo));
+  }, [saleInfo]);
+
+  useEffect(() => {
     setSaleinfo(JSON.parse(localStorage.getItem('saleInfo')));
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('saleInfo', JSON.stringify(saleInfo));
-  }, []);
 
   return (
     <>
