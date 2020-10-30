@@ -9,6 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { useStateData } from '../../context/appContext';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 
@@ -65,6 +66,7 @@ const SendMsg = props => {
   const [msg, setMsg] = useState(initialMsg);
   const { text } = msg;
   const [open, setOpen] = useState(false);
+  const { soldOut, productId } = useStateData();
 
   useEffect(() => {
     setMsg({
@@ -104,6 +106,8 @@ const SendMsg = props => {
     fetch(
       `http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `
     ).catch(err => console.error(err));
+
+    soldOut(productId);
 
     clearInputFields();
     props.handleClose();

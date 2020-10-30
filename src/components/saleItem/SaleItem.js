@@ -92,7 +92,7 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state, deleteProduct } = useStateData();
+  const { state, deleteProduct, setProductId } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -102,6 +102,7 @@ export default function SaleItem({
   const getProductInfo = () => {
     if (state.loginUser.username) {
       setItemId(id);
+      setProductId(id);
     } else {
       alert('Please Login First!');
     }
@@ -129,6 +130,7 @@ export default function SaleItem({
 
   // Handle Edit
   const handleOpenEdit = () => {
+    setProductId(id)
     setOpenEdit(true);
   };
 
@@ -146,7 +148,7 @@ export default function SaleItem({
               <CardHeader title={title} />
               <div>
                 <ListItemIcon>
-                  <EditIcon onClick={setOpenEdit} />
+                  <EditIcon onClick={handleOpenEdit} />
                   <DeleteIcon onClick={handleOpenDelete} />
                 </ListItemIcon>
 

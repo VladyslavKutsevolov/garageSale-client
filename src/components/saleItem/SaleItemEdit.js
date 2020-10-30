@@ -65,7 +65,7 @@ const SaleItemEdit = props => {
   const [productImg, setProductImg] = useState(null);
   const [modalStyle] = React.useState(getModalStyle);
   const [fileName, setFileName] = useState('');
-  const { createProduct, state } = useStateData();
+  const { editProduct, productId } = useStateData();
 
   const handleChange = ({ target }) => {
     setForm({
@@ -73,8 +73,6 @@ const SaleItemEdit = props => {
       [target.name]: target.value
     });
   };
-
-  console.log('Edit Form', form, 'what is in state', props);
 
   const getImg = ({ target }) => {
     setProductImg(target.files[0]);
@@ -94,7 +92,7 @@ const SaleItemEdit = props => {
     formData.append('price', form.price);
     formData.append('sold', form.sold);
 
-    createProduct(formData);
+    editProduct(productId, formData);
     clearInputFields();
     props.handleClose();
   };
@@ -116,21 +114,21 @@ const SaleItemEdit = props => {
               onChange={handleChange}
               required
               name="title"
-              value={props.title}
+              placeholder={props.title}
               label="Product Title"
               fullWidth
             />
             <TextField
               onChange={handleChange}
               name="description"
-              value={props.productSummary}
+              placeholder={props.productSummary}
               label="Product Description"
               fullWidth
             />
             <TextField
               onChange={handleChange}
               name="price"
-              value={props.price}
+              placeholder={props.price}
               label="Product Price"
               fullWidth
             />
@@ -154,6 +152,7 @@ const SaleItemEdit = props => {
                   name="product-img"
                   type="file"
                   onChange={getImg}
+                  placeholder={props.imageUrl}
                   style={{ display: 'none' }}
                 />
               </label>

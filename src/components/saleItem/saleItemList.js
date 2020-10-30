@@ -59,6 +59,7 @@ const SaleItemList = () => {
         seller={productInfo.username}
         sellerPhone={productInfo.phone}
         setItemId={setItemId}
+        itemId={itemId}
       />
     </>
   );

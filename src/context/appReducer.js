@@ -5,7 +5,8 @@ import {
   GET_ALL_COMMENTS,
   GET_USER_DATA,
   CREATE_PRODUCT,
-  DELETE_PRODUCT
+  DELETE_PRODUCT,
+  EDIT_PRODUCT
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -55,6 +56,13 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === CREATE_PRODUCT) {
+    return {
+      ...state,
+      saleData: [payload.product, ...state.saleData]
+    };
+  }
+
+  if (type === EDIT_PRODUCT) {
     return {
       ...state,
       saleData: [payload.product, ...state.saleData]

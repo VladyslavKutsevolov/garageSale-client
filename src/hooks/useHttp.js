@@ -6,7 +6,6 @@ const useHttp = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState('');
 
-
   const request = useCallback(async (url, method = 'GET', body = null) => {
     setLoading(true);
     try {

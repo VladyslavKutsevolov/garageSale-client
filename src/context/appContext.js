@@ -16,7 +16,8 @@ import {
   CREATE_COMMENT,
   DELETE_PRODUCT,
   GET_USER_DATA,
-  CREATE_PRODUCT
+  CREATE_PRODUCT,
+  EDIT_PRODUCT
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -144,12 +145,41 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
-  const deleteProduct = async (id) => {
+  const editProduct = async (itemId, productData) => {
     try {
       const {
         data: { message: responseMsg, product }
       } = await request(
-        `http://localhost:3001/products/delete/${id}`,
+        `http://localhost:3001/products/edit/${itemId}`,
+        'PATCH',
+        productData
+      );
+
+      dispatch({ type: EDIT_PRODUCT, payload: { product } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
+  const soldOut = async itemId => {
+    try {
+      const {
+        data: { message: responseMsg }
+      } = await request(
+        `http://localhost:3001/products/sold/${itemId}`,
+        'PATCH'
+      );
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
+  const deleteProduct = async itemId => {
+    try {
+      const {
+        data: { message: responseMsg, product }
+      } = await request(
+        `http://localhost:3001/products/delete/${itemId}`,
         'DELETE'
       );
 
@@ -174,6 +204,7 @@ const StateProvider = ({ children }) => {
     getSaleData,
     getLoginUser,
     createProduct,
+    editProduct,
     deleteProduct,
     openNewGarageForm,
     openNewProductForm,
@@ -184,7 +215,8 @@ const StateProvider = ({ children }) => {
     productId,
     setProductId,
     saleId,
-    setSaleId
+    setSaleId,
+    soldOut
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
