@@ -6,7 +6,6 @@ const CommentList = (filteredComments) => {
 
   const { state, fetchComments, productId, saleId } = useStateData();
 
-
   return (
     <>
       {filteredComments.comments &&
