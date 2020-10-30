@@ -99,10 +99,7 @@ export default function SaleItem({
   // Handles chevron for product_summary
   const handleExpandClick = () => {
     getProductId();
-    // const filteredList = state.comments.filter((comment) => comment.productId = productId)
-    // setComments(filteredList);
     setExpanded(!expanded);
-    // setComments(filteredComments());
   };
 
   return (
