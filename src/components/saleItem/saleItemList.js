@@ -1,7 +1,6 @@
 /* eslint-disable quotes */
 import React, { useState, useEffect } from 'react';
 import { useStateData } from '../../context/appContext';
-import { GET_SALE_DATA } from '../../context/types';
 
 import SaleItem from './SaleItem';
 import SaleItemForm from './SaleItemForm';

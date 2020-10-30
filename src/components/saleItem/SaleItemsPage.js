@@ -41,7 +41,7 @@ const SaleItemsPage = () => {
   return (
     <>
       <Grid container className={classes.root} wrap="wrap" justify="center">
-        <Grid item justifyContent="center">
+        <Grid item>
           <div className={classes.saleInfo}>
             {state.saleInfo && (
               <SaleInfo
