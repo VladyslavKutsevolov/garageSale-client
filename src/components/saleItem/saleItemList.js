@@ -43,6 +43,7 @@ const SaleItemList = () => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));
   }, [state]);
 
+  console.log("state in saleitemlist", state)
   return (
     <>
       {state.saleData.map(product => (

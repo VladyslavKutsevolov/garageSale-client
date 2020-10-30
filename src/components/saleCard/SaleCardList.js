@@ -33,10 +33,11 @@ const SaleCardList = () => {
   }, []);
 
   const goToSale = id => {
+    console.log("salecardlistid", id)
     getSaleData(id);
     setSaleId(id);
   };
-  
+
   return (
     <>
       <Grid

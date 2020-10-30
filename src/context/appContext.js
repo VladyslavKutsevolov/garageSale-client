@@ -29,7 +29,8 @@ const initialState = {
   sales: [],
   saleData: [],
   products: [],
-  loginUser: []
+  loginUser: [],
+  comments: []
 };
 
 const StateProvider = ({ children }) => {
@@ -91,20 +92,26 @@ const StateProvider = ({ children }) => {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
-      dispatch({ type: GET_SALE_DATA, payload: { garageData } });
+      console.log("garageData", garageData)
+      // const {
+      //   data: { listOfComments }
+      // } = await request(`http://localhost:3001/comments/${id}`);
+      // console.log("listOfComments", listOfComments)
+      dispatch({
+        type: GET_ALL_SALES,
+        payload: { garageData }
+      });
     } catch (e) {}
   };
 
-  const fetchComments = async idOfSale => {
+  const fetchComments = async productId => {
     try {
       const {
         data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${idOfSale}`);
-      console.log('received listOfComments', listOfComments);
-      console.log('productId', productId);
+      } = await request(`http://localhost:3001/comments/${productId}`);
+      // console.log('received listOfComments', listOfComments);
       dispatch({
         type: GET_ALL_COMMENTS,
-        // payload: { productId, listOfComments }
         payload: { listOfComments }
       });
     } catch (e) {}

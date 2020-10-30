@@ -7,19 +7,18 @@ const CommentList = () => {
 
   // leave til later
   const [commentList, setCommentList] = useState([]);
-  console.log('commentliststate', state);
-  console.log('commentlistsaleId', saleId);
+
 
   // We are at the comment list
   // We have the sale ID
-  // We need a list of comments where the sale id is sale id
+  // We HAVE a list of comments where the sale id is sale id
   // We will map that list of comments in to comments.
 
   // Filter comment list by product_id === productId ---
 
   useEffect(() => {
     // fetchComments(saleId);
-    console.log(fetchComments(saleId))
+    // console.log("fetching comments", fetchComments(saleId))
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -73,11 +73,12 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state, productId } = useStateData();
+  const { state, productId, fetchComments, saleId } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
   const [comments, setComments] = useState([]);
+
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
@@ -86,14 +87,24 @@ export default function SaleItem({
       alert('Please Login First!');
     }
   };
-  const filteredComments = () =>
-    state.comments.filter(comment => comment.product_id === productId);
+
+  // const filteredComments = () =>
+  //   state.comments.filter(comment => comment.product_id === productId);
+
+  useEffect(() => {
+    fetchComments(saleId);
+
+  }, [saleId]);
+
+
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
-    setExpanded(!expanded);
     getProductId();
-    setComments(filteredComments());
+    // const filteredList = state.comments.filter((comment) => comment.productId = productId)
+    // setComments(filteredList);
+    setExpanded(!expanded);
+    // setComments(filteredComments());
   };
 
 
