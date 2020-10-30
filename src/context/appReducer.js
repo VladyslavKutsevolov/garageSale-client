@@ -6,7 +6,8 @@ import {
   GET_USER_DATA,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
-  EDIT_PRODUCT
+  EDIT_PRODUCT,
+  SOLD_OUT
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -66,7 +67,16 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       saleData: state.saleData.map(item =>
-        ((item.id === payload.itemId) ? payload.product : item)
+        (item.id === payload.itemId ? payload.product : item)
+      )
+    };
+  }
+
+  if (type === SOLD_OUT) {
+    return {
+      ...state,
+      saleData: state.saleData.map(item =>
+        (item.id === payload.itemId ? payload.product : item)
       )
     };
   }

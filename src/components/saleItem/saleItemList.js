@@ -30,13 +30,12 @@ const SaleItemList = () => {
     }
   }, [itemId, setProductInfo]);
 
-  console.log('State saleData', state);
-
   return (
     <>
       {state.saleData.map(product => (
         <SaleItem
           key={product.id}
+          id={product.id}
           title={product.title}
           price={product.price}
           productSummary={product.description}
@@ -60,7 +59,6 @@ const SaleItemList = () => {
         seller={productInfo.username}
         sellerPhone={productInfo.phone}
         setItemId={setItemId}
-        itemId={itemId}
       />
     </>
   );

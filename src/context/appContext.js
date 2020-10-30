@@ -17,7 +17,8 @@ import {
   DELETE_PRODUCT,
   GET_USER_DATA,
   CREATE_PRODUCT,
-  EDIT_PRODUCT
+  EDIT_PRODUCT,
+  SOLD_OUT
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -155,8 +156,6 @@ const StateProvider = ({ children }) => {
         productData
       );
 
-      console.log('product is ', product);
-
       dispatch({ type: EDIT_PRODUCT, payload: { product, itemId } });
 
       setMessage(responseMsg);
@@ -166,11 +165,13 @@ const StateProvider = ({ children }) => {
   const soldOut = async itemId => {
     try {
       const {
-        data: { message: responseMsg }
+        data: { message: responseMsg, product }
       } = await request(
         `http://localhost:3001/products/sold/${itemId}`,
         'PATCH'
       );
+
+      dispatch({ type: SOLD_OUT, payload: { product, itemId } });
 
       setMessage(responseMsg);
     } catch (e) {}
@@ -179,7 +180,7 @@ const StateProvider = ({ children }) => {
   const deleteProduct = async itemId => {
     try {
       const {
-        data: { message: responseMsg, product }
+        data: { message: responseMsg }
       } = await request(
         `http://localhost:3001/products/delete/${itemId}`,
         'DELETE'

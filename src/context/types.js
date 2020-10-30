@@ -8,3 +8,4 @@ export const GET_USER_DATA = 'GET_USER_DATA';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const SOLD_OUT = 'SOLD_OUT';
