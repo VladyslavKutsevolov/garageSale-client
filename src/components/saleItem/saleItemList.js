@@ -13,6 +13,7 @@ const SaleItemList = () => {
     handleProductClose,
     setProductId
   } = useStateData();
+
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
 
@@ -23,12 +24,15 @@ const SaleItemList = () => {
   useEffect(() => {
     const filterItemData = () =>
       state.saleData.filter(item => item.id === itemId);
-
     const productData = filterItemData();
     if (productData.length > 0) {
       setProductInfo(productData[0]);
     }
   }, [itemId, setProductInfo]);
+
+  useEffect(() => {
+    localStorage.setItem('state-data', JSON.stringify(state.saleData));
+  }, [state]);
 
   return (
     <>

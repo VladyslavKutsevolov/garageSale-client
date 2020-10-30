@@ -25,7 +25,14 @@ const useStyle = makeStyles({
 
 const SaleItemsPage = () => {
   const classes = useStyle();
-  const { state, saleId, getSaleData, setSaleId, fetchSales } = useStateData();
+  const {
+    state,
+    saleId,
+    getSaleData,
+    setSaleId,
+    fetchSales,
+    fetchComments
+  } = useStateData();
 
   useEffect(() => {
     if (saleId) {

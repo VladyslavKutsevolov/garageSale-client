@@ -7,7 +7,9 @@ import {
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   EDIT_PRODUCT,
-  SOLD_OUT
+  SOLD_OUT,
+  DELETE_COMMENT,
+  CREATE_COMMENT
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -40,19 +42,15 @@ const appReducer = (state, { type, payload }) => {
       ...state,
       sales: state.sales,
       saleData: payload.garageData,
+      comments: payload.listOfComments,
       saleInfo: getSaleInfo()
     };
   }
 
   if (type === GET_ALL_COMMENTS) {
-    const filteredComments = () =>
-      payload.listOfComments.filter(
-        comment => comment.product_id === payload.itemId
-      );
-
     return {
       ...state,
-      comments: filteredComments()
+      comments: payload.listOfComments
     };
   }
 
@@ -62,12 +60,18 @@ const appReducer = (state, { type, payload }) => {
       saleData: [payload.product, ...state.saleData]
     };
   }
+  if (type === CREATE_COMMENT) {
+    return {
+      ...state,
+      comments: [...state.comments, payload.returnedComment]
+    };
+  }
 
   if (type === EDIT_PRODUCT) {
     return {
       ...state,
       saleData: state.saleData.map(item =>
-        (item.id === payload.itemId ? payload.product : item)
+        item.id === payload.itemId ? payload.product : item
       )
     };
   }
@@ -90,6 +94,15 @@ const appReducer = (state, { type, payload }) => {
 
   if (type === GET_USER_DATA) {
     return { ...state, loginUser: payload.userData };
+  }
+
+  if (type === DELETE_COMMENT) {
+    return {
+      ...state,
+      comments: state.comments.filter(
+        comment => comment.id !== payload.commentId
+      )
+    };
   }
 
   return state;

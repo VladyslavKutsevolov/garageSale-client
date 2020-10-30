@@ -2,21 +2,22 @@ import React, { makeStyles } from 'react';
 import Container from '@material-ui/core/Container';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
+import { useStateData } from '../../context/appContext';
 
 const CommentContainer = () => {
-  // State needed: comments
-  // Backend data needed: comments, name of author (retrieved by author_id)
-  // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
-  //
+  const { state, productId } = useStateData();
+  const filteredComments = state.comments.filter(
+    comment => comment.product_id === productId
+  );
 
-  // const classes = useStyles();
+  console.log("commentcontainer", state)
+
 
   return (
     <>
-      {/* <div className={classes.root}> */}
       <div>
         <Container>
-          <CommentList />
+          <CommentList comments={filteredComments} />
           <CommentInput />
         </Container>
       </div>

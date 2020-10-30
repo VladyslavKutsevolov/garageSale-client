@@ -110,8 +110,8 @@ export default function SaleItem({
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
-    setExpanded(!expanded);
     getProductId();
+    setExpanded(!expanded);
   };
 
   // Handle Delete dialog

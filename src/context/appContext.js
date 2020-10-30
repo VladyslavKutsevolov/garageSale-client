@@ -18,7 +18,8 @@ import {
   GET_USER_DATA,
   CREATE_PRODUCT,
   EDIT_PRODUCT,
-  SOLD_OUT
+  SOLD_OUT,
+  DELETE_COMMENT
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -31,7 +32,8 @@ const initialState = {
   sales: [],
   saleData: [],
   products: [],
-  loginUser: []
+  loginUser: [],
+  comments: []
 };
 
 const StateProvider = ({ children }) => {
@@ -51,7 +53,6 @@ const StateProvider = ({ children }) => {
   } = useHttp();
 
   const handleProductOpen = () => {
-    console.log('click', openNewProductForm);
     setNewProductForm(true);
   };
 
@@ -93,7 +94,13 @@ const StateProvider = ({ children }) => {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
-      dispatch({ type: GET_SALE_DATA, payload: { garageData, saleId: id } });
+      const {
+        data: { listOfComments }
+      } = await request(`http://localhost:3001/comments/${id}`);
+      dispatch({
+        type: GET_SALE_DATA,
+        payload: { garageData, listOfComments, saleId: id }
+      });
     } catch (e) {}
   };
 
@@ -102,8 +109,10 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
-
-      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
+      dispatch({
+        type: GET_ALL_COMMENTS,
+        payload: { listOfComments }
+      });
     } catch (e) {}
   };
 
@@ -116,17 +125,29 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createComment = async (itemId, commentData) => {
+  const createComment = async (authorId, itemId, commentData) => {
+    const commentInfo = { authorId, commentData };
+    try {
+      const {
+        data: { returnedComment }
+      } = await request(
+        `http://localhost:3001/comments/${itemId}/newComment`,
+        'POST',
+        commentInfo
+      );
+      dispatch({ type: CREATE_COMMENT, payload: { returnedComment, itemId } });
+    } catch (e) {}
+  };
+
+  const deleteComment = async commentId => {
     try {
       const {
         data: { listOfComments }
       } = await request(
-        `http://localhost:3001/comments/${itemId}/newComment`,
-        'POST',
-        commentData
+        `http://localhost:3001/comments/${commentId}/delete`,
+        'DELETE'
       );
-      console.log('after async call');
-      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
+      dispatch({ type: DELETE_COMMENT, payload: { commentId } });
     } catch (e) {}
   };
 
@@ -201,6 +222,7 @@ const StateProvider = ({ children }) => {
     fetchSales,
     fetchComments,
     createComment,
+    deleteComment,
     state,
     dispatch,
     createSale,

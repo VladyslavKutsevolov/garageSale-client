@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
+import Typography from '@material-ui/core/Typography';
 import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(theme => ({
@@ -22,24 +23,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// Set to bypass error. Need product Id from backend.
-const productId = 100;
-
-// TODO 1: This component will need user info: userId(from cookies or state?), user name(get from users table using userID), productId
 
 const CommentInput = () => {
   const classes = useStyles();
-  const { createComment } = useStateData();
+  const { createComment, state, productId } = useStateData();
   const [comment, setComment] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('Comment posted successfully:', comment);
-    createComment(productId, comment);
-    setComment('');
+    if (state.loginUser.id) {
+      createComment(state.loginUser.id, productId, comment);
+      setComment('');
+    }
   };
 
-  return (
+  return state.loginUser.id ? (
     <>
       <div>
         <form
@@ -69,6 +67,12 @@ const CommentInput = () => {
           </IconButton>
         </form>
       </div>
+    </>
+  ) : (
+    <>
+      <Typography variant="h6" gutterBottom>
+        Sign in to post a comment
+      </Typography>
     </>
   );
 };
