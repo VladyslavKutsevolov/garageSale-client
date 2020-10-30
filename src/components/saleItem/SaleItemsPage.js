@@ -9,57 +9,54 @@ import SaleItemList from './saleItemList';
 
 const useStyle = makeStyles({
   innerContainer: {
-    marginTop: '4.1rem',
-    flexBasis: '45%'
+    marginTop: '6rem',
+    flexBasis: '25%'
   },
   root: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-evenly'
   },
-  categoryContainer: {
-    position: 'fixed',
-    textAlign: 'center'
+  category: {
+    marginBottom: '2rem'
+  },
+  saleInfo: {
+    marginTop: '6rem'
   }
 });
 
 const SaleItemsPage = () => {
   const classes = useStyle();
-  const { state, saleId } = useStateData();
-
-  const getSaleData = () => state.sales.filter(sale => sale.id === saleId)[0];
-
-  const [saleInfo, setSaleinfo] = useState(getSaleData());
+  const { state, saleId, getSaleData, setSaleId, fetchSales } = useStateData();
 
   useEffect(() => {
-    localStorage.setItem('saleInfo', JSON.stringify(saleInfo));
-  }, [saleInfo]);
+    if (saleId) {
+      localStorage.setItem('saleId', saleId);
+    } else {
+      setSaleId(localStorage.getItem('saleId'));
+      fetchSales();
+    }
 
-  // useEffect(() => {
-  //   setSaleinfo(JSON.parse(localStorage.getItem('saleInfo')));
-  // }, []);
+    getSaleData(saleId);
+  }, [saleId]);
 
   return (
     <>
-      <Grid container className={classes.root} wrap>
+      <Grid container className={classes.root} wrap="wrap" justify="center">
         <Grid item>
-          <div className={classes.categoryContainer}>
-            <div>
-              <CategoryList />
-            </div>
-            {saleInfo && (
+          <div className={classes.saleInfo}>
+            {state.saleInfo && (
               <SaleInfo
-                saleImg={saleInfo.cover_photo_url}
-                title={saleInfo.title}
-                description={saleInfo.description}
+                saleImg={state.saleInfo.cover_photo_url}
+                title={state.saleInfo.title}
+                description={state.saleInfo.description}
               />
             )}
           </div>
         </Grid>
-        <Grid
-          className={classes.innerContainer}
-          container
-          justify="center"
-          wrap
-        >
+        <Grid className={classes.innerContainer} container justify="center">
+          <Grid item className={classes.category}>
+            <CategoryList />
+          </Grid>
+
           <Grid item>
             <SaleItemList />
           </Grid>

@@ -6,7 +6,7 @@ import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useStateData } from '../../context/appContext';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: '100%',
 
@@ -32,30 +32,37 @@ const CommentInput = () => {
   const { createComment } = useStateData();
   const [comment, setComment] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log("Comment posted successfully:", comment)
+    console.log('Comment posted successfully:', comment);
     createComment(productId, comment);
     setComment('');
   };
 
-
   return (
     <>
       <div>
-        <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} action={`/comments/${productId}/new`}  method="POST">
+        <form
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          action={`/comments/${productId}/new`}
+          method="POST"
+        >
           <TextField
             InputLabelProps={{
               style: {
-                fontSize: 12
-              }}}
+                fontSize: 14
+              }
+            }}
             value={comment}
             className={classes.inputStyle}
             id="filled-multiline-static"
             label="Write a comment..."
-            variant="filled"
+            variant="standard"
             fullWidth
-            onChange={(e) => setComment(e.target.value)}
+            onChange={e => setComment(e.target.value)}
           />
           <IconButton className={classes.icon} onClick={handleSubmit}>
             <SendIcon />
@@ -63,7 +70,7 @@ const CommentInput = () => {
         </form>
       </div>
     </>
-  )
+  );
 };
 
 export default CommentInput;

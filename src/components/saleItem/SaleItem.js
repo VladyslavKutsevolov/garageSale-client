@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,13 +12,19 @@ import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import { useStateData } from '../../context/appContext';
+
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+
 import CommentContainer from '../comments/CommentContainer';
+import CardDropDown from './DropDownBox';
+import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
-    minWidth: '40rem',
+    minWidth: '45rem',
     marginBottom: '2rem'
   },
   cardContentRoot: {
@@ -26,25 +33,29 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: 0
     }
   },
+  productInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyItems: 'center',
+    marginLeft: '1rem',
+    marginRight: '1rem'
+  },
   actionButtons: {
     display: 'flex',
-    justifyContent: 'space-between'
+    marginTop: '1rem'
   },
   buttonCustomStyle: {
     background:
       'linear-gradient(135deg, rgba(164,66,255,1) 0%, rgba(68,17,187,1) 39%, rgba(38,70,227,1) 69%, rgba(38,70,227,1) 88%)',
-    color: '#fff',
-    marginTop: '.7rem'
+    color: '#fff'
   },
   soldOutButton: {
     background:
       'linear-gradient(135deg, rgba(160,166,10,1) 0%, rgba(200,117,87,1) 39%, rgba(200,70,27,1) 69%, rgba(255,70,27,1) 88%)',
-    color: '#fff',
-    marginTop: '.7rem'
+    color: '#fff'
   },
   details: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center'
   },
   cover: {
@@ -92,19 +103,20 @@ export default function SaleItem({
     getProductId();
   };
 
-  // Has images issues on different breackpoints
   return (
     <Card className={classes.root}>
       <CardContent className={classes.cardContentRoot}>
         <div className={classes.details}>
           <CardMedia className={classes.cover} image={imageUrl} />
-          <div>
-            <Typography component="h5" variant="h5">
-              {title}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              {`Price ${price}`}
-            </Typography>
+          <div className={classes.productInfo}>
+            <div>
+              <Typography component="h5" variant="h5">
+                {title}
+              </Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {`Price ${price}`}
+              </Typography>
+            </div>
             <div className={classes.actionButtons}>
               {sold ? (
                 <Button
@@ -123,21 +135,22 @@ export default function SaleItem({
                   I WILL BUY!
                 </Button>
               )}
-
-              <Button variant="contained" className={classes.buttonCustomStyle}>
-                Contact Seller
-              </Button>
               <CardActions disableSpacing>
-                <IconButton
-                  className={classNames(classes.expand, {
-                    [classes.expandOpen]: expanded
-                  })}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="large"
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
                   aria-label="show more"
                 >
-                  <ExpandMoreIcon />
-                </IconButton>
+                  Details
+                  <ExpandMoreIcon
+                    className={classNames(classes.expand, {
+                      [classes.expandOpen]: expanded
+                    })}
+                  />
+                </Button>
               </CardActions>
             </div>
           </div>
@@ -151,9 +164,10 @@ export default function SaleItem({
         onClick={getProductId}
       >
         <CardContent>
-          <CommentContainer />
-          <Typography paragraph>Description:</Typography>
-          {/* {productSummary} */}
+          <CardDropDown
+            comments={<CommentContainer />}
+            description={productSummary}
+          />
         </CardContent>
       </Collapse>
     </Card>
