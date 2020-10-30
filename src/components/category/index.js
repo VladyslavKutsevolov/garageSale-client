@@ -13,31 +13,21 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-const fakeCategoryList = [
-  { name: 'Footwear', id: 1 },
-  { name: 'Watches', id: 2 },
-  { name: 'jewelry', id: 3 },
-  { name: 'Handbags', id: 4 },
-  { name: 'wallets', id: 5 },
-  { name: 'electronics', id: 6 },
-  { name: 'products', id: 7 },
-  { name: 'products', id: 8 },
-  { name: 'products', id: 9 },
-  { name: 'products', id: 10 }
-];
+
 const CategoryList = ({ categories }) => {
   const [categoryId, setCategoryId] = useState(0);
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      {fakeCategoryList.map(category => (
-        <Category
-          key={category.id}
-          categoryName={category.name}
-          setCategory={() => setCategoryId(category.id)}
-          selected={category.id === categoryId}
-        />
-      ))}
+      {categories &&
+        categories.map(category => (
+          <Category
+            key={category.name}
+            categoryName={category.name}
+            setCategory={() => setCategoryId(category.id)}
+            selected={category.id === categoryId}
+          />
+        ))}
     </div>
   );
 };

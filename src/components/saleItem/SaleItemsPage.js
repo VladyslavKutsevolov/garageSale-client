@@ -38,6 +38,13 @@ const SaleItemsPage = () => {
     getSaleData(saleId);
   }, [saleId]);
 
+  const removedDuplications =
+    state.categories &&
+    state.categories.reduce((acc, category) => {
+      const duplicate = acc.find(c => c.name === category.name);
+      return duplicate ? acc : [category, ...acc];
+    }, []);
+
   return (
     <>
       <Grid container className={classes.root} wrap="wrap" justify="center">
@@ -54,7 +61,7 @@ const SaleItemsPage = () => {
         </Grid>
         <Grid className={classes.innerContainer} container justify="center">
           <Grid item className={classes.category}>
-            <CategoryList />
+            <CategoryList categories={removedDuplications} />
           </Grid>
 
           <Grid item>
