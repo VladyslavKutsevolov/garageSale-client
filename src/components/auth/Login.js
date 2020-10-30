@@ -12,7 +12,7 @@ const LogIn = (props) => {
   return (
     <ListItem button onClick={handleLoginOpen}>
       <ListItemIcon>
-        <TouchApp/>
+        <TouchApp />
       </ListItemIcon>
       <ListItemText primary="User Login" />
     </ListItem>

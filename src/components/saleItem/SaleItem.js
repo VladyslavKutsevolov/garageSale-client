@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -9,9 +9,17 @@ import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import classNames from 'classnames';
-import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CardHeader from '@material-ui/core/CardHeader';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import SaleItemEdit from './SaleItemEdit'
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -84,10 +92,12 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state } = useStateData();
+  const { state, deleteProduct } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
@@ -103,6 +113,29 @@ export default function SaleItem({
     getProductId();
   };
 
+  // Handle Delete dialog
+  const handleOpenDelete = () => {
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+  const deleteItem = productId => {
+    deleteProduct(productId);
+    handleCloseDelete();
+  };
+
+  // Handle Edit
+  const handleOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
   return (
     <Card className={classes.root}>
       <CardContent className={classes.cardContentRoot}>
@@ -110,9 +143,52 @@ export default function SaleItem({
           <CardMedia className={classes.cover} image={imageUrl} />
           <div className={classes.productInfo}>
             <div>
-              <Typography component="h5" variant="h5">
-                {title}
-              </Typography>
+              <CardHeader title={title} />
+              <div>
+                <ListItemIcon>
+                  <EditIcon onClick={setOpenEdit} />
+                  <DeleteIcon onClick={handleOpenDelete} />
+                </ListItemIcon>
+
+                <SaleItemEdit
+                  open={openEdit}
+                  handleClose={handleCloseEdit}
+                  productId={id}
+                  title={title}
+                  price={price}
+                  sold={sold}
+                  imageUrl={imageUrl}
+                  productSummary={productSummary}
+                />
+
+                <Dialog
+                  open={openDelete}
+                  onClose={handleCloseDelete}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      Are you sure want to delete this product?
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button
+                      onClick={() => deleteItem(id)}
+                      color="primary"
+                      autoFocus
+                    >
+                      YES
+                    </Button>
+                    <Button onClick={handleCloseDelete} color="primary">
+                      NO
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
+            </div>
+
+            <div>
               <Typography variant="subtitle1" color="textSecondary">
                 {`Price ${price}`}
               </Typography>

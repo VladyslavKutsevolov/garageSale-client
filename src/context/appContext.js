@@ -14,7 +14,7 @@ import {
   GET_SALE_DATA,
   GET_ALL_COMMENTS,
   CREATE_COMMENT,
-  GET_PRODUCT_DATA,
+  DELETE_PRODUCT,
   GET_USER_DATA,
   CREATE_PRODUCT
 } from './types';
@@ -105,16 +105,6 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const getProductData = async id => {
-    try {
-      const {
-        data: { product: productData }
-      } = await request(`http://localhost:3001/products/${id}`);
-
-      dispatch({ type: GET_PRODUCT_DATA, payload: { productData } });
-    } catch (e) {}
-  };
-
   const getLoginUser = async username => {
     try {
       const {
@@ -154,6 +144,21 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
+  const deleteProduct = async (id) => {
+    try {
+      const {
+        data: { message: responseMsg, product }
+      } = await request(
+        `http://localhost:3001/products/delete/${id}`,
+        'DELETE'
+      );
+
+      dispatch({ type: DELETE_PRODUCT, payload: { product } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -169,6 +174,7 @@ const StateProvider = ({ children }) => {
     getSaleData,
     getLoginUser,
     createProduct,
+    deleteProduct,
     openNewGarageForm,
     openNewProductForm,
     handleGarageFormClose,
