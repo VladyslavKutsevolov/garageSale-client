@@ -4,9 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import { useStateData } from '../../context/appContext';
 import Typography from '@material-ui/core/Typography';
-
+import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,8 +23,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
 // TODO 1: This component will need user info: userId(from cookies or state?), user name(get from users table using userID), productId
 
 const CommentInput = () => {
@@ -35,56 +32,51 @@ const CommentInput = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('user', state);
     if (state.loginUser.id) {
       createComment(state.loginUser.id, productId, comment);
       setComment('');
+      console.log('user', state);
     }
   };
 
-  if (state.loginUser.id) {
-    return (
-      <>
-        <div>
-          <form
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
-            action={`/comments/${productId}/new`}
-            method="POST"
-          >
-            <TextField
-              InputLabelProps={{
-                style: {
-                  fontSize: 12
-                }
-              }}
-              value={comment}
-              className={classes.inputStyle}
-              id="filled-multiline-static"
-              label="Write a comment..."
-              variant="filled"
-              fullWidth
-              onChange={e => setComment(e.target.value)}
-            />
-            <IconButton className={classes.icon} onClick={handleSubmit}>
-              <SendIcon />
-            </IconButton>
-          </form>
-        </div>
-      </>
-    );
-  };
-
-  return (
+  return state.loginUser.id ? (
+    <>
+      <div>
+        <form
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          action={`/comments/${productId}/new`}
+          method="POST"
+        >
+          <TextField
+            InputLabelProps={{
+              style: {
+                fontSize: 12
+              }
+            }}
+            value={comment}
+            className={classes.inputStyle}
+            id="filled-multiline-static"
+            label="Write a comment..."
+            variant="filled"
+            fullWidth
+            onChange={e => setComment(e.target.value)}
+          />
+          <IconButton className={classes.icon} onClick={handleSubmit}>
+            <SendIcon />
+          </IconButton>
+        </form>
+      </div>
+    </>
+  ) : (
     <>
       <Typography variant="h6" gutterBottom>
         Sign in to post a comment
       </Typography>
     </>
   );
-
 };
 
 export default CommentInput;
