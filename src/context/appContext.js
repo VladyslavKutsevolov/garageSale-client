@@ -51,7 +51,6 @@ const StateProvider = ({ children }) => {
   } = useHttp();
 
   const handleProductOpen = () => {
-    console.log('click', openNewProductForm);
     setNewProductForm(true);
   };
 
@@ -138,7 +137,6 @@ const StateProvider = ({ children }) => {
     const commentInfo = { authorId, commentData };
 
     try {
-      console.log('trying ');
       const {
         data: { returnedComment }
       } = await request(
@@ -147,13 +145,10 @@ const StateProvider = ({ children }) => {
         commentInfo
       );
       dispatch({ type: CREATE_COMMENT, payload: { returnedComment, itemId } });
-      console.log('after async call');
     } catch (e) {}
   };
 
   const deleteComment = async commentId => {
-    console.log('use delete in appcontext', commentId);
-
     try {
       const {
         data: { listOfComments }
@@ -161,7 +156,6 @@ const StateProvider = ({ children }) => {
         `http://localhost:3001/comments/${commentId}/delete`,
         'DELETE'
       );
-      console.log('before dispatch', commentId);
       dispatch({ type: DELETE_COMMENT, payload: { commentId } });
     } catch (e) {}
   };

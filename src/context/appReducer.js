@@ -57,7 +57,6 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === DELETE_COMMENT) {
-    console.log('delete comment reducer')
     return {
       ...state,
       comments: state.comments.filter(

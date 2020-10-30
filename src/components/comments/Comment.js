@@ -65,7 +65,6 @@ const Comment = ({
   // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
 
   const handleDelete = () => {
-    console.log("call delete comment with", commentId)
     deleteComment(commentId);
     // fetchComments(productId);
   };
