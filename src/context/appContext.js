@@ -14,6 +14,7 @@ import {
   GET_SALE_DATA,
   GET_ALL_COMMENTS,
   CREATE_COMMENT,
+  GET_PRODUCT_DATA,
   GET_USER_DATA,
   CREATE_PRODUCT
 } from './types';
@@ -27,7 +28,8 @@ const appContext = createContext();
 const initialState = {
   sales: [],
   saleData: [],
-  products: []
+  products: [],
+  loginUser: []
 };
 
 const StateProvider = ({ children }) => {
@@ -35,7 +37,6 @@ const StateProvider = ({ children }) => {
   const [saleId, setSaleId] = useState(null);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
-  const [openBuyForm, setBuyForm] = useState(false);
   const [productId, setProductId] = useState(null);
 
   const {
@@ -62,14 +63,6 @@ const StateProvider = ({ children }) => {
 
   const handleGarageFormClose = () => {
     setNewGarageForm(false);
-  };
-
-  const handleBuyOpen = () => {
-    setBuyForm(true);
-  };
-
-  const handleBuyClose = () => {
-    setBuyForm(false);
   };
 
   const fetchSales = async () => {
@@ -107,10 +100,27 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
-      dispatch({
-        type: GET_ALL_COMMENTS,
-        payload: { listOfComments, itemId }
-      });
+
+      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
+    } catch (e) {}
+  };
+
+  const getProductData = async id => {
+    try {
+      const {
+        data: { product: productData }
+      } = await request(`http://localhost:3001/products/${id}`);
+
+      dispatch({ type: GET_PRODUCT_DATA, payload: { productData } });
+    } catch (e) {}
+  };
+
+  const getLoginUser = async username => {
+    try {
+      const {
+        data: { loginUser: userData }
+      } = await request(`http://localhost:3001/users/${username}`);
+      dispatch({ type: GET_USER_DATA, payload: { userData } });
     } catch (e) {}
   };
 
@@ -124,10 +134,7 @@ const StateProvider = ({ children }) => {
         commentData
       );
       console.log('after async call');
-      dispatch({
-        type: CREATE_COMMENT,
-        payload: { listOfComments, itemId }
-      });
+      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
 
@@ -147,15 +154,6 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
-  const getLoginUser = async username => {
-    try {
-      const {
-        data: { loginUser: userData }
-      } = await request(`http://localhost:3001/users/${username}`);
-      dispatch({ type: GET_USER_DATA, payload: { userData } });
-    } catch (e) {}
-  };
-
   useEffect(() => {
     clearError();
     clearMessage();
@@ -172,13 +170,10 @@ const StateProvider = ({ children }) => {
     createProduct,
     openNewGarageForm,
     openNewProductForm,
-    openBuyForm,
     handleGarageFormClose,
     handleGarageFormOpen,
     handleProductOpen,
     handleProductClose,
-    handleBuyClose,
-    handleBuyOpen,
     productId,
     setProductId,
     saleId,

@@ -8,10 +8,11 @@ import { useStateData } from '../../context/appContext';
 const CommentList = () => {
   const { state, fetchComments, productId } = useStateData();
 
+
   // leave til later
   const [comments, setComments] = useState([]);
 
-  
+
 
   useEffect(() => {
     fetchComments(productId);

@@ -151,9 +151,9 @@ export default function SaleItem({
         onClick={getProductId}
       >
         <CardContent>
-          {/* <CommentContainer /> */}
+          <CommentContainer />
           <Typography paragraph>Description:</Typography>
-          {productSummary}
+          {/* {productSummary} */}
         </CardContent>
       </Collapse>
     </Card>

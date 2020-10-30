@@ -40,7 +40,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === GET_ALL_COMMENTS) {
     const filteredComments = () =>
       payload.listOfComments.filter(
-        comment => comment.product_id === payload.productId
+        comment => comment.product_id === payload.itemId
       );
 
     return {
@@ -53,6 +53,10 @@ const appReducer = (state, { type, payload }) => {
       ...state,
       saleData: [payload.product, ...state.saleData]
     };
+  }
+
+  if (type === GET_USER_DATA) {
+    return { ...state, loginUser: payload.userData };
   }
 
   return state;

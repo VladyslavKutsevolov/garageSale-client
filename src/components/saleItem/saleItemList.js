@@ -23,7 +23,6 @@ const SaleItemList = () => {
     setProductId(id);
   };
 
-  console.log('state insitde saleitem', state);
   useEffect(() => {
     const filterItemData = () =>
       state.saleData.filter(item => item.id === itemId);
@@ -34,9 +33,9 @@ const SaleItemList = () => {
     }
   }, [itemId, setProductInfo]);
 
-  useEffect(() => {
-    state.saleData = JSON.parse(localStorage.getItem('state-data'));
-  }, []);
+  // useEffect(() => {
+  //   state.saleData = JSON.parse(localStorage.getItem('state-data'));
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));
@@ -66,8 +65,8 @@ const SaleItemList = () => {
         handleClose={() => setProductInfo({})}
         title={productInfo.title}
         price={productInfo.price}
-        // buyer={state.loginUser.username}
-        // buyerPhone={state.loginUser.phone}
+        buyer={state.loginUser.username}
+        buyerPhone={state.loginUser.phone}
         seller={productInfo.username}
         sellerPhone={productInfo.phone}
         setItemId={setItemId}

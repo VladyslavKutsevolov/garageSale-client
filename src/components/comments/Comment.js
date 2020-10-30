@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
 import Cookies from 'js-cookie';
+import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -41,49 +42,48 @@ const useStyles = makeStyles(() => ({
 
 const Comment = ({ comment, author, authorId, createdAt }) => {
   const classes = useStyles();
-  let sellerComment = false;
-  const myComment = true;
-  // TODO: grab userCookie
-  // if (!userId === authorId) {myComment = true;}
+  const { state } = useStateData();
+  const sellerComment = false;
+  let myComment = false;
+
+
+  // Validate if user wrote comment
+  if (state.loginUser.userId === authorId) {
+    myComment = true;
+  }
 
   // if (saleData.sellerId === authorId) {
   //   sellerComment = true;
   // };
 
-
-
   // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
   // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
 
   const handleDelete = () => {
-    console.log("delete")
-    console.log('cookie', Cookies.get('userId'));
-  }
+    console.log('delete');
+  };
 
   return sellerComment ? (
     <>
       <div className={classes.seller}>
-        <Typography variant="caption">{author + ' (seller): '}</Typography>
+        <Typography variant="caption">{`${author} (seller): `}</Typography>
         {myComment && (
           // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
           <IconButton className={classes.iconDiv} onClick={handleDelete}>
-            <CancelIcon className={classes.icon}/>
+            <CancelIcon className={classes.icon} />
           </IconButton>
         )}
       </div>
     </>
   ) : (
     <div className={classes.root}>
-      <Typography variant="caption">
-        {author + ": " + comment}
-      </Typography>
+      <Typography variant="caption">{`${author}: ${comment}`}</Typography>
       {myComment && (
         // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
-        <IconButton className={classes.iconDiv}  onClick={handleDelete}>
+        <IconButton className={classes.iconDiv} onClick={handleDelete}>
           <CancelIcon className={classes.icon} />
         </IconButton>
       )}
-
     </div>
   );
 };
