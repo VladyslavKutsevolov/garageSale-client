@@ -73,11 +73,15 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state, productId, fetchComments, saleId } = useStateData();
+  const {
+    state,
+    productId,
+    fetchComments,
+    saleId
+    } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
-  const [comments, setComments] = useState([]);
 
 
   const getProductInfo = () => {
@@ -88,13 +92,6 @@ export default function SaleItem({
     }
   };
 
-  // const filteredComments = () =>
-  //   state.comments.filter(comment => comment.product_id === productId);
-
-  useEffect(() => {
-    fetchComments(saleId);
-
-  }, [saleId]);
 
 
 
@@ -106,7 +103,6 @@ export default function SaleItem({
     setExpanded(!expanded);
     // setComments(filteredComments());
   };
-
 
   // list of comments relating to THIS sale
 

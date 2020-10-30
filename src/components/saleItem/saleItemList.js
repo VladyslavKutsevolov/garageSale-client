@@ -18,16 +18,13 @@ const SaleItemList = () => {
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
 
-  const getProductId = (id) => {
+  const getProductId = id => {
     setProductId(id);
   };
-
-
 
   useEffect(() => {
     const filterItemData = () =>
       state.saleData.filter(item => item.id === itemId);
-
     const productData = filterItemData();
     if (productData.length > 0) {
       setProductInfo(productData[0]);
@@ -37,13 +34,17 @@ const SaleItemList = () => {
   // useEffect(() => {
   //   state.saleData = JSON.parse(localStorage.getItem('state-data'));
   // }, []);
-  //3. list of comments relating to this sale
+  // 3. list of comments relating to this sale
   // 4. pass lsit down into sale item
+
   useEffect(() => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));
   }, [state]);
 
-  console.log("state in saleitemlist", state)
+
+
+
+
   return (
     <>
       {state.saleData.map(product => (
@@ -62,7 +63,6 @@ const SaleItemList = () => {
       <SaleItemForm
         open={openNewProductForm}
         handleClose={handleProductClose}
-
       />
       <SendMsg
         open={Object.keys(productInfo).length !== 0}

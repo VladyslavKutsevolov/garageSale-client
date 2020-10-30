@@ -23,18 +23,15 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === GET_SALE_DATA) {
-    console.log("payload i reducer", payload)
-
     return {
       ...state,
       sales: state.sales,
-      saleData: payload.garageData
-      // comments: payload.listOfComments
+      saleData: payload.garageData,
+      comments: payload.listOfComments
     };
   }
 
   if (type === GET_ALL_COMMENTS) {
-    console.log("payload comments reducer", payload)
     return {
       ...state,
       comments: payload.listOfComments

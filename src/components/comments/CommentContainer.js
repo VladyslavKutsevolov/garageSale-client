@@ -1,9 +1,8 @@
 import React, { makeStyles } from 'react';
+import Container from '@material-ui/core/Container';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
-import Container from '@material-ui/core/Container';
 import { useStateData } from '../../context/appContext';
-
 
 // const useStyles = makeStyles(theme => ({
 //   root: {
@@ -14,30 +13,30 @@ import { useStateData } from '../../context/appContext';
 // }));
 
 const CommentContainer = () => {
-  const { state } = useStateData();
-  // State needed: comments
-  // Backend data needed: comments, name of author (retrieved by author_id)
-  // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
-  //
- // comment list
-  // const classes = useStyles();
+  const { state, productId } = useStateData();
+
+  const filteredComments = state.comments.filter(
+    comment => comment.product_id === productId
+    );
+
+    console.log('filteredCommentsincommentcontainer', filteredComments);
+
 
   return (
-
     <>
       {/* <div className={classes.root}> */}
       <div>
         <Container
-        style={{
-          border:'1px solid #bfbfbf',
-          borderRadius: '5px'
-          }}>
-          <CommentList />
+          style={{
+            border: '1px solid #bfbfbf',
+            borderRadius: '5px'
+          }}
+        >
+          <CommentList comments={filteredComments} />
           <CommentInput />
         </Container>
       </div>
     </>
-
   );
 };
 

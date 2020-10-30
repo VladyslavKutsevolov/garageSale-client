@@ -2,11 +2,14 @@ import React, { makeStyles, useEffect, useState } from 'react';
 import Comment from './Comment';
 import { useStateData } from '../../context/appContext';
 
-const CommentList = () => {
+const CommentList = (filteredComments) => {
+
   const { state, fetchComments, productId, saleId } = useStateData();
 
+
+
   // leave til later
-  const [commentList, setCommentList] = useState([]);
+  const [commentList, setCommentList] = useState([...filteredComments.comments]);
 
 
   // We are at the comment list
@@ -23,8 +26,8 @@ const CommentList = () => {
 
   return (
     <>
-      {state.comments &&
-        state.comments.map(comment => (
+      {commentList &&
+        commentList.map(comment => (
           <Comment
             productId={productId}
             key={comment.id}
