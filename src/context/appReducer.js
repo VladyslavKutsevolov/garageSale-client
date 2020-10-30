@@ -36,6 +36,7 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       sales: state.sales,
+      categories: payload.categories,
       saleData: payload.garageData,
       saleInfo: getSaleInfo()
     };

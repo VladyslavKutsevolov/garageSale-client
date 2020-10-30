@@ -91,7 +91,14 @@ const StateProvider = ({ children }) => {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
-      dispatch({ type: GET_SALE_DATA, payload: { garageData, saleId: id } });
+      const {
+        data: { categories }
+      } = await request(`http://localhost:3001/products/categories/${id}`);
+
+      dispatch({
+        type: GET_SALE_DATA,
+        payload: { garageData, saleId: id, categories }
+      });
     } catch (e) {}
   };
 
@@ -105,6 +112,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  //// ?????? What for this func?
   const getProductData = async id => {
     try {
       const {
