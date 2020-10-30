@@ -57,12 +57,6 @@ const Comment = ({
     myComment = true;
   }
 
-  // if (saleData.sellerId === authorId) {
-  //   sellerComment = true;
-  // };
-
-  // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
-  // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
 
   const handleDelete = () => {
     deleteComment(commentId);
@@ -74,7 +68,6 @@ const Comment = ({
       <div className={classes.seller}>
         <Typography variant="caption">{`${author} (seller): `}</Typography>
         {myComment && (
-          // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
           <IconButton className={classes.iconDiv} onClick={handleDelete}>
             <CancelIcon className={classes.icon} />
           </IconButton>
@@ -85,7 +78,6 @@ const Comment = ({
     <div className={classes.root}>
       <Typography variant="caption">{`${author}: ${comment}`}</Typography>
       {myComment && (
-        // <IconButton className={classes.iconDiv} hoveredStyle={hoveredStyle} onclick={deleteHandler}>
         <IconButton className={classes.iconDiv} onClick={handleDelete}>
           <CancelIcon className={classes.icon} />
         </IconButton>

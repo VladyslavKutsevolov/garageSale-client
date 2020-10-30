@@ -11,8 +11,7 @@ const SaleItemList = () => {
     state,
     openNewProductForm,
     handleProductClose,
-    setProductId,
-    productId
+    setProductId
   } = useStateData();
 
   const [itemId, setItemId] = useState(null);
@@ -31,19 +30,9 @@ const SaleItemList = () => {
     }
   }, [itemId, setProductInfo]);
 
-  // useEffect(() => {
-  //   state.saleData = JSON.parse(localStorage.getItem('state-data'));
-  // }, []);
-  // 3. list of comments relating to this sale
-  // 4. pass lsit down into sale item
-
   useEffect(() => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));
   }, [state]);
-
-
-
-
 
   return (
     <>

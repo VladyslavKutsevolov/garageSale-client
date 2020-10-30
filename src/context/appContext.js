@@ -97,7 +97,7 @@ const StateProvider = ({ children }) => {
       } = await request(`http://localhost:3001/comments/${id}`);
       dispatch({
         type: GET_SALE_DATA,
-        payload: { garageData, listOfComments }
+        payload: { garageData, listOfComments, saleId: id }
       });
     } catch (e) {}
   };
@@ -135,7 +135,6 @@ const StateProvider = ({ children }) => {
 
   const createComment = async (authorId, itemId, commentData) => {
     const commentInfo = { authorId, commentData };
-
     try {
       const {
         data: { returnedComment }
@@ -187,9 +186,9 @@ const StateProvider = ({ children }) => {
     createComment,
     deleteComment,
     state,
+    dispatch,
     createSale,
     getSaleData,
-    getProductData,
     getLoginUser,
     createProduct,
     openNewGarageForm,

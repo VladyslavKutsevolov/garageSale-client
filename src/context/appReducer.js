@@ -24,12 +24,23 @@ const appReducer = (state, { type, payload }) => {
     };
   }
 
+  if (type === GET_USER_DATA) {
+    return {
+      ...state,
+      loginUser: payload.userData
+    };
+  }
+
   if (type === GET_SALE_DATA) {
+    const getSaleInfo = () =>
+      state.sales.filter(sale => sale.id === Number(payload.saleId))[0];
+
     return {
       ...state,
       sales: state.sales,
       saleData: payload.garageData,
-      comments: payload.listOfComments
+      comments: payload.listOfComments,
+      saleInfo: getSaleInfo()
     };
   }
 

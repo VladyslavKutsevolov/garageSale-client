@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// TODO 1: This component will need user info: userId(from cookies or state?), user name(get from users table using userID), productId
 
 const CommentInput = () => {
   const classes = useStyles();
@@ -52,14 +51,14 @@ const CommentInput = () => {
           <TextField
             InputLabelProps={{
               style: {
-                fontSize: 12
+                fontSize: 14
               }
             }}
             value={comment}
             className={classes.inputStyle}
             id="filled-multiline-static"
             label="Write a comment..."
-            variant="filled"
+            variant="standard"
             fullWidth
             onChange={e => setComment(e.target.value)}
           />
