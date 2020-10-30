@@ -14,7 +14,6 @@ import { useStateData } from '../../context/appContext';
 
 const CommentContainer = () => {
   const { state, productId } = useStateData();
-  const [commentList, setCommentList] = useState();
 
   const filteredComments = state.comments.filter(
     comment => comment.product_id === productId
