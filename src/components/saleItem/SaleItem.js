@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -73,10 +73,11 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state } = useStateData();
+  const { state, productId } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
+  const [comments, setComments] = useState([]);
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
@@ -85,13 +86,20 @@ export default function SaleItem({
       alert('Please Login First!');
     }
   };
+  const filteredComments = () =>
+    state.comments.filter(comment => comment.product_id === productId);
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
-    console.log('sale item state', state);
     setExpanded(!expanded);
     getProductId();
+    setComments(filteredComments());
   };
+
+
+  // list of comments relating to THIS sale
+
+  // 5. Filter the comments list so that we gaet a list of comments with product_id === productId
 
   // Has images issues on different breackpoints
   return (

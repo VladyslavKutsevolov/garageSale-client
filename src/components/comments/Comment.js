@@ -39,15 +39,21 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Comment = ({ comment, author, authorId, createdAt }) => {
+const Comment = ({
+  comment,
+  author,
+  authorId,
+  createdAt,
+  commentId,
+  productId
+}) => {
   const classes = useStyles();
-  const { state } = useStateData();
+  const { state, deleteComment, fetchComments } = useStateData();
   const sellerComment = false;
   let myComment = false;
 
-
   // Validate if user wrote comment
-  if (state.loginUser.userId === authorId) {
+  if (state.loginUser.id === authorId) {
     myComment = true;
   }
 
@@ -58,8 +64,10 @@ const Comment = ({ comment, author, authorId, createdAt }) => {
   // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
   // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
 
-  const handleDelete = () => {
-    console.log('delete');
+  const handleDelete = e => {
+    e.preventDefault();
+    deleteComment(authorId, commentId);
+    fetchComments(productId);
   };
 
   return sellerComment ? (

@@ -23,7 +23,7 @@ const useStyle = makeStyles({
 
 const SaleItemsPage = () => {
   const classes = useStyle();
-  const { state, saleId } = useStateData();
+  const { state, saleId, fetchComments } = useStateData();
 
   const getSaleData = () => state.sales.filter(sale => sale.id === saleId)[0];
 
@@ -31,7 +31,14 @@ const SaleItemsPage = () => {
 
   useEffect(() => {
     localStorage.setItem('saleInfo', JSON.stringify(saleInfo));
+    fetchComments(saleId);
+
   }, [saleInfo]);
+
+
+
+  // 1. list of comments relating to this sale
+  // 2. pass this list into sale item list
 
   // useEffect(() => {
   //   setSaleinfo(JSON.parse(localStorage.getItem('saleInfo')));

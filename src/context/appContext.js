@@ -95,13 +95,18 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const fetchComments = async itemId => {
+  const fetchComments = async idOfSale => {
     try {
       const {
         data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${itemId}`);
-
-      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
+      } = await request(`http://localhost:3001/comments/${idOfSale}`);
+      console.log('received listOfComments', listOfComments);
+      console.log('productId', productId);
+      dispatch({
+        type: GET_ALL_COMMENTS,
+        // payload: { productId, listOfComments }
+        payload: { listOfComments }
+      });
     } catch (e) {}
   };
 
@@ -139,6 +144,20 @@ const StateProvider = ({ children }) => {
       dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
+
+  const deleteComment = async (authorId, commentId) => {
+    const commentInfo = { authorId };
+    try {
+      const {
+        data: { listOfComments }
+      } = await request(
+        `http://localhost:3001/comments/${commentId}/delete`,
+        'DELETE',
+        commentInfo
+      );
+    } catch (e) {}
+  };
+
   const createProduct = useCallback(async productData => {
     try {
       const {
@@ -164,6 +183,7 @@ const StateProvider = ({ children }) => {
     fetchSales,
     fetchComments,
     createComment,
+    deleteComment,
     state,
     createSale,
     getSaleData,

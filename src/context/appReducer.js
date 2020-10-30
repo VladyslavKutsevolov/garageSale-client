@@ -31,14 +31,10 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === GET_ALL_COMMENTS) {
-    const filteredComments = () =>
-      payload.listOfComments.filter(
-        comment => comment.product_id === payload.itemId
-      );
-
+    console.log("payload i reducer", payload.listOfComments)
     return {
       ...state,
-      comments: filteredComments()
+      comments: payload.listOfComments
     };
   }
   if (type === CREATE_PRODUCT) {

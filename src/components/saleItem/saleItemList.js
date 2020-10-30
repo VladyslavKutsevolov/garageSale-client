@@ -14,12 +14,15 @@ const SaleItemList = () => {
     setProductId,
     productId
   } = useStateData();
+
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
 
   const getProductId = (id) => {
     setProductId(id);
   };
+
+
 
   useEffect(() => {
     const filterItemData = () =>
@@ -34,7 +37,8 @@ const SaleItemList = () => {
   // useEffect(() => {
   //   state.saleData = JSON.parse(localStorage.getItem('state-data'));
   // }, []);
-
+  //3. list of comments relating to this sale
+  // 4. pass lsit down into sale item
   useEffect(() => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));
   }, [state]);

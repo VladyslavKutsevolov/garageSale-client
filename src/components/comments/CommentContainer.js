@@ -19,7 +19,7 @@ const CommentContainer = () => {
   // Backend data needed: comments, name of author (retrieved by author_id)
   // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
   //
-
+ // comment list
   // const classes = useStyles();
 
   return (
