@@ -64,10 +64,10 @@ const Comment = ({
   // Need cookie of user logged in and compare to author_id of each comment, if userId === author_id, show comment with delete button
   // Need seller_id from sales table, if seller_id = comment author_id, render seller styling
 
-  const handleDelete = e => {
-    e.preventDefault();
-    deleteComment(authorId, commentId);
-    fetchComments(productId);
+  const handleDelete = () => {
+    console.log("call delete comment with", commentId)
+    deleteComment(commentId);
+    // fetchComments(productId);
   };
 
   return sellerComment ? (

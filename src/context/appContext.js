@@ -16,7 +16,8 @@ import {
   CREATE_COMMENT,
   GET_PRODUCT_DATA,
   GET_USER_DATA,
-  CREATE_PRODUCT
+  CREATE_PRODUCT,
+  DELETE_COMMENT
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -92,11 +93,9 @@ const StateProvider = ({ children }) => {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
-      console.log("garageData", garageData)
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${id}`);
-      console.log("listOfComments", listOfComments)
       dispatch({
         type: GET_SALE_DATA,
         payload: { garageData, listOfComments }
@@ -104,12 +103,11 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const fetchComments = async productId => {
+  const fetchComments = async itemId => {
     try {
       const {
         data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${productId}`);
-      // console.log('received listOfComments', listOfComments);
+      } = await request(`http://localhost:3001/comments/${itemId}`);
       dispatch({
         type: GET_ALL_COMMENTS,
         payload: { listOfComments }
@@ -140,28 +138,31 @@ const StateProvider = ({ children }) => {
     const commentInfo = { authorId, commentData };
 
     try {
+      console.log('trying ');
       const {
-        data: { listOfComments }
+        data: { returnedComment }
       } = await request(
         `http://localhost:3001/comments/${itemId}/newComment`,
         'POST',
         commentInfo
       );
+      dispatch({ type: CREATE_COMMENT, payload: { returnedComment, itemId } });
       console.log('after async call');
-      dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
 
-  const deleteComment = async (authorId, commentId) => {
-    const commentInfo = { authorId };
+  const deleteComment = async commentId => {
+    console.log('use delete in appcontext', commentId);
+
     try {
       const {
         data: { listOfComments }
       } = await request(
         `http://localhost:3001/comments/${commentId}/delete`,
-        'DELETE',
-        commentInfo
+        'DELETE'
       );
+      console.log('before dispatch', commentId);
+      dispatch({ type: DELETE_COMMENT, payload: { commentId } });
     } catch (e) {}
   };
 

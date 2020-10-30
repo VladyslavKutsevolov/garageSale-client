@@ -4,7 +4,9 @@ import {
   GET_SALE_DATA,
   GET_ALL_COMMENTS,
   GET_USER_DATA,
-  CREATE_PRODUCT
+  CREATE_PRODUCT,
+  DELETE_COMMENT,
+  CREATE_COMMENT
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -43,9 +45,25 @@ const appReducer = (state, { type, payload }) => {
       saleData: [payload.product, ...state.saleData]
     };
   }
+  if (type === CREATE_COMMENT) {
+    return {
+      ...state,
+      comments: [...state.comments, payload.returnedComment]
+    };
+  }
 
   if (type === GET_USER_DATA) {
     return { ...state, loginUser: payload.userData };
+  }
+
+  if (type === DELETE_COMMENT) {
+    console.log('delete comment reducer')
+    return {
+      ...state,
+      comments: state.comments.filter(
+        comment => comment.id !== payload.commentId
+      )
+    };
   }
 
   return state;

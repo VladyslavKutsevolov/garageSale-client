@@ -35,7 +35,6 @@ const CommentInput = () => {
     if (state.loginUser.id) {
       createComment(state.loginUser.id, productId, comment);
       setComment('');
-      console.log('user', state);
     }
   };
 

@@ -9,7 +9,7 @@ const CommentList = (filteredComments) => {
 
 
   // leave til later
-  const [commentList, setCommentList] = useState([...filteredComments.comments]);
+  // const [commentList, setCommentList] = useState([...filteredComments.comments]);
 
 
   // We are at the comment list
@@ -26,8 +26,8 @@ const CommentList = (filteredComments) => {
 
   return (
     <>
-      {commentList &&
-        commentList.map(comment => (
+      {filteredComments.comments &&
+        filteredComments.comments.map(comment => (
           <Comment
             productId={productId}
             key={comment.id}

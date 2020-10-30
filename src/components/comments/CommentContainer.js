@@ -14,12 +14,12 @@ import { useStateData } from '../../context/appContext';
 
 const CommentContainer = () => {
   const { state, productId } = useStateData();
-
+  console.log("state coment container", state.comments)
   const filteredComments = state.comments.filter(
     comment => comment.product_id === productId
     );
 
-    console.log('filteredCommentsincommentcontainer', filteredComments);
+
 
 
   return (
