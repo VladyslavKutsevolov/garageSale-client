@@ -65,14 +65,16 @@ const appReducer = (state, { type, payload }) => {
   if (type === EDIT_PRODUCT) {
     return {
       ...state,
-      saleData: [payload.product, ...state.saleData]
+      saleData: state.saleData.map(item =>
+        ((item.id === payload.itemId) ? payload.product : item)
+      )
     };
   }
 
   if (type === DELETE_PRODUCT) {
     return {
       ...state,
-      products: [payload.product, ...state.saleData]
+      saleData: state.saleData.filter(item => item.id !== payload.itemId)
     };
   }
 

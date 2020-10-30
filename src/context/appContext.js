@@ -155,7 +155,9 @@ const StateProvider = ({ children }) => {
         productData
       );
 
-      dispatch({ type: EDIT_PRODUCT, payload: { product } });
+      console.log('product is ', product);
+
+      dispatch({ type: EDIT_PRODUCT, payload: { product, itemId } });
 
       setMessage(responseMsg);
     } catch (e) {}
@@ -183,7 +185,7 @@ const StateProvider = ({ children }) => {
         'DELETE'
       );
 
-      dispatch({ type: DELETE_PRODUCT, payload: { product } });
+      dispatch({ type: DELETE_PRODUCT, payload: { itemId } });
 
       setMessage(responseMsg);
     } catch (e) {}

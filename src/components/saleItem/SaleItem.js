@@ -19,11 +19,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import SaleItemEdit from './SaleItemEdit'
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import SaleItemEdit from './SaleItemEdit';
 
 import CommentContainer from '../comments/CommentContainer';
 import CardDropDown from './DropDownBox';
@@ -83,7 +83,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SaleItem({
-  id,
   imageUrl,
   title,
   price,
@@ -92,7 +91,7 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state, deleteProduct, setProductId } = useStateData();
+  const { state, deleteProduct, productId } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -101,8 +100,7 @@ export default function SaleItem({
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
-      setItemId(id);
-      setProductId(id);
+      setItemId(productId);
     } else {
       alert('Please Login First!');
     }
@@ -123,16 +121,19 @@ export default function SaleItem({
     setOpenDelete(false);
   };
 
-  const deleteItem = productId => {
-    deleteProduct(productId);
+  const deleteItem = itemId => {
+    deleteProduct(itemId);
     handleCloseDelete();
   };
 
   // Handle Edit
   const handleOpenEdit = () => {
-    setProductId(id)
+    // setProductId(id);
+    getProductId();
     setOpenEdit(true);
   };
+
+  console.log('after handle edit open', productId);
 
   const handleCloseEdit = () => {
     setOpenEdit(false);
@@ -155,7 +156,7 @@ export default function SaleItem({
                 <SaleItemEdit
                   open={openEdit}
                   handleClose={handleCloseEdit}
-                  productId={id}
+                  productId={productId}
                   title={title}
                   price={price}
                   sold={sold}
@@ -176,7 +177,7 @@ export default function SaleItem({
                   </DialogContent>
                   <DialogActions>
                     <Button
-                      onClick={() => deleteItem(id)}
+                      onClick={() => deleteItem(productId)}
                       color="primary"
                       autoFocus
                     >
