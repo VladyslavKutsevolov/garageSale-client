@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { CircularProgress, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useStateData } from '../../context/appContext';
@@ -23,7 +23,8 @@ const SaleCardList = () => {
     state,
     openNewGarageForm,
     handleGarageFormClose,
-    setSaleId
+    setSaleId,
+    loading
   } = useStateData();
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const SaleCardList = () => {
         wrap="wrap"
         component="div"
       >
+        {loading && <CircularProgress />}
         {state.sales.map(data => (
           <Grid item key={data.id}>
             <SaleCard selectSale={() => goToSale(data.id)} {...data} />
