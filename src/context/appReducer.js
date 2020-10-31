@@ -36,7 +36,8 @@ const appReducer = (state, { type, payload }) => {
 
     const addAllToCommnets = () => {
       // eslint-disable-next-line no-unused-expressions
-      payload.categories && payload.categories.push({ name: 'All' });
+      payload.categories &&
+        payload.categories.push({ name: 'All', category_id: 0 });
 
       return payload.categories;
     };

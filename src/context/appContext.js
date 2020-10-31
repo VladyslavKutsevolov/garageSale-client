@@ -51,7 +51,6 @@ const StateProvider = ({ children }) => {
   } = useHttp();
 
   const handleProductOpen = () => {
-    console.log('click', openNewProductForm);
     setNewProductForm(true);
   };
 
@@ -67,7 +66,7 @@ const StateProvider = ({ children }) => {
     setNewGarageForm(false);
   };
 
-  const fetchSales = async () => {
+  const fetchSales = useCallback(async () => {
     try {
       const {
         data: { listOfSales }
@@ -75,7 +74,7 @@ const StateProvider = ({ children }) => {
 
       dispatch({ type: GET_ALL_SALES, payload: { listOfSales } });
     } catch (e) {}
-  };
+  }, []);
 
   const createSale = useCallback(async saleData => {
     try {
@@ -163,16 +162,17 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
-  const getProductsForCategory = async categoryName => {
+  const getProductsForCategory = async (categoryName, idOfSale) => {
     try {
       if (categoryName === 'All') {
-        return getSaleData(saleId);
+        return getSaleData(idOfSale);
       }
       const {
         data: { listOfProducts }
       } = await request(
-        `http://localhost:3001/products/category/${categoryName}`
+        `http://localhost:3001/products/category/${categoryName}/${idOfSale}`
       );
+      console.log('listOfProducts', listOfProducts);
       dispatch({
         type: FILTER_BY_CATEGORY,
         payload: { listOfProducts }
