@@ -16,14 +16,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CategoryList = ({ categories }) => {
-  const { getProductsForCategory } = useStateData();
+  const { getProductsForCategory, saleId } = useStateData();
 
   const [categoryId, setCategoryId] = useState(0);
   const classes = useStyles();
 
-  const getCategoryInfo = (id, name) => {
-    getProductsForCategory(name);
-    setCategoryId(id);
+  const getCategoryInfo = (idCategory, name) => {
+    getProductsForCategory(name, saleId);
+    setCategoryId(idCategory);
   };
 
   return (
