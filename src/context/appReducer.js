@@ -108,11 +108,10 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === EDIT_GARAGE) {
+    console.log('Reducer payload', payload)
     return {
       ...state,
-      sales: state.sales.map(garage =>
-        garage.id === payload.garage ? payload.garage : garage
-      )
+      saleInfo: payload.garage
     };
   }
 

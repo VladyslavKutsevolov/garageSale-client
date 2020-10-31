@@ -38,14 +38,14 @@ const SaleItemList = () => {
     <>
       {state.saleData.map(product => (
         <SaleItem
-          key={product.id}
-          id={product.id}
-          title={product.title}
+          key={product.product_id}
+          id={product.product_id}
+          title={product.product_title}
           price={product.price}
           productSummary={product.description}
           sold={product.sold}
           imageUrl={product.image_url}
-          getProductId={() => getProductId(product.id)}
+          getProductId={() => getProductId(product.product_id)}
           setItemId={setItemId}
         />
       ))}

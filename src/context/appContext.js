@@ -217,15 +217,17 @@ const StateProvider = ({ children }) => {
 
   const editGarage = async (garageId, garageData) => {
     try {
+      console.log('Garage Data is', garageData);
       const {
-        data: { message: responseMsg, garage }
+        data: { message: responseMsg, sale: garage }
       } = await request(
         `http://localhost:3001/sales/edit/${garageId}`,
-        'PATCH',
+        'PUT',
         garageData
       );
 
-      dispatch({ type: EDIT_GARAGE, payload: { garage, garageId } });
+      console.log('Dispatching ', garage)
+      dispatch({ type: EDIT_GARAGE, payload: { garage } });
 
       setMessage(responseMsg);
     } catch (e) {}

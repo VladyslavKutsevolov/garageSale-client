@@ -72,6 +72,8 @@ const SaleItemsPage = () => {
     setGarageStatus(true);
   };
 
+  console.log('State change', state);
+
   useEffect(() => {
     if (saleId) {
       localStorage.setItem('saleId', saleId);

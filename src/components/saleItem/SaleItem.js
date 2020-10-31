@@ -98,10 +98,11 @@ export default function SaleItem({
 
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false)
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
+      console.log('Id of :', id)
       setItemId(id);
       setProductId(id);
     } else {
