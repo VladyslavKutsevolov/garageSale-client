@@ -4,34 +4,37 @@ import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
-import { TextField, Avatar, Fab } from '@material-ui/core';
+import {
+  Container,
+  TextField,
+  Avatar,
+  Fab,
+  IconButton,
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  CssBaseline,
+  Typography,
+  Divider,
+  ListItemText,
+  ListItem,
+  ListItemIcon
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-import { Notifications } from '@material-ui/icons';
 import SaleCardList from '../saleCard/SaleCardList';
 import { useStateData } from '../../context/appContext';
 import Login from '../auth/Login';
 import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
+import NotificationIcon from '../Notifications/NotificationIcon';
 
 const drawerWidth = 240;
 
@@ -124,11 +127,7 @@ export default function MiniDrawer() {
   } = useStateData();
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
-  const [notificationState, setNotificationState] = useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center'
-  });
+
   const [user, setUser] = useState('');
 
   const handleDrawerOpen = () => {
@@ -141,14 +140,6 @@ export default function MiniDrawer() {
 
   const handleLoginClose = () => {
     setLoginForm(false);
-  };
-
-  const handleNotificationClick = newState => () => {
-    setNotificationState({ open: true, ...newState });
-  };
-
-  const handleNotificationClose = () => {
-    setNotificationState({ ...notificationState, open: false });
   };
 
   return (
@@ -215,18 +206,9 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <TextField id="standard-basic" label="Search" />
           </ListItem>
-          <ListItem button onClick={() => setSaleId(null)}>
-            <ListItemIcon>
-              <NotificationsIcon
-                onClick={handleNotificationClick({
-                  vertical: 'bottom',
-                  horizontal: 'center'
-                })}
-                onClose={handleNotificationClose}
-              />
-            </ListItemIcon>
-            <ListItemText primary="Show Notifications" />
-          </ListItem>
+
+          <NotificationIcon />
+
           <ListItem button>
             <ListItemIcon>
               <Avatar
