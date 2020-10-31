@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -35,6 +35,7 @@ import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
 import NotificationIcon from '../Notifications/NotificationIcon';
+import InfoMsg from '../infoMsg/InfoMsg';
 
 const drawerWidth = 240;
 
@@ -122,8 +123,8 @@ export default function MiniDrawer() {
     handleProductOpen,
     saleId,
     setSaleId,
-    error,
-    message
+    message,
+    error
   } = useStateData();
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
@@ -141,7 +142,6 @@ export default function MiniDrawer() {
   const handleLoginClose = () => {
     setLoginForm(false);
   };
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -247,6 +247,7 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div" className={classes.container}>
+          <InfoMsg error={error} message={message} />
           <Switch>
             <Route path="/" exact component={SaleCardList} />
             <Route path="/products" exact component={SaleItemsPage} />

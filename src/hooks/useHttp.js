@@ -21,11 +21,11 @@ const useHttp = () => {
   }, []);
 
   const clearError = useCallback(
-    () => setTimeout(() => setError(null), 3000),
+    () => setTimeout(() => setError(null), 5000),
     []
   );
   const clearMessage = useCallback(
-    () => setTimeout(() => setMessage(null), 3000),
+    () => setTimeout(() => setMessage(null), 5000),
     []
   );
 
