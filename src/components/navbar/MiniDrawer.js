@@ -25,13 +25,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
+import { Notifications } from '@material-ui/icons';
 import SaleCardList from '../saleCard/SaleCardList';
 import { useStateData } from '../../context/appContext';
 import Login from '../auth/Login';
 import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
-import { Notifications } from '@material-ui/icons';
 
 const drawerWidth = 240;
 
@@ -127,11 +127,9 @@ export default function MiniDrawer() {
   const [notificationState, setNotificationState] = useState({
     open: false,
     vertical: 'top',
-    horizontal: 'center',
+    horizontal: 'center'
   });
   const [user, setUser] = useState('');
-
-  const { vertical, horizontal, open } = notificationState;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -145,11 +143,13 @@ export default function MiniDrawer() {
     setLoginForm(false);
   };
 
-
-  const handleNotificationClick = (newState) => () => {
-    setState({ open: true, ...newState });
+  const handleNotificationClick = newState => () => {
+    setNotificationState({ open: true, ...newState });
   };
 
+  const handleNotificationClose = () => {
+    setNotificationState({ ...notificationState, open: false });
+  };
 
   return (
     <div className={classes.root}>
@@ -217,7 +217,13 @@ export default function MiniDrawer() {
           </ListItem>
           <ListItem button onClick={() => setSaleId(null)}>
             <ListItemIcon>
-              <NotificationsIcon onClick={handleNotificationClick({ vertical: 'bottom', horizontal: 'center' })/>
+              <NotificationsIcon
+                onClick={handleNotificationClick({
+                  vertical: 'bottom',
+                  horizontal: 'center'
+                })}
+                onClose={handleNotificationClose}
+              />
             </ListItemIcon>
             <ListItemText primary="Show Notifications" />
           </ListItem>
