@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CategoryList = ({ categories }) => {
-  const { getProductsForCategory, state } = useStateData();
+  const { getProductsForCategory } = useStateData();
 
   const [categoryId, setCategoryId] = useState(0);
   const classes = useStyles();
