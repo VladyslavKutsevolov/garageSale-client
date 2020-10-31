@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Grid, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateData } from '../../context/appContext';
 
@@ -25,7 +25,14 @@ const useStyle = makeStyles({
 
 const SaleItemsPage = () => {
   const classes = useStyle();
-  const { state, saleId, getSaleData, setSaleId, fetchSales } = useStateData();
+  const {
+    state,
+    saleId,
+    getSaleData,
+    setSaleId,
+    fetchSales,
+    loading
+  } = useStateData();
 
   useEffect(() => {
     if (saleId) {
@@ -50,12 +57,16 @@ const SaleItemsPage = () => {
       <Grid container className={classes.root} wrap="wrap" justify="center">
         <Grid item>
           <div className={classes.saleInfo}>
-            {state.saleInfo && (
-              <SaleInfo
-                saleImg={state.saleInfo.cover_photo_url}
-                title={state.saleInfo.title}
-                description={state.saleInfo.description}
-              />
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              state.saleInfo && (
+                <SaleInfo
+                  saleImg={state.saleInfo.cover_photo_url}
+                  title={state.saleInfo.title}
+                  description={state.saleInfo.description}
+                />
+              )
             )}
           </div>
         </Grid>
