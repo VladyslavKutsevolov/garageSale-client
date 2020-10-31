@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { CircularProgress, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useStateData } from '../../context/appContext';
@@ -11,7 +11,7 @@ import SaleForm from './SaleForm';
 const useStyles = makeStyles({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(30rem, 1fr))',
     justifyItems: 'center'
   }
 });
@@ -21,10 +21,10 @@ const SaleCardList = () => {
   const {
     fetchSales,
     state,
-    getSaleData,
     openNewGarageForm,
     handleGarageFormClose,
-    setSaleId
+    setSaleId,
+    loading
   } = useStateData();
 
   useEffect(() => {
@@ -44,6 +44,7 @@ const SaleCardList = () => {
         wrap="wrap"
         component="div"
       >
+        {loading && <CircularProgress />}
         {state.sales.map(data => (
           <Grid item key={data.id}>
             <SaleCard selectSale={() => goToSale(data.id)} {...data} />

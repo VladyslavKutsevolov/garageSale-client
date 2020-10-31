@@ -20,7 +20,8 @@ import {
   EDIT_PRODUCT,
   SOLD_OUT,
   DELETE_COMMENT,
-  ADD_NOTIFICATION
+  ADD_NOTIFICATION,
+  FILTER_BY_CATEGORY
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -45,9 +46,9 @@ const StateProvider = ({ children }) => {
   const [openNewProductForm, setNewProductForm] = useState(false);
   const [productId, setProductId] = useState(null);
 
-
   const {
     request,
+    loading,
     error,
     clearError,
     clearMessage,
@@ -71,7 +72,7 @@ const StateProvider = ({ children }) => {
     setNewGarageForm(false);
   };
 
-  const fetchSales = async () => {
+  const fetchSales = useCallback(async () => {
     try {
       const {
         data: { listOfSales }
@@ -79,7 +80,7 @@ const StateProvider = ({ children }) => {
 
       dispatch({ type: GET_ALL_SALES, payload: { listOfSales } });
     } catch (e) {}
-  };
+  }, []);
 
   const createSale = useCallback(async saleData => {
     try {
@@ -97,12 +98,18 @@ const StateProvider = ({ children }) => {
       const {
         data: { garage: garageData }
       } = await request(`http://localhost:3001/sales/${id}`);
+
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${id}`);
+
+      const {
+        data: { categories }
+      } = await request(`http://localhost:3001/products/categories/${id}`);
+
       dispatch({
         type: GET_SALE_DATA,
-        payload: { garageData, listOfComments, saleId: id }
+        payload: { garageData, saleId: id, categories, listOfComments }
       });
     } catch (e) {}
   };
@@ -112,10 +119,8 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
-      dispatch({
-        type: GET_ALL_COMMENTS,
-        payload: { listOfComments }
-      });
+
+      dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
 
@@ -138,7 +143,10 @@ const StateProvider = ({ children }) => {
         'POST',
         commentInfo
       );
-      dispatch({ type: CREATE_COMMENT, payload: { returnedComment, itemId } });
+      dispatch({
+        type: CREATE_COMMENT,
+        payload: { returnedComment, itemId }
+      });
     } catch (e) {}
   };
 
@@ -220,12 +228,33 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const getProductsForCategory = async (categoryName, idOfSale) => {
+    try {
+      if (categoryName === 'All') {
+        return getSaleData(idOfSale);
+      }
+      const {
+        data: { listOfProducts }
+      } = await request(
+        `http://localhost:3001/products/category/${categoryName}/${idOfSale}`
+      );
+
+      dispatch({
+        type: FILTER_BY_CATEGORY,
+        payload: { listOfProducts }
+      });
+    } catch (e) {}
+  };
+
   useEffect(() => {
     clearError();
     clearMessage();
   }, [error, clearError, message, clearMessage]);
 
   const value = {
+    loading,
+    message,
+    error,
     fetchSales,
     fetchComments,
     createComment,
@@ -249,7 +278,8 @@ const StateProvider = ({ children }) => {
     saleId,
     setSaleId,
     soldOut,
-    addNotification
+    addNotification,
+    getProductsForCategory
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

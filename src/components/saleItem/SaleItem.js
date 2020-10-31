@@ -21,10 +21,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import SaleItemEdit from './SaleItemEdit'
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-
 import CommentContainer from '../comments/CommentContainer';
 import CardDropDown from './DropDownBox';
 import { useStateData } from '../../context/appContext';
