@@ -68,7 +68,7 @@ const LoginForm = ({ handleClose, open, setUser }) => {
     const formData = { username, password };
 
     axios
-      .post('/users/login', formData)
+      .post('http://localhost:3001/users/login', formData)
       .then(res => {
         getLoginUser(res.data.username);
         setUser(res.data.username);
@@ -93,7 +93,11 @@ const LoginForm = ({ handleClose, open, setUser }) => {
           <Typography variant="h6" gutterBottom>
             PLEASE LOG-IN
           </Typography>
-          <form onSubmit={handleSubmit} action="/users/login" method="POST">
+          <form
+            onSubmit={handleSubmit}
+            action="http://localhost:3001/users/login"
+            method="POST"
+          >
             <TextField
               onChange={e => setUsername(e.target.value)}
               value={username}
