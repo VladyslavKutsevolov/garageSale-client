@@ -31,13 +31,15 @@ const CommentInput = () => {
   const authorId = state.loginUser.id;
   const authorUsername = state.loginUser.username;
   const sellerId = state.loginUser.seller_id;
+  const productInfoArray = state.saleData;
 
-  console.log('state in commentinput', state);
 
-  const productInfo = state.saleData.filter(
-    product => (product.product_id = productId)
-  );
-  const productTitle = productInfo[productId].product_title;
+
+  const productTitle = productInfoArray.filter(
+    p => p.product_id === productId
+  )[0].product_title;
+
+
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -50,7 +52,6 @@ const CommentInput = () => {
       setComment('');
     }
   };
-  console.log("notifications", state.notifications);
 
   return authorId ? (
     <>

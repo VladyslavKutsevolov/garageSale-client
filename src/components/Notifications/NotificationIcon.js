@@ -1,46 +1,42 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Snackbar,
   ListItemIcon,
   ListItem,
-  ListItemText
+  ListItemText,
+  Dialog
 } from '@material-ui/core/';
-
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationList from './NotificationList';
 
+const useStyles = makeStyles(() => ({
+  root: {
+    display: 'inwline'
+  }
+}));
+
 const NotificationIcon = () => {
-  const [notificationState, setNotificationState] = useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center'
-  });
+  const [notificationState, setNotificationState] = useState(false);
 
-
-  const handleNotificationClick = newState => () => {
-    setNotificationState({ open: true, ...newState });
+  const handleNotificationClick = () => {
+    setNotificationState(true);
   };
 
   const handleNotificationClose = () => {
-    setNotificationState({ ...notificationState, open: false });
+    setNotificationState(false);
   };
 
   return (
     <>
-      <ListItem
-        button
-        onClick={handleNotificationClick({
-          vertical: 'bottom',
-          horizontal: 'center'
-        })}
-      >
+      <ListItem button onClick={handleNotificationClick()}>
         <ListItemIcon>
           <NotificationsIcon />
-          <NotificationList
+          {/* <NotificationList
             setNotificationState={setNotificationState}
             notificationState={notificationState}
             handleNotificationClose={handleNotificationClose}
-          />
+          /> */}
         </ListItemIcon>
         <ListItemText primary="Show Notifications" />
       </ListItem>

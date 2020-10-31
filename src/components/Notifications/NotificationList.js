@@ -1,8 +1,17 @@
 import React from 'react';
 import { Snackbar } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
 import { useStateData } from '../../context/appContext';
 
+const useStyles = makeStyles(() => ({
+  root: {
+    padding: '2px'
+    // position: 'absolute'
+  }
+}));
+
 const NotificationList = ({ notificationState, handleNotificationClose }) => {
+  const classes = useStyles();
   const { state } = useStateData();
   const { vertical, horizontal, open } = notificationState;
 
@@ -11,10 +20,11 @@ const NotificationList = ({ notificationState, handleNotificationClose }) => {
       {state.notifications.length ? (
         state.notifications.map(notification => (
           <Snackbar
+            className={classes.root}
             anchorOrigin={{ vertical, horizontal }}
             open={open}
             onClose={() => handleNotificationClose()}
-            message={`User ${notification.from} commented on ${notification.product}: ${notification.comment}`}
+            message={`User ${notification.authorUsername} commented on ${notification.productTitle}: ${notification.comment}`}
           />
         ))
       ) : (

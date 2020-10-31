@@ -171,7 +171,6 @@ const StateProvider = ({ children }) => {
   }, []);
 
   const addNotification = notification => {
-    console.log("dispatching: ", notification)
     dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
   };
 
