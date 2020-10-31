@@ -26,6 +26,8 @@ import {
   ListItem,
   ListItemIcon
 } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import SaleCardList from '../saleCard/SaleCardList';
@@ -115,6 +117,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
+
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
@@ -124,7 +128,8 @@ export default function MiniDrawer() {
     saleId,
     setSaleId,
     message,
-    error
+    error,
+    loading
   } = useStateData();
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
@@ -247,7 +252,8 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div" className={classes.container}>
-          <InfoMsg error={error} message={message} />
+          {loading ? <Alert severity="info">Loading...</Alert> : null}
+          <InfoMsg error={error} message={message} loading={loading} />
           <Switch>
             <Route path="/" exact component={SaleCardList} />
             <Route path="/products" exact component={SaleItemsPage} />
