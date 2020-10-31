@@ -25,6 +25,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
+import StorefrontIcon from '@material-ui/icons/Storefront';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import { useStateData } from '../../context/appContext';
@@ -120,6 +121,7 @@ export default function MiniDrawer() {
     handleProductOpen,
     saleId,
     setSaleId,
+    state,
     error,
     message
   } = useStateData();
@@ -127,6 +129,7 @@ export default function MiniDrawer() {
   const [openLogin, setLoginForm] = useState(false);
 
   const [user, setUser] = useState('');
+  const [userGarage, setUserGarage] = useState('');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -139,6 +142,17 @@ export default function MiniDrawer() {
   const handleLoginClose = () => {
     setLoginForm(false);
   };
+
+  useEffect(() => {
+    const garageData = state.sales.filter(
+      sale => sale.seller_id === state.loginUser.id
+    );
+    if (garageData) {
+      setUserGarage(garageData[0]);
+    } else {
+      setUserGarage(null);
+    }
+  }, [state]);
 
   return (
     <div className={classes.root}>
@@ -214,6 +228,26 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <ListItemText primary="Profile" />
           </ListItem>
+
+          {user ? (
+            <Link to="/products">
+              <ListItem button onClick={() => setSaleId(userGarage.id)}>
+                <ListItemIcon>
+                  <StorefrontIcon />
+                </ListItemIcon>
+                <ListItemText primary="MY GARAGE" />
+              </ListItem>
+            </Link>
+          ) : (
+            <ListItem button onClick={handleGarageFormOpen}>
+              <ListItemIcon>
+                <Fab color="primary" aria-label="add" size="small">
+                  <AddIcon />
+                </Fab>
+              </ListItemIcon>
+              <ListItemText primary="Create GarageSale" />
+            </ListItem>
+          )}
 
           {!saleId ? (
             <ListItem button onClick={handleGarageFormOpen}>
