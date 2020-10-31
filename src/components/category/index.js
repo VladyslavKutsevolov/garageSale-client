@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Category from './Category';
+import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,8 +16,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CategoryList = ({ categories }) => {
+  const { getProductsForCategory, state } = useStateData();
+
   const [categoryId, setCategoryId] = useState(0);
   const classes = useStyles();
+
+  const getCategoryInfo = (id, name) => {
+    getProductsForCategory(name);
+    setCategoryId(id);
+  };
+
   return (
     <div className={classes.root}>
       {categories &&
@@ -24,8 +33,10 @@ const CategoryList = ({ categories }) => {
           <Category
             key={category.name}
             categoryName={category.name}
-            setCategory={() => setCategoryId(category.id)}
-            selected={category.id === categoryId}
+            setCategory={() =>
+              getCategoryInfo(category.category_id, category.name)
+            }
+            selected={category.category_id === categoryId}
           />
         ))}
     </div>

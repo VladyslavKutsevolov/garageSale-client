@@ -16,7 +16,8 @@ import {
   CREATE_COMMENT,
   GET_PRODUCT_DATA,
   GET_USER_DATA,
-  CREATE_PRODUCT
+  CREATE_PRODUCT,
+  FILTER_BY_CATEGORY
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -112,7 +113,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  //// ?????? What for this func?
+  /// / ?????? What for this func?
   const getProductData = async id => {
     try {
       const {
@@ -162,6 +163,23 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
+  const getProductsForCategory = async categoryName => {
+    try {
+      if (categoryName === 'All') {
+        return getSaleData(saleId);
+      }
+      const {
+        data: { listOfProducts }
+      } = await request(
+        `http://localhost:3001/products/category/${categoryName}`
+      );
+      dispatch({
+        type: FILTER_BY_CATEGORY,
+        payload: { listOfProducts }
+      });
+    } catch (e) {}
+  };
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -186,7 +204,8 @@ const StateProvider = ({ children }) => {
     productId,
     setProductId,
     saleId,
-    setSaleId
+    setSaleId,
+    getProductsForCategory
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
