@@ -30,9 +30,7 @@ const SaleItemsPage = () => {
     saleId,
     getSaleData,
     setSaleId,
-    fetchSales,
-    fetchComments,
-    loading
+    fetchSales
   } = useStateData();
 
   useEffect(() => {
@@ -56,16 +54,12 @@ const SaleItemsPage = () => {
       <Grid container className={classes.root} wrap="wrap" justify="center">
         <Grid item>
           <div className={classes.saleInfo}>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              state.saleInfo && (
-                <SaleInfo
-                  saleImg={state.saleInfo.cover_photo_url}
-                  title={state.saleInfo.title}
-                  description={state.saleInfo.description}
-                />
-              )
+            {state.saleInfo && (
+              <SaleInfo
+                saleImg={state.saleInfo.cover_photo_url}
+                title={state.saleInfo.title}
+                description={state.saleInfo.description}
+              />
             )}
           </div>
         </Grid>
@@ -75,7 +69,9 @@ const SaleItemsPage = () => {
               <CategoryList categories={removedDuplications} />
             ) : null}
           </Grid>
-          <Grid item>{loading ? <CircularProgress /> : <SaleItemList />}</Grid>
+          <Grid item>
+            <SaleItemList />
+          </Grid>
         </Grid>
       </Grid>
     </>
