@@ -19,7 +19,9 @@ import {
   CREATE_PRODUCT,
   EDIT_PRODUCT,
   SOLD_OUT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  EDIT_GARAGE,
+  DELETE_GARAGE
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -213,6 +215,37 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const editGarage = async (garageId, garageData) => {
+    try {
+      const {
+        data: { message: responseMsg, garage }
+      } = await request(
+        `http://localhost:3001/sales/edit/${garageId}`,
+        'PATCH',
+        garageData
+      );
+
+      dispatch({ type: EDIT_GARAGE, payload: { garage, garageId } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
+  const deleteGarage = async garageId => {
+    try {
+      const {
+        data: { message: responseMsg }
+      } = await request(
+        `http://localhost:3001/sales/delete/${garageId}`,
+        'DELETE'
+      );
+
+      dispatch({ type: DELETE_GARAGE, payload: { garageId } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -241,7 +274,9 @@ const StateProvider = ({ children }) => {
     setProductId,
     saleId,
     setSaleId,
-    soldOut
+    soldOut,
+    deleteGarage,
+    editGarage
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

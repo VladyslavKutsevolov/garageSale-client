@@ -9,7 +9,9 @@ import {
   EDIT_PRODUCT,
   SOLD_OUT,
   DELETE_COMMENT,
-  CREATE_COMMENT
+  CREATE_COMMENT,
+  EDIT_GARAGE,
+  DELETE_GARAGE
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -102,6 +104,22 @@ const appReducer = (state, { type, payload }) => {
       comments: state.comments.filter(
         comment => comment.id !== payload.commentId
       )
+    };
+  }
+
+  if (type === EDIT_GARAGE) {
+    return {
+      ...state,
+      sales: state.sales.map(garage =>
+        garage.id === payload.garage ? payload.garage : garage
+      )
+    };
+  }
+
+  if (type === DELETE_GARAGE) {
+    return {
+      ...state,
+      saleData: state.sales.filter(sale => sale.id !== payload.saleId)
     };
   }
 
