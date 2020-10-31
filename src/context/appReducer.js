@@ -12,7 +12,9 @@ import {
   DELETE_COMMENT,
   CREATE_COMMENT,
   ADD_NOTIFICATION,
-  FILTER_BY_CATEGORY
+  FILTER_BY_CATEGORY,
+  EDIT_GARAGE,
+  DELETE_GARAGE
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -128,6 +130,21 @@ const appReducer = (state, { type, payload }) => {
       comments: state.comments.filter(
         comment => comment.id !== payload.commentId
       )
+    };
+  }
+
+  if (type === EDIT_GARAGE) {
+    console.log('Reducer payload', payload)
+    return {
+      ...state,
+      saleInfo: payload.garage
+    };
+  }
+
+  if (type === DELETE_GARAGE) {
+    return {
+      ...state,
+      saleData: state.sales.filter(sale => sale.id !== payload.saleId)
     };
   }
 

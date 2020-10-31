@@ -21,7 +21,9 @@ import {
   SOLD_OUT,
   DELETE_COMMENT,
   ADD_NOTIFICATION,
-  FILTER_BY_CATEGORY
+  FILTER_BY_CATEGORY,
+  EDIT_GARAGE,
+  DELETE_GARAGE
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -246,6 +248,39 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const editGarage = async (garageId, garageData) => {
+    try {
+      console.log('Garage Data is', garageData);
+      const {
+        data: { message: responseMsg, sale: garage }
+      } = await request(
+        `http://localhost:3001/sales/edit/${garageId}`,
+        'PUT',
+        garageData
+      );
+
+      console.log('Dispatching ', garage)
+      dispatch({ type: EDIT_GARAGE, payload: { garage } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
+  const deleteGarage = async garageId => {
+    try {
+      const {
+        data: { message: responseMsg }
+      } = await request(
+        `http://localhost:3001/sales/delete/${garageId}`,
+        'DELETE'
+      );
+
+      dispatch({ type: DELETE_GARAGE, payload: { garageId } });
+
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -279,7 +314,9 @@ const StateProvider = ({ children }) => {
     setSaleId,
     soldOut,
     addNotification,
-    getProductsForCategory
+    getProductsForCategory,
+    deleteGarage,
+    editGarage
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

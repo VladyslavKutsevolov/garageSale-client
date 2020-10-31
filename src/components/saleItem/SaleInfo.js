@@ -2,6 +2,9 @@
 import { CardMedia, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -17,18 +20,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SaleInfo = ({ saleImg, title, description }) => {
+const SaleInfo = ({ saleImg, title, description, handleOpenDelete, handleOpenEdit }) => {
   const classes = useStyles();
+
   return (
-    <div className={classes.boxStyle}>
-      <CardMedia className={classes.media} image={saleImg} />
-      <Typography component="h5" variant="h5">
-        {title}
-      </Typography>
-      <Typography component="p" variant="subtitle1">
-        {description}
-      </Typography>
-    </div>
+    <>
+      <div className={classes.boxStyle}>
+        <CardMedia className={classes.media} image={saleImg} />
+        <Typography component="h5" variant="h5">
+          {title}
+        </Typography>
+        <Typography>
+          <ListItemIcon>
+            <EditIcon onClick={handleOpenEdit} />
+            <DeleteIcon onClick={handleOpenDelete} />
+          </ListItemIcon>
+        </Typography>
+        <Typography component="p" variant="subtitle1">
+          {description}
+        </Typography>
+      </div>
+    </>
   );
 };
 

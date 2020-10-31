@@ -19,7 +19,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import SaleItemEdit from './SaleItemEdit'
+import { Redirect } from 'react-router-dom';
+
+import SaleItemEdit from './SaleItemEdit';
 
 import CommentContainer from '../comments/CommentContainer';
 import CardDropDown from './DropDownBox';
@@ -93,10 +95,11 @@ export default function SaleItem({
 
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false)
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
+      console.log('Id of :', id)
       setItemId(id);
       setProductId(id);
     } else {
@@ -126,7 +129,7 @@ export default function SaleItem({
 
   // Handle Edit
   const handleOpenEdit = () => {
-    setProductId(id)
+    setProductId(id);
     setOpenEdit(true);
   };
 
