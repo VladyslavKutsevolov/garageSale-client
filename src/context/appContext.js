@@ -42,6 +42,7 @@ const StateProvider = ({ children }) => {
 
   const {
     request,
+    loading,
     error,
     clearError,
     clearMessage,
@@ -142,7 +143,6 @@ const StateProvider = ({ children }) => {
         'POST',
         commentData
       );
-      console.log('after async call');
       dispatch({ type: CREATE_COMMENT, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
@@ -186,6 +186,9 @@ const StateProvider = ({ children }) => {
   }, [error, clearError, message, clearMessage]);
 
   const value = {
+    loading,
+    message,
+    error,
     fetchSales,
     fetchComments,
     createComment,

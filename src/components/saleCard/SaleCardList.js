@@ -11,7 +11,7 @@ import SaleForm from './SaleForm';
 const useStyles = makeStyles({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(30rem, 1fr))',
     justifyItems: 'center'
   }
 });
@@ -21,7 +21,6 @@ const SaleCardList = () => {
   const {
     fetchSales,
     state,
-    getSaleData,
     openNewGarageForm,
     handleGarageFormClose,
     setSaleId

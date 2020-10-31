@@ -19,7 +19,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === CREATE_SALE) {
     return {
       ...state,
-      sales: [payload.sale, ...state.sales]
+      sales: [...state.sales, payload.sale]
     };
   }
 
@@ -70,7 +70,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === CREATE_PRODUCT) {
     return {
       ...state,
-      saleData: [payload.product, ...state.saleData]
+      saleData: [...state.saleData, payload.product]
     };
   }
 
