@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
-
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import { Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -25,14 +25,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import { TextField, Avatar, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-
 import SaleCardList from '../saleCard/SaleCardList';
 import { useStateData } from '../../context/appContext';
-
 import Login from '../auth/Login';
 import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
+import { Notifications } from '@material-ui/icons';
 
 const drawerWidth = 240;
 
@@ -125,8 +124,14 @@ export default function MiniDrawer() {
   } = useStateData();
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
-
+  const [notificationState, setNotificationState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
   const [user, setUser] = useState('');
+
+  const { vertical, horizontal, open } = notificationState;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -139,6 +144,12 @@ export default function MiniDrawer() {
   const handleLoginClose = () => {
     setLoginForm(false);
   };
+
+
+  const handleNotificationClick = (newState) => () => {
+    setState({ open: true, ...newState });
+  };
+
 
   return (
     <div className={classes.root}>
@@ -204,6 +215,12 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <TextField id="standard-basic" label="Search" />
           </ListItem>
+          <ListItem button onClick={() => setSaleId(null)}>
+            <ListItemIcon>
+              <NotificationsIcon onClick={handleNotificationClick({ vertical: 'bottom', horizontal: 'center' })/>
+            </ListItemIcon>
+            <ListItemText primary="Show Notifications" />
+          </ListItem>
           <ListItem button>
             <ListItemIcon>
               <Avatar
@@ -222,7 +239,7 @@ export default function MiniDrawer() {
                   <AddIcon />
                 </Fab>
               </ListItemIcon>
-              <ListItemText primary="Create GarageSale" />
+              <ListItemText primary="Create Sale" />
             </ListItem>
           ) : (
             <ListItem button onClick={handleProductOpen}>
@@ -231,7 +248,7 @@ export default function MiniDrawer() {
                   <AddIcon />
                 </Fab>
               </ListItemIcon>
-              <ListItemText primary="Create new Product" />
+              <ListItemText primary="Add Product" />
             </ListItem>
           )}
           {user ? (
