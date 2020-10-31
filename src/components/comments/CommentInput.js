@@ -34,21 +34,23 @@ const CommentInput = () => {
 
   console.log('state in commentinput', state);
 
-  const productInfo = state.saleData.filter(product => product.id = productId)
-  
-  console.log("productInfo", productInfo);
+  const productInfo = state.saleData.filter(
+    product => (product.product_id = productId)
+  );
+  const productTitle = productInfo[productId].product_title;
 
   const handleSubmit = e => {
     e.preventDefault();
     if (authorId) {
-
       createComment(authorId, productId, comment);
+
       // Will need to add validation here when doing postman test
-      const notification = { authorUsername, productId, comment };
+      const notification = { authorUsername, productTitle, comment };
       addNotification(notification);
       setComment('');
     }
   };
+  console.log("notifications", state.notifications);
 
   return authorId ? (
     <>
