@@ -206,9 +206,7 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <TextField id="standard-basic" label="Search" />
           </ListItem>
-
-          <NotificationIcon />
-
+          {user ? <NotificationIcon /> : null}
           <ListItem button>
             <ListItemIcon>
               <Avatar
