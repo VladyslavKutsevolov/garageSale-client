@@ -12,7 +12,7 @@ import NotificationList from './NotificationList';
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: 'inwline'
+    display: 'inline'
   }
 }));
 
@@ -29,14 +29,14 @@ const NotificationIcon = () => {
 
   return (
     <>
-      <ListItem button onClick={handleNotificationClick()}>
+      <ListItem button onClick={handleNotificationClick}>
         <ListItemIcon>
           <NotificationsIcon />
-          {/* <NotificationList
+          <NotificationList
             setNotificationState={setNotificationState}
             notificationState={notificationState}
             handleNotificationClose={handleNotificationClose}
-          /> */}
+          />
         </ListItemIcon>
         <ListItemText primary="Show Notifications" />
       </ListItem>
