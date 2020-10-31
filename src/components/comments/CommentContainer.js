@@ -10,9 +10,6 @@ const CommentContainer = () => {
     comment => comment.product_id === productId
   );
 
-  console.log("commentcontainer", state)
-
-
   return (
     <>
       <div>

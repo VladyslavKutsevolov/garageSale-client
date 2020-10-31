@@ -23,21 +23,34 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
 const CommentInput = () => {
   const classes = useStyles();
-  const { createComment, state, productId } = useStateData();
+  const { createComment, state, productId, addNotification } = useStateData();
   const [comment, setComment] = useState('');
+
+  const authorId = state.loginUser.id;
+  const authorUsername = state.loginUser.username;
+  const sellerId = state.loginUser.seller_id;
+
+  console.log('state in commentinput', state);
+
+  const productInfo = state.saleData.filter(product => product.id = productId)
+  
+  console.log("productInfo", productInfo);
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (state.loginUser.id) {
-      createComment(state.loginUser.id, productId, comment);
+    if (authorId) {
+
+      createComment(authorId, productId, comment);
+      // Will need to add validation here when doing postman test
+      const notification = { authorUsername, productId, comment };
+      addNotification(notification);
       setComment('');
     }
   };
 
-  return state.loginUser.id ? (
+  return authorId ? (
     <>
       <div>
         <form

@@ -19,7 +19,8 @@ import {
   CREATE_PRODUCT,
   EDIT_PRODUCT,
   SOLD_OUT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  ADD_NOTIFICATION
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -33,7 +34,8 @@ const initialState = {
   saleData: [],
   products: [],
   loginUser: [],
-  comments: []
+  comments: [],
+  notifications: []
 };
 
 const StateProvider = ({ children }) => {
@@ -42,6 +44,7 @@ const StateProvider = ({ children }) => {
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
   const [productId, setProductId] = useState(null);
+
 
   const {
     request,
@@ -167,6 +170,10 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
+  const addNotification = notification => {
+    dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
+  };
+
   const editProduct = async (itemId, productData) => {
     try {
       const {
@@ -241,7 +248,8 @@ const StateProvider = ({ children }) => {
     setProductId,
     saleId,
     setSaleId,
-    soldOut
+    soldOut,
+    addNotification
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

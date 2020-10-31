@@ -9,7 +9,8 @@ import {
   EDIT_PRODUCT,
   SOLD_OUT,
   DELETE_COMMENT,
-  CREATE_COMMENT
+  CREATE_COMMENT,
+  ADD_NOTIFICATION
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -60,10 +61,18 @@ const appReducer = (state, { type, payload }) => {
       saleData: [payload.product, ...state.saleData]
     };
   }
+
   if (type === CREATE_COMMENT) {
     return {
       ...state,
       comments: [...state.comments, payload.returnedComment]
+    };
+  }
+
+  if (type === ADD_NOTIFICATION) {
+    return {
+      ...state,
+      notifications: [...state.notifications, payload.notification]
     };
   }
 

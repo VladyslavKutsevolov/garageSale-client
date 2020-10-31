@@ -10,3 +10,4 @@ export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const SOLD_OUT = 'SOLD_OUT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
