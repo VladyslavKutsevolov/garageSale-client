@@ -93,7 +93,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   }, []);
 
-  const getSaleData = async id => {
+  const getSaleData = useCallback(async id => {
     try {
       const {
         data: { garage: garageData }
@@ -112,7 +112,7 @@ const StateProvider = ({ children }) => {
         payload: { garageData, saleId: id, categories, listOfComments }
       });
     } catch (e) {}
-  };
+  }, []);
 
   const fetchComments = async itemId => {
     try {

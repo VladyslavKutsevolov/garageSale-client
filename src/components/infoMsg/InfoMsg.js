@@ -19,27 +19,14 @@ const useStyles = makeStyles(theme => ({
 
 const InfoMsg = ({ error, message }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
+  // eslint-disable-next-line no-unneeded-ternary
+  const isOpen = error || message ? true : false;
 
   return (
     <div className={classes.root}>
-      <Snackbar
-        open={error || message}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        className={classes.root}
-      >
-        <Alert onClose={handleClose} severity={error ? 'error' : 'success'}>
-          {error || message}
-        </Alert>
+      <Snackbar open={isOpen} autoHideDuration={5000} className={classes.root}>
+        <Alert severity={error ? 'error' : 'success'}>{error || message}</Alert>
       </Snackbar>
     </div>
   );
