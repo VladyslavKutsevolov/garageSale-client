@@ -70,9 +70,8 @@ const LoginForm = ({ handleClose, open, setUser }) => {
     axios
       .post('http://localhost:3001/users/login', formData)
       .then(res => {
-        console.log('User Form DATA', formData, 'res.data looks', res.data)
         getLoginUser(res.data.username);
-        //setUser(res.data.username);
+        setUser(res.data.username);
         alert(res.data.message);
       })
       .catch(err => {
