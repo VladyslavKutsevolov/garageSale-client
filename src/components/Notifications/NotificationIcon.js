@@ -41,8 +41,8 @@ const NotificationIcon = () => {
             notificationState={notificationState}
             handleNotificationClose={handleNotificationClose}
           />
-          <ListItemText primary="Show Notifications" />
         </ListItemIcon>
+        <ListItemText primary="Show Notifications" />
       </ListItem>
     </>
   );
