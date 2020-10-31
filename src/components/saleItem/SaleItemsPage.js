@@ -41,8 +41,7 @@ const SaleItemsPage = () => {
       setSaleId(localStorage.getItem('saleId'));
       fetchSales();
     }
-
-    getSaleData(saleId);
+    getSaleData(Number(saleId));
   }, [saleId]);
 
   const removedDuplications =
@@ -51,7 +50,6 @@ const SaleItemsPage = () => {
       const duplicate = acc.find(c => c.name === category.name);
       return duplicate ? acc : [category, ...acc];
     }, []);
-
   return (
     <>
       <Grid container className={classes.root} wrap="wrap" justify="center">
@@ -72,12 +70,11 @@ const SaleItemsPage = () => {
         </Grid>
         <Grid className={classes.innerContainer} container justify="center">
           <Grid item className={classes.category}>
-            <CategoryList categories={removedDuplications} />
+            {state.saleData.length ? (
+              <CategoryList categories={removedDuplications} />
+            ) : null}
           </Grid>
-
-          <Grid item>
-            <SaleItemList />
-          </Grid>
+          <Grid item>{loading ? <CircularProgress /> : <SaleItemList />}</Grid>
         </Grid>
       </Grid>
     </>
