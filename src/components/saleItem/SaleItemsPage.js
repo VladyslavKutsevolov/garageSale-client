@@ -40,7 +40,6 @@ const SaleItemsPage = () => {
     setSaleId,
     fetchSales,
     fetchComments,
-    loading,
     deleteGarage
   } = useStateData();
 
@@ -73,8 +72,6 @@ const SaleItemsPage = () => {
     setGarageStatus(true);
   };
 
-  console.log('State change', state);
-
   useEffect(() => {
     if (saleId) {
       localStorage.setItem('saleId', saleId);
@@ -96,19 +93,13 @@ const SaleItemsPage = () => {
       <Grid container className={classes.root} wrap="wrap" justify="center">
         <Grid item>
           <div className={classes.saleInfo}>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              state.saleInfo && (
-                <SaleInfo
-                  saleImg={state.saleInfo.cover_photo_url}
-                  title={state.saleInfo.title}
-                  description={state.saleInfo.description}
-                  handleOpenEdit={handleOpenEdit}
-                  handleOpenDelete={handleOpenDelete}
-                />
-              )
-            )}
+            <SaleInfo
+              saleImg={state.saleData.cover_photo_url}
+              title={state.saleData.title}
+              description={state.saleData.description}
+              handleOpenEdit={handleOpenEdit}
+              handleOpenDelete={handleOpenDelete}
+            />
           </div>
           <div>
             <SaleEditForm open={openEdit} handleClose={handleCloseEdit} />
@@ -150,7 +141,7 @@ const SaleItemsPage = () => {
               <CategoryList categories={removedDuplications} />
             ) : null}
           </Grid>
-          <Grid item>{loading ? <CircularProgress /> : <SaleItemList />}</Grid>
+          <Grid item><SaleItemList /></Grid>
         </Grid>
       </Grid>
     </>

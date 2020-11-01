@@ -23,8 +23,7 @@ const SaleCardList = () => {
     state,
     openNewGarageForm,
     handleGarageFormClose,
-    setSaleId,
-    loading
+    setSaleId
   } = useStateData();
 
   useEffect(() => {
@@ -44,7 +43,6 @@ const SaleCardList = () => {
         wrap="wrap"
         component="div"
       >
-        {loading && <CircularProgress />}
         {state.sales.map(data => (
           <Grid item key={data.id}>
             <SaleCard selectSale={() => goToSale(data.id)} {...data} />
