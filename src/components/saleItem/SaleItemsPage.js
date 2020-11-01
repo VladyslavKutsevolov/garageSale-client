@@ -93,13 +93,15 @@ const SaleItemsPage = () => {
       <Grid container className={classes.root} wrap="wrap" justify="center">
         <Grid item>
           <div className={classes.saleInfo}>
-            <SaleInfo
-              saleImg={state.saleData.cover_photo_url}
-              title={state.saleData.title}
-              description={state.saleData.description}
-              handleOpenEdit={handleOpenEdit}
-              handleOpenDelete={handleOpenDelete}
-            />
+            {state.saleInfo && (
+              <SaleInfo
+                saleImg={state.saleInfo.cover_photo_url}
+                title={state.saleInfo.title}
+                description={state.saleInfo.description}
+                handleOpenEdit={handleOpenEdit}
+                handleOpenDelete={handleOpenDelete}
+              />
+            )}
           </div>
           <div>
             <SaleEditForm open={openEdit} handleClose={handleCloseEdit} />
@@ -141,7 +143,9 @@ const SaleItemsPage = () => {
               <CategoryList categories={removedDuplications} />
             ) : null}
           </Grid>
-          <Grid item><SaleItemList /></Grid>
+          <Grid item>
+            <SaleItemList />
+          </Grid>
         </Grid>
       </Grid>
     </>
