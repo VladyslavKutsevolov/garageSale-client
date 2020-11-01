@@ -44,7 +44,7 @@ const appReducer = (state, { type, payload }) => {
     const getSaleInfo = () =>
       state.sales.filter(sale => sale.id === Number(payload.saleId))[0];
 
-    const addAllToCaregories = () => {
+    const addAllToCategories = () => {
       // eslint-disable-next-line no-unused-expressions
       payload.categories &&
         payload.categories.push({ name: 'All', category_id: 0 });
@@ -55,7 +55,7 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       sales: state.sales,
-      categories: addAllToCaregories(),
+      categories: addAllToCategories(),
       comments: payload.listOfComments,
       saleData: payload.garageData || payload.listOfProducts,
       saleInfo: getSaleInfo()
@@ -91,6 +91,7 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === CREATE_COMMENT) {
+    payload.returnedComment.author = payload.authorUsername;
     return {
       ...state,
       comments: [...state.comments, payload.returnedComment]

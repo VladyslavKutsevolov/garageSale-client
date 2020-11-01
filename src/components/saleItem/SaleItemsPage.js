@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -88,6 +87,7 @@ const SaleItemsPage = () => {
       const duplicate = acc.find(c => c.name === category.name);
       return duplicate ? acc : [category, ...acc];
     }, []);
+
   return (
     <>
       <Grid container className={classes.root} wrap="wrap" justify="center">

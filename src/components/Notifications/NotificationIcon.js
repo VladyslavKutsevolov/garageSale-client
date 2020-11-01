@@ -16,26 +16,16 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const NotificationIcon = () => {
-  const [notificationState, setNotificationState] = useState(false);
-
+const NotificationIcon = ({ setNotificationsOpen }) => {
   const handleNotificationClick = () => {
-    setNotificationState(true);
-  };
-
-  const handleNotificationClose = () => {
-    setNotificationState(false);
+    setNotificationsOpen(true);
   };
 
   return (
     <>
-      <ListItem button onClick={handleNotificationClick}>
+      <ListItem button onClick={handleNotificationClick} >
         <ListItemIcon>
-          <NotificationsIcon />
-          <NotificationList
-            setNotificationState={setNotificationState}
-            notificationState={notificationState}
-            handleNotificationClose={handleNotificationClose}
+          <NotificationsIcon
           />
         </ListItemIcon>
         <ListItemText primary="Show Notifications" />

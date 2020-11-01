@@ -11,31 +11,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 const NotificationList = ({ notificationState, handleNotificationClose }) => {
-  const classes = useStyles();
-  const { state } = useStateData();
-  const { vertical, horizontal, open } = notificationState;
 
   return (
     <>
-      {state.notifications.length ? (
+     <h1> Made it you fuckerr </h1> 
+      {/* {state.notifications.length ? (
         state.notifications.map(notification => (
-          <Snackbar
-            className={classes.root}
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={() => handleNotificationClose()}
-            message={`User ${notification.authorUsername} commented on ${notification.productTitle}: ${notification.comment}`}
-          />
+          <Typography variant='h4' />
+            {`User ${notification.authorUsername} commented on ${notification.productTitle}: ${notification.comment}`}
+          </Typography>
         ))
       ) : (
-        <Snackbar
-          anchorOrigin={{ vertical, horizontal }}
-          open={open}
-          onClose={() => handleNotificationClose()}
-          message="No new notifications"
-          key={vertical + horizontal}
-        />
-      )}
+        <Typography variant='h4' />
+            {`No new notifications`}
+          </Typography>
+      )} */}
     </>
   );
 };

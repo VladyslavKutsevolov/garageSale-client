@@ -130,7 +130,7 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
-
+      console.log("dispatching", listOfComments)
       dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
@@ -144,7 +144,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createComment = async (authorId, itemId, commentData) => {
+  const createComment = async (authorId, itemId, commentData, authorUsername) => {
     const commentInfo = { authorId, commentData };
     try {
       const {
@@ -157,7 +157,7 @@ const StateProvider = ({ children }) => {
 
       dispatch({
         type: CREATE_COMMENT,
-        payload: { returnedComment, itemId }
+        payload: { returnedComment, itemId, authorUsername }
       });
     } catch (e) {}
   };
