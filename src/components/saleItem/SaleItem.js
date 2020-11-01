@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,7 +18,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import { Redirect } from 'react-router-dom';
 
 import SaleItemEdit from './SaleItemEdit';
 
@@ -95,13 +93,12 @@ export default function SaleItem({
 
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false);
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
-      console.log('Id of :', id)
-      setItemId(id);
       setProductId(id);
+      setItemId(id);
     } else {
       alert('Please Login First!');
     }

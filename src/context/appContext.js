@@ -185,12 +185,13 @@ const StateProvider = ({ children }) => {
   };
 
   const editProduct = async (itemId, productData) => {
+    console.log('App Context', itemId, 'and product Data', productData)
     try {
       const {
         data: { message: responseMsg, product }
       } = await request(
         `http://localhost:3001/products/edit/${itemId}`,
-        'PATCH',
+        'PUT',
         productData
       );
 
@@ -259,7 +260,7 @@ const StateProvider = ({ children }) => {
         garageData
       );
 
-      console.log('Dispatching ', garage)
+      console.log('Dispatching ', garage);
       dispatch({ type: EDIT_GARAGE, payload: { garage } });
 
       setMessage(responseMsg);

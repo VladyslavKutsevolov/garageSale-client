@@ -64,9 +64,9 @@ const SendMsg = props => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [msg, setMsg] = useState(initialMsg);
-  const { text } = msg;
   const [open, setOpen] = useState(false);
   const { soldOut, productId } = useStateData();
+  const { text } = msg;
 
   useEffect(() => {
     setMsg({
@@ -94,10 +94,6 @@ const SendMsg = props => {
     setMsg(initialMsg);
   };
 
-  const handleSendClose = () => {
-    props.handleClose();
-  };
-
   const sendText = () => {
     fetch(
       `http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `
@@ -110,14 +106,14 @@ const SendMsg = props => {
     soldOut(productId);
 
     clearInputFields();
-    props.handleClose();
+    props.handleSendClose();
   };
 
   return (
     <>
       <Modal
         open={props.open}
-        onClose={props.handleClose}
+        onClose={props.handleSendClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -177,7 +173,7 @@ const SendMsg = props => {
             </Dialog>
 
             <Button
-              onClick={handleSendClose}
+              onClick={props.handleSendClose}
               variant="outlined"
               color="secondary"
             >

@@ -13,22 +13,23 @@ const SaleItemList = () => {
     handleProductClose,
     setProductId
   } = useStateData();
-
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
+
+  useEffect(() => {
+    const filterItemData = () => {
+      return state.saleData.filter(item => item.product_id === itemId);
+    };
+
+    const productData = filterItemData();
+    if (productData.length > 0) {
+      setProductInfo(productData[0]);
+    };
+  }, [itemId]);
 
   const getProductId = id => {
     setProductId(id);
   };
-
-  useEffect(() => {
-    const filterItemData = () =>
-      state.saleData.filter(item => item.id === itemId);
-    const productData = filterItemData();
-    if (productData.length > 0) {
-      setProductInfo(productData[0]);
-    }
-  }, [itemId, setProductInfo]);
 
   useEffect(() => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));
@@ -40,7 +41,7 @@ const SaleItemList = () => {
         <SaleItem
           key={product.product_id}
           id={product.product_id}
-          title={product.product_title}
+          title={product.product_title || product.title}
           price={product.price}
           productSummary={product.description}
           sold={product.sold}
@@ -55,8 +56,8 @@ const SaleItemList = () => {
       />
       <SendMsg
         open={Object.keys(productInfo).length !== 0}
-        handleClose={() => setProductInfo({})}
-        title={productInfo.title}
+        handleSendClose={() => setProductInfo({})}
+        title={productInfo.product_title}
         price={productInfo.price}
         buyer={state.loginUser.username}
         buyerPhone={state.loginUser.phone}
