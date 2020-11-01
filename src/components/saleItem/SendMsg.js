@@ -18,8 +18,8 @@ const getModalStyle = () => {
   const left = 50 + rand();
 
   return {
-    top: `${top}%`,
-    left: `${left}%`,
+    top: `50%`,
+    left: `50%`,
     transform: `translate(-${top}%, -${left}%)`
   };
 };
@@ -137,7 +137,8 @@ const SendMsg = props => {
             rows={2}
             value={text.textComment}
             onChange={e =>
-              setMsg({ text: { ...text, textComment: e.target.value } })}
+              setMsg({ text: { ...text, textComment: e.target.value } })
+            }
             label="Extra Comments?"
             fullWidth
           />
