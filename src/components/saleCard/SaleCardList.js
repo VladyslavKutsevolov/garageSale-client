@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useStateData } from '../../context/appContext';
@@ -23,10 +23,16 @@ const SaleCardList = () => {
     state,
     openNewGarageForm,
     handleGarageFormClose,
-    setSaleId
+    setSaleId,
+    searchByCityName
   } = useStateData();
 
   useEffect(() => {
+    const cityname = localStorage.getItem('cityname');
+    if (cityname) {
+      searchByCityName(cityname);
+      return;
+    }
     fetchSales();
   }, []);
 
