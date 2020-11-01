@@ -75,6 +75,9 @@ const useStyles = makeStyles(theme => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)'
+  },
+  title: {
+    padding: 0
   }
 }));
 
@@ -141,7 +144,7 @@ export default function SaleItem({
           <CardMedia className={classes.cover} image={imageUrl} />
           <div className={classes.productInfo}>
             <div>
-              <CardHeader title={title} />
+              <CardHeader className={classes.title} title={title} />
               <div>
                 <ListItemIcon>
                   <EditIcon onClick={handleOpenEdit} />
