@@ -112,7 +112,6 @@ const SaleItemEdit = props => {
           <form onSubmit={handleSubmit}>
             <TextField
               onChange={handleChange}
-              required
               name="title"
               placeholder={props.title}
               label="Product Title"

@@ -125,7 +125,6 @@ const SaleForm = ({ handleClose, open }) => {
             <TextField
               onChange={handleChange}
               value={form.title}
-              required
               name="title"
               label="Title"
               fullWidth
