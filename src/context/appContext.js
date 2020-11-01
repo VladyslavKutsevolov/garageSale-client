@@ -41,12 +41,21 @@ const initialState = {
   notifications: []
 };
 
+const initialMsg = {
+  text: {
+    textMessage: '',
+    textComment: ''
+  }
+};
+
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   const [saleId, setSaleId] = useState(null);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
   const [productId, setProductId] = useState(null);
+  const [openTxtMsg, setOpenTxtMsg] = useState(false);
+  const [msg, setMsg] = useState(initialMsg);
 
   const {
     request,
@@ -72,6 +81,14 @@ const StateProvider = ({ children }) => {
 
   const handleGarageFormClose = () => {
     setNewGarageForm(false);
+  };
+
+  const handleSendMsgOpen = () => {
+    setOpenTxtMsg(true);
+  };
+
+  const handleSendMsgClose = () => {
+    setOpenTxtMsg(false);
   };
 
   const fetchSales = useCallback(async () => {
@@ -185,12 +202,13 @@ const StateProvider = ({ children }) => {
   };
 
   const editProduct = async (itemId, productData) => {
+    console.log('App Context', itemId, 'and product Data', productData)
     try {
       const {
         data: { message: responseMsg, product }
       } = await request(
         `http://localhost:3001/products/edit/${itemId}`,
-        'PATCH',
+        'PUT',
         productData
       );
 
@@ -259,7 +277,7 @@ const StateProvider = ({ children }) => {
         garageData
       );
 
-      console.log('Dispatching ', garage)
+      console.log('Dispatching ', garage);
       dispatch({ type: EDIT_GARAGE, payload: { garage } });
 
       setMessage(responseMsg);
@@ -304,10 +322,13 @@ const StateProvider = ({ children }) => {
     deleteProduct,
     openNewGarageForm,
     openNewProductForm,
+    openTxtMsg,
     handleGarageFormClose,
     handleGarageFormOpen,
     handleProductOpen,
     handleProductClose,
+    handleSendMsgClose,
+    handleSendMsgOpen,
     productId,
     setProductId,
     saleId,
@@ -316,7 +337,9 @@ const StateProvider = ({ children }) => {
     addNotification,
     getProductsForCategory,
     deleteGarage,
-    editGarage
+    editGarage,
+    msg,
+    setMsg
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

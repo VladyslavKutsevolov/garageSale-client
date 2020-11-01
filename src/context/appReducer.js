@@ -99,7 +99,7 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       saleData: state.saleData.map(item =>
-        item.id === payload.itemId ? payload.product : item
+        item.product_id === payload.itemId ? payload.product : item
       )
     };
   }
@@ -108,7 +108,7 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       saleData: state.saleData.map(item =>
-        item.id === payload.itemId ? payload.product : item
+        item.product_id === payload.itemId ? payload.product : item
       )
     };
   }
@@ -116,7 +116,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === DELETE_PRODUCT) {
     return {
       ...state,
-      saleData: state.saleData.filter(item => item.id !== payload.itemId)
+      saleData: state.saleData.filter(item => item.product_id !== payload.itemId)
     };
   }
 
@@ -134,7 +134,6 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === EDIT_GARAGE) {
-    console.log('Reducer payload', payload)
     return {
       ...state,
       saleInfo: payload.garage

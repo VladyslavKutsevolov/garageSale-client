@@ -63,21 +63,26 @@ const SendMsg = props => {
   };
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
-  const [msg, setMsg] = useState(initialMsg);
-  const { text } = msg;
+  //const [msg, setMsg] = useState(initialMsg);
+
   const [open, setOpen] = useState(false);
   const { soldOut, productId } = useStateData();
+  const { state, deleteProduct, setProductId, openTxtMsg, handleSendMsgClose, msg, setMsg } = useStateData();
+  const { text } = msg;
 
+  /*
   useEffect(() => {
+    console.log('Prop inside useEffect', props)
     setMsg({
       text: {
         ...text,
-        textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. `
+        textMessage: `${props.buyer} will buy ${props.product_title} by $ ${props.price} from ${props.seller}. `
       }
     });
-    props.setItemId(null);
   }, [props]);
+  */
 
+  console.log('msg in sent', msg)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -94,10 +99,6 @@ const SendMsg = props => {
     setMsg(initialMsg);
   };
 
-  const handleSendClose = () => {
-    props.handleClose();
-  };
-
   const sendText = () => {
     fetch(
       `http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `
@@ -110,14 +111,14 @@ const SendMsg = props => {
     soldOut(productId);
 
     clearInputFields();
-    props.handleClose();
+    handleSendMsgClose();
   };
 
   return (
     <>
       <Modal
-        open={props.open}
-        onClose={props.handleClose}
+        open={openTxtMsg}
+        onClose={handleSendMsgClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -177,7 +178,7 @@ const SendMsg = props => {
             </Dialog>
 
             <Button
-              onClick={handleSendClose}
+              onClick={handleSendMsgClose}
               variant="outlined"
               color="secondary"
             >

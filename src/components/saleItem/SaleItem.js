@@ -90,18 +90,17 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state, deleteProduct, setProductId } = useStateData();
+  const { state, deleteProduct, setProductId, handleSendMsgOpen } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false);
 
   const getProductInfo = () => {
     if (state.loginUser.username) {
-      console.log('Id of :', id)
-      setItemId(id);
       setProductId(id);
+      handleSendMsgOpen();
     } else {
       alert('Please Login First!');
     }
@@ -123,6 +122,7 @@ export default function SaleItem({
   };
 
   const deleteItem = productId => {
+    debugger
     deleteProduct(productId);
     handleCloseDelete();
   };
