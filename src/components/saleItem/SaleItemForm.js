@@ -4,7 +4,15 @@ import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Fab, Button, Modal } from '@material-ui/core';
+import {
+  Fab,
+  Button,
+  Modal,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { useStateData } from '../../context/appContext';
 
@@ -36,6 +44,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: '1.2rem',
     justifyContent: 'center'
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120
+  },
   submitButton: {
     marginRight: '.5rem'
   },
@@ -54,7 +66,8 @@ const useStyles = makeStyles(theme => ({
 const initialState = {
   title: '',
   description: '',
-  price: ''
+  price: '',
+  categoryName: ''
 };
 
 const SaleItemForm = ({ handleClose, open }) => {
@@ -66,6 +79,7 @@ const SaleItemForm = ({ handleClose, open }) => {
   const { createProduct, saleId } = useStateData();
 
   const handleChange = ({ target }) => {
+    console.log(target.value);
     setForm({
       ...form,
       [target.name]: target.value
@@ -88,6 +102,7 @@ const SaleItemForm = ({ handleClose, open }) => {
     formData.append('title', form.title);
     formData.append('description', form.description);
     formData.append('price', form.price);
+    formData.append('categoryName', form.categoryName);
     formData.append('sale_id', saleId);
 
     createProduct(formData);
@@ -127,6 +142,28 @@ const SaleItemForm = ({ handleClose, open }) => {
               label="Product Price"
               fullWidth
             />
+            <FormControl className={classes.formControl}>
+              <InputLabel id="select-category">Category</InputLabel>
+              <Select
+                labelId="select-category"
+                id="select-category"
+                name="categoryName"
+                value={form.categoryName}
+                onChange={handleChange}
+                autoWidth
+              >
+                <MenuItem value="Electronics">Electronics</MenuItem>
+                <MenuItem value="Furniture">Furniture</MenuItem>
+                <MenuItem value="Apparels">Apparels</MenuItem>
+                <MenuItem value="Books">Books</MenuItem>
+                <MenuItem value="Toys">Toys</MenuItem>
+                <MenuItem value="Media">Media</MenuItem>
+                <MenuItem value="Appliances">Appliances</MenuItem>
+                <MenuItem value="Clothes">Clothes</MenuItem>
+                <MenuItem value="Tools">Tools</MenuItem>
+                <MenuItem value="Others">Others</MenuItem>
+              </Select>
+            </FormControl>
             <div className={classes.upload}>
               <label htmlFor="product-img">
                 <div className={classes.uploadButtonControl}>
