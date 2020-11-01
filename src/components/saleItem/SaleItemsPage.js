@@ -69,7 +69,6 @@ const SaleItemsPage = () => {
 
   const deleteSale = garageId => {
     deleteGarage(garageId);
-    // setSaleId(null);
     handleCloseDelete();
     setGarageStatus(true);
     history.push('/');
@@ -105,6 +104,7 @@ const SaleItemsPage = () => {
                 handleOpenDelete={handleOpenDelete}
                 city={state.saleInfo.city}
                 province={state.saleInfo.province}
+                seller_id={state.saleInfo.seller_id}
               />
             )}
           </div>

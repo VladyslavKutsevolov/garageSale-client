@@ -50,6 +50,7 @@ const StateProvider = ({ children }) => {
   const [openNewProductForm, setNewProductForm] = useState(false);
   const [productId, setProductId] = useState(null);
   const [cityname, setCityName] = useState('');
+  const [noHidden, setNoHidden] = useState(false);
 
   const {
     request,
@@ -352,7 +353,9 @@ const StateProvider = ({ children }) => {
     editGarage,
     searchByCityName,
     cityname,
-    setCityName
+    setCityName,
+    noHidden,
+    setNoHidden
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

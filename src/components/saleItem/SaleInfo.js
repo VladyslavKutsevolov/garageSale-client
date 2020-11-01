@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { CardMedia, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles({
   media: {
@@ -42,9 +43,21 @@ const SaleInfo = ({
   handleOpenDelete,
   handleOpenEdit,
   city,
-  province
+  province,
+  seller_id
 }) => {
   const classes = useStyles();
+  const { state, noHidden, setNoHidden } = useStateData();
+
+  // Activate Edit/Delete button for seller
+  useEffect(() => {
+    if (seller_id === state.loginUser.id) {
+      setNoHidden(true);
+      console.log('Hidden Active');
+    } else {
+      setNoHidden(false);
+    }
+  }, [state]);
 
   return (
     <div className={classes.boxStyle}>
@@ -53,12 +66,14 @@ const SaleInfo = ({
         <Typography component="h4" variant="h5">
           {title}
         </Typography>
-        <Typography>
-          <ListItemIcon>
-            <EditIcon onClick={handleOpenEdit} />
-            <DeleteIcon onClick={handleOpenDelete} />
-          </ListItemIcon>
-        </Typography>
+        {noHidden && (
+          <Typography>
+            <ListItemIcon>
+              <EditIcon onClick={handleOpenEdit} />
+              <DeleteIcon onClick={handleOpenDelete} />
+            </ListItemIcon>
+          </Typography>
+        )}
       </div>
       <div className={classes.city}>
         <Typography variant="body1" component="span">
