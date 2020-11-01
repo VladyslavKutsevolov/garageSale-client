@@ -37,6 +37,7 @@ import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
 import NotificationIcon from '../Notifications/NotificationIcon';
+import NotificationModal from '../Notifications/NotificationModal';
 import InfoMsg from '../infoMsg/InfoMsg';
 
 const drawerWidth = 240;
@@ -129,20 +130,33 @@ export default function MiniDrawer() {
     error,
     message
   } = useStateData();
+
+  // Open state for login form
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
 
+  // Set user and sale data in state
   const [user, setUser] = useState('');
   const [userGarage, setUserGarage] = useState('');
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  // Open state for notifications modal
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+
+  // Handle notifications modal opening and closing
+  const handleNotificationsClose = () => {
+    setNotificationsOpen(false);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
+  // Handle drawer opening and closing
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  // Handle login closing
   const handleLoginClose = () => {
     setLoginForm(false);
   };
@@ -222,7 +236,9 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <TextField id="standard-basic" label="Search" />
           </ListItem>
-          {user ? <NotificationIcon /> : null}
+          {user ? (
+            <NotificationIcon setNotificationsOpen={setNotificationsOpen} />
+          ) : null}
           <ListItem button>
             <ListItemIcon>
               <Avatar
@@ -293,6 +309,10 @@ export default function MiniDrawer() {
             open={openLogin}
             handleClose={handleLoginClose}
             setUser={setUser}
+          />
+          <NotificationModal
+            notificationsOpen={notificationsOpen}
+            handleClose={handleNotificationsClose}
           />
         </Container>
       </main>
