@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -89,7 +89,8 @@ export default function SaleItem({
   productSummary,
   setItemId,
   sold,
-  getProductId
+  getProductId,
+  seller_id
 }) {
   const { state, deleteProduct, setProductId } = useStateData();
   const classes = useStyles();
@@ -97,10 +98,14 @@ export default function SaleItem({
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [noHidden, setNoHidden] = useState(false);
 
+  // Handle Buy Button
   const getProductInfo = () => {
     if (state.loginUser.username) {
+      // Save the item id on state inside global scope
       setProductId(id);
+      // Trigger for open/close buy button
       setItemId(id);
     } else {
       alert('Please Login First!');
@@ -137,6 +142,16 @@ export default function SaleItem({
     setOpenEdit(false);
   };
 
+  // Activate Edit/Delete button for seller
+  useEffect(() => {
+    if (seller_id === state.loginUser.id) {
+      setNoHidden(true);
+      console.log('Hidden Active');
+    } else {
+      setNoHidden(false);
+    }
+  }, [state]);
+
   return (
     <Card className={classes.root}>
       <CardContent className={classes.cardContentRoot}>
@@ -146,10 +161,12 @@ export default function SaleItem({
             <div>
               <CardHeader className={classes.title} title={title} />
               <div>
-                <ListItemIcon>
-                  <EditIcon onClick={handleOpenEdit} />
-                  <DeleteIcon onClick={handleOpenDelete} />
-                </ListItemIcon>
+                {noHidden && (
+                  <ListItemIcon>
+                    <EditIcon onClick={handleOpenEdit} />
+                    <DeleteIcon onClick={handleOpenDelete} />
+                  </ListItemIcon>
+                )}
 
                 <SaleItemEdit
                   open={openEdit}
