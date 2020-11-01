@@ -42,7 +42,6 @@ const appReducer = (state, { type, payload }) => {
   if (type === GET_SALE_DATA) {
     const getSaleInfo = () =>
       state.sales.filter(sale => sale.id === Number(payload.saleId))[0];
-
     const addAllToCommnets = () => {
       // eslint-disable-next-line no-unused-expressions
       payload.categories &&
