@@ -24,8 +24,8 @@ const getModalStyle = () => {
   const left = 50 + rand();
 
   return {
-    top: `${top}%`,
-    left: `${left}%`,
+    top: `50%`,
+    left: `50%`,
     transform: `translate(-${top}%, -${left}%)`
   };
 };

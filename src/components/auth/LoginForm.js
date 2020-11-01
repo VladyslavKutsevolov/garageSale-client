@@ -15,8 +15,8 @@ const getModalStyle = () => {
   const left = 50 + rand();
 
   return {
-    top: `${top}%`,
-    left: `${left}%`,
+    top: `50%`,
+    left: `50%`,
     transform: `translate(-${top}%, -${left}%)`
   };
 };
@@ -102,7 +102,7 @@ const LoginForm = ({ handleClose, open, setUser }) => {
               onChange={e => setUsername(e.target.value)}
               value={username}
               name="username"
-              label="ENTER USERNAME"
+              label="USERNAME"
               fullWidth
             />
             <TextField
@@ -110,7 +110,7 @@ const LoginForm = ({ handleClose, open, setUser }) => {
               type="password"
               value={password}
               name="password"
-              label="ENTER PASSWORD"
+              label="PASSWORD"
               fullWidth
             />
             <div className={classes.actionButtons}>
