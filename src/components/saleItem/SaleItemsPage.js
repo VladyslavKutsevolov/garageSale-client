@@ -13,6 +13,7 @@ import SaleItemList from './saleItemList';
 import SaleInfo from './SaleInfo';
 import CategoryList from '../category';
 import { useStateData } from '../../context/appContext';
+import { useHistory } from "react-router-dom";
 
 import SaleEditForm from './SaleEditForm';
 
@@ -42,6 +43,7 @@ const SaleItemsPage = () => {
     fetchSales,
     deleteGarage
   } = useStateData();
+  let history = useHistory();
 
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -70,6 +72,7 @@ const SaleItemsPage = () => {
     // setSaleId(null);
     handleCloseDelete();
     setGarageStatus(true);
+    history.push('/');
   };
 
   useEffect(() => {
