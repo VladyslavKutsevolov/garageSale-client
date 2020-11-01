@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateData } from '../../context/appContext';
 
@@ -25,13 +26,7 @@ const useStyle = makeStyles({
 
 const SaleItemsPage = () => {
   const classes = useStyle();
-  const {
-    state,
-    saleId,
-    getSaleData,
-    setSaleId,
-    fetchSales
-  } = useStateData();
+  const { state, saleId, getSaleData, setSaleId, fetchSales } = useStateData();
 
   useEffect(() => {
     if (saleId) {

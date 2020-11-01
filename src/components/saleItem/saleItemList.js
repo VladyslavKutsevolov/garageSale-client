@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 import React, { useState, useEffect } from 'react';
 import { useStateData } from '../../context/appContext';
@@ -40,7 +41,7 @@ const SaleItemList = () => {
         <SaleItem
           key={product.product_id}
           id={product.product_id}
-          title={product.product_title}
+          title={product.product_title || product.title}
           price={product.price}
           productSummary={product.description}
           sold={product.sold}
