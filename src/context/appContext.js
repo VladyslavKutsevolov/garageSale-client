@@ -41,21 +41,12 @@ const initialState = {
   notifications: []
 };
 
-const initialMsg = {
-  text: {
-    textMessage: '',
-    textComment: ''
-  }
-};
-
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   const [saleId, setSaleId] = useState(null);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
   const [productId, setProductId] = useState(null);
-  const [openTxtMsg, setOpenTxtMsg] = useState(false);
-  const [msg, setMsg] = useState(initialMsg);
 
   const {
     request,
@@ -81,14 +72,6 @@ const StateProvider = ({ children }) => {
 
   const handleGarageFormClose = () => {
     setNewGarageForm(false);
-  };
-
-  const handleSendMsgOpen = () => {
-    setOpenTxtMsg(true);
-  };
-
-  const handleSendMsgClose = () => {
-    setOpenTxtMsg(false);
   };
 
   const fetchSales = useCallback(async () => {
@@ -322,13 +305,10 @@ const StateProvider = ({ children }) => {
     deleteProduct,
     openNewGarageForm,
     openNewProductForm,
-    openTxtMsg,
     handleGarageFormClose,
     handleGarageFormOpen,
     handleProductOpen,
     handleProductClose,
-    handleSendMsgClose,
-    handleSendMsgOpen,
     productId,
     setProductId,
     saleId,
@@ -337,9 +317,7 @@ const StateProvider = ({ children }) => {
     addNotification,
     getProductsForCategory,
     deleteGarage,
-    editGarage,
-    msg,
-    setMsg
+    editGarage
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

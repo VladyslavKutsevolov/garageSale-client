@@ -11,47 +11,29 @@ const SaleItemList = () => {
     state,
     openNewProductForm,
     handleProductClose,
-    setProductId,
-    openTxtMsg,
-    handleSendMsgClse,
-    productId,
-    setMsg,
-    msg
+    setProductId
   } = useStateData();
-
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
-  const { text } = msg;
+
+  useEffect(() => {
+    const filterItemData = () => {
+      return state.saleData.filter(item => item.product_id === itemId);
+    };
+
+    const productData = filterItemData();
+    if (productData.length > 0) {
+      setProductInfo(productData[0]);
+    };
+  }, [itemId]);
 
   const getProductId = id => {
     setProductId(id);
   };
 
-  //console.log('Item Id change', productId, 'Product Information', productInfo);
-
-  useEffect(() => {
-    const filterItemData = () =>
-      state.saleData.filter(item => item.product_id === productId);
-    const productData = filterItemData();
-    if (productData.length > 0) {
-      setProductInfo(productData[0]);
-      //console.log('product Data right after', productData)
-    }
-  }, [productId]);
-
   useEffect(() => {
     localStorage.setItem('state-data', JSON.stringify(state.saleData));
   }, [state]);
-
-  useEffect(() => {
-    setMsg({
-      text: {
-        ...text,
-        textMessage: `${state.loginUser.username} will buy ${productInfo.product_title} by $ ${productInfo.price} from ${productInfo.username}. `
-      }
-    });
-    console.log('Msg after', msg)
-  }, [productInfo]);
 
   return (
     <>
@@ -73,7 +55,8 @@ const SaleItemList = () => {
         handleClose={handleProductClose}
       />
       <SendMsg
-        open={openTxtMsg}
+        open={Object.keys(productInfo).length !== 0}
+        handleSendClose={() => setProductInfo({})}
         title={productInfo.product_title}
         price={productInfo.price}
         buyer={state.loginUser.username}
