@@ -11,8 +11,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   Container,
-  TextField,
-  Avatar,
   Fab,
   IconButton,
   Drawer,
@@ -38,8 +36,9 @@ import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
 import NotificationIcon from '../Notifications/NotificationIcon';
 import InfoMsg from '../infoMsg/InfoMsg';
+import SearchBy from './SearchBy';
 
-const drawerWidth = 240;
+const drawerWidth = 340;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -205,24 +204,13 @@ export default function MiniDrawer() {
               <ListItemText primary="Home" />
             </ListItem>
           </Link>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
-            <TextField id="standard-basic" label="Search" />
+            <SearchBy />
           </ListItem>
           {user ? <NotificationIcon /> : null}
-          <ListItem button>
-            <ListItemIcon>
-              <Avatar
-                alt="user"
-                className={classes.small}
-                src="https://www.blexar.com/avatar.png"
-              />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItem>
-
           {!saleId ? (
             <ListItem button onClick={handleGarageFormOpen}>
               <ListItemIcon>
