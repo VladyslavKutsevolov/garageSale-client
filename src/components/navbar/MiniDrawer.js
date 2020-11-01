@@ -227,45 +227,36 @@ export default function MiniDrawer() {
             <SearchBy />
           </ListItem>
           {user ? <NotificationIcon /> : null}
-          {user ? (
-            <Link to="/products">
-              <ListItem button onClick={() => setSaleId(userGarage.id)}>
-                <ListItemIcon>
-                  <StorefrontIcon />
-                </ListItemIcon>
-                <ListItemText primary="MY GARAGE" />
-              </ListItem>
-            </Link>
-          ) : (
-            <ListItem button onClick={handleGarageFormOpen}>
+          <Link to="/products">
+            <ListItem button onClick={() => setSaleId(userGarage.id)}>
               <ListItemIcon>
-                <Fab color="primary" aria-label="add" size="small">
-                  <AddIcon />
-                </Fab>
+                <StorefrontIcon />
               </ListItemIcon>
-              <ListItemText primary="Create GarageSale" />
+              <ListItemText primary="MY GARAGE" />
             </ListItem>
-          )}
+          </Link>
 
-          {!saleId ? (
-            <ListItem button onClick={handleGarageFormOpen}>
-              <ListItemIcon>
-                <Fab color="primary" aria-label="add" size="small">
-                  <AddIcon />
-                </Fab>
-              </ListItemIcon>
-              <ListItemText primary="Create Sale" />
-            </ListItem>
-          ) : (
-            <ListItem button onClick={handleProductOpen}>
-              <ListItemIcon>
-                <Fab color="secondary" aria-label="add" size="small">
-                  <AddIcon />
-                </Fab>
-              </ListItemIcon>
-              <ListItemText primary="Add Product" />
-            </ListItem>
-          )}
+          {user ? (
+            !saleId ? (
+              <ListItem button onClick={handleGarageFormOpen}>
+                <ListItemIcon>
+                  <Fab color="primary" aria-label="add" size="small">
+                    <AddIcon />
+                  </Fab>
+                </ListItemIcon>
+                <ListItemText primary="Create Sale" />
+              </ListItem>
+            ) : (
+              <ListItem button onClick={handleProductOpen}>
+                <ListItemIcon>
+                  <Fab color="secondary" aria-label="add" size="small">
+                    <AddIcon />
+                  </Fab>
+                </ListItemIcon>
+                <ListItemText primary="Add Product" />
+              </ListItem>
+            )
+          ) : null}
           {user ? (
             <LogOut setUser={setUser} />
           ) : (
