@@ -8,8 +8,6 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import './styles.scss';
 
-import { useStateData } from '../../context/appContext';
-
 const useStyles = makeStyles({
   title: {
     textAlign: 'center'
@@ -38,7 +36,6 @@ const SaleCard = ({
   daysAgo
 }) => {
   const classes = useStyles();
-
 
   return (
     <>
@@ -72,7 +69,6 @@ const SaleCard = ({
               {daysAgo}
             </Typography>
           </div>
-
         </div>
       </div>
     </>

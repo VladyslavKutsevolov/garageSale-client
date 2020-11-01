@@ -78,6 +78,12 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     padding: 0
+  },
+  actions: {
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#0066ff'
+    }
   }
 }));
 
@@ -147,8 +153,14 @@ export default function SaleItem({
               <CardHeader className={classes.title} title={title} />
               <div>
                 <ListItemIcon>
-                  <EditIcon onClick={handleOpenEdit} />
-                  <DeleteIcon onClick={handleOpenDelete} />
+                  <EditIcon
+                    className={classes.actions}
+                    onClick={handleOpenEdit}
+                  />
+                  <DeleteIcon
+                    className={classes.actions}
+                    onClick={handleOpenDelete}
+                  />
                 </ListItemIcon>
 
                 <SaleItemEdit

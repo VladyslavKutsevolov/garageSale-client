@@ -32,6 +32,12 @@ const useStyles = makeStyles({
   description: {
     textAlign: 'center',
     color: '#444'
+  },
+  actions: {
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#0066ff'
+    }
   }
 });
 
@@ -55,8 +61,11 @@ const SaleInfo = ({
         </Typography>
         <Typography>
           <ListItemIcon>
-            <EditIcon onClick={handleOpenEdit} />
-            <DeleteIcon onClick={handleOpenDelete} />
+            <EditIcon className={classes.actions} onClick={handleOpenEdit} />
+            <DeleteIcon
+              className={classes.actions}
+              onClick={handleOpenDelete}
+            />
           </ListItemIcon>
         </Typography>
       </div>
