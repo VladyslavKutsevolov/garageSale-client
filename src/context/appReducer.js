@@ -14,7 +14,8 @@ import {
   ADD_NOTIFICATION,
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
-  DELETE_GARAGE
+  DELETE_GARAGE,
+  SEARCH_BY_CITYNAME
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -43,7 +44,7 @@ const appReducer = (state, { type, payload }) => {
     const getSaleInfo = () =>
       state.sales.filter(sale => sale.id === Number(payload.saleId))[0];
 
-    const addAllToCommnets = () => {
+    const addAllToCaregories = () => {
       // eslint-disable-next-line no-unused-expressions
       payload.categories &&
         payload.categories.push({ name: 'All', category_id: 0 });
@@ -54,12 +55,20 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       sales: state.sales,
-      categories: addAllToCommnets(),
+      categories: addAllToCaregories(),
       comments: payload.listOfComments,
       saleData: payload.garageData || payload.listOfProducts,
       saleInfo: getSaleInfo()
     };
   }
+
+  if (type === SEARCH_BY_CITYNAME) {
+    return {
+      ...state,
+      sales: payload.sales
+    };
+  }
+
   if (type === FILTER_BY_CATEGORY) {
     return {
       ...state,
@@ -116,7 +125,9 @@ const appReducer = (state, { type, payload }) => {
   if (type === DELETE_PRODUCT) {
     return {
       ...state,
-      saleData: state.saleData.filter(item => item.product_id !== payload.itemId)
+      saleData: state.saleData.filter(
+        item => item.product_id !== payload.itemId
+      )
     };
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 import React, { useState, useEffect } from 'react';
 import { useStateData } from '../../context/appContext';

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-empty */
 /* eslint-disable react/prop-types */
 import React, {
@@ -23,7 +24,8 @@ import {
   ADD_NOTIFICATION,
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
-  DELETE_GARAGE
+  DELETE_GARAGE,
+  SEARCH_BY_CITYNAME
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -47,6 +49,7 @@ const StateProvider = ({ children }) => {
   const [openNewGarageForm, setNewGarageForm] = useState(false);
   const [openNewProductForm, setNewProductForm] = useState(false);
   const [productId, setProductId] = useState(null);
+  const [cityname, setCityName] = useState('');
 
   const {
     request,
@@ -82,39 +85,45 @@ const StateProvider = ({ children }) => {
 
       dispatch({ type: GET_ALL_SALES, payload: { listOfSales } });
     } catch (e) {}
-  }, []);
+  }, [request]);
 
-  const createSale = useCallback(async saleData => {
-    try {
-      const {
-        data: { message: responseMsg, sale }
-      } = await request('http://localhost:3001/sales/new', 'POST', saleData);
+  const createSale = useCallback(
+    async saleData => {
+      try {
+        const {
+          data: { message: responseMsg, sale }
+        } = await request('http://localhost:3001/sales/new', 'POST', saleData);
 
-      dispatch({ type: CREATE_SALE, payload: { sale } });
-      setMessage(responseMsg);
-    } catch (e) {}
-  }, []);
+        dispatch({ type: CREATE_SALE, payload: { sale } });
+        setMessage(responseMsg);
+      } catch (e) {}
+    },
+    [request]
+  );
 
-  const getSaleData = async id => {
-    try {
-      const {
-        data: { garage: garageData }
-      } = await request(`http://localhost:3001/sales/${id}`);
+  const getSaleData = useCallback(
+    async id => {
+      try {
+        const {
+          data: { garage: garageData }
+        } = await request(`http://localhost:3001/sales/${id}`);
 
-      const {
-        data: { listOfComments }
-      } = await request(`http://localhost:3001/comments/${id}`);
+        const {
+          data: { listOfComments }
+        } = await request(`http://localhost:3001/comments/${id}`);
 
-      const {
-        data: { categories }
-      } = await request(`http://localhost:3001/products/categories/${id}`);
+        const {
+          data: { categories }
+        } = await request(`http://localhost:3001/products/categories/${id}`);
 
-      dispatch({
-        type: GET_SALE_DATA,
-        payload: { garageData, saleId: id, categories, listOfComments }
-      });
-    } catch (e) {}
-  };
+        dispatch({
+          type: GET_SALE_DATA,
+          payload: { garageData, saleId: id, categories, listOfComments }
+        });
+      } catch (e) {}
+    },
+    [request]
+  );
 
   const fetchComments = async itemId => {
     try {
@@ -145,6 +154,7 @@ const StateProvider = ({ children }) => {
         'POST',
         commentInfo
       );
+
       dispatch({
         type: CREATE_COMMENT,
         payload: { returnedComment, itemId }
@@ -164,28 +174,31 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createProduct = useCallback(async productData => {
-    try {
-      const {
-        data: { message: responseMsg, product }
-      } = await request(
-        'http://localhost:3001/products/new',
-        'POST',
-        productData
-      );
+  const createProduct = useCallback(
+    async productData => {
+      try {
+        const {
+          data: { message: responseMsg, product }
+        } = await request(
+          'http://localhost:3001/products/new',
+          'POST',
+          productData
+        );
 
-      dispatch({ type: CREATE_PRODUCT, payload: { product } });
+        dispatch({ type: CREATE_PRODUCT, payload: { product } });
 
-      setMessage(responseMsg);
-    } catch (e) {}
-  }, []);
+        setMessage(responseMsg);
+      } catch (e) {}
+    },
+    [request]
+  );
 
   const addNotification = notification => {
     dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
   };
 
   const editProduct = async (itemId, productData) => {
-    console.log('App Context', itemId, 'and product Data', productData)
+    console.log('App Context', itemId, 'and product Data', productData);
     try {
       const {
         data: { message: responseMsg, product }
@@ -282,6 +295,25 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const searchByCityName = async cityName => {
+    try {
+      if (cityName === 'All' || !cityName) {
+        return fetchSales();
+      }
+
+      const {
+        data: { sales }
+      } = await request(`http://localhost:3001/sales/city/${cityName}`);
+
+      if (!sales.length) {
+        setMessage('There is no Garage Sales in this area.');
+        return;
+      }
+
+      dispatch({ type: SEARCH_BY_CITYNAME, payload: { sales } });
+    } catch (e) {}
+  };
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -317,7 +349,10 @@ const StateProvider = ({ children }) => {
     addNotification,
     getProductsForCategory,
     deleteGarage,
-    editGarage
+    editGarage,
+    searchByCityName,
+    cityname,
+    setCityName
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

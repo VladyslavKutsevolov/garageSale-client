@@ -1,5 +1,6 @@
-import { Grid, CircularProgress, Button } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -39,7 +40,6 @@ const SaleItemsPage = () => {
     getSaleData,
     setSaleId,
     fetchSales,
-    fetchComments,
     deleteGarage
   } = useStateData();
 
@@ -100,6 +100,8 @@ const SaleItemsPage = () => {
                 description={state.saleInfo.description}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenDelete={handleOpenDelete}
+                city={state.saleInfo.city}
+                province={state.saleInfo.province}
               />
             )}
           </div>

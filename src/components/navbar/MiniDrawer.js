@@ -11,8 +11,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   Container,
-  TextField,
-  Avatar,
   Fab,
   IconButton,
   Drawer,
@@ -26,6 +24,8 @@ import {
   ListItem,
   ListItemIcon
 } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import StorefrontIcon from '@material-ui/icons/Storefront';
@@ -38,8 +38,9 @@ import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
 import NotificationIcon from '../Notifications/NotificationIcon';
 import InfoMsg from '../infoMsg/InfoMsg';
+import SearchBy from './SearchBy';
 
-const drawerWidth = 240;
+const drawerWidth = 340;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -117,6 +118,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
+
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
@@ -125,9 +128,10 @@ export default function MiniDrawer() {
     handleProductOpen,
     saleId,
     setSaleId,
-    state,
+    message,
     error,
-    message
+    loading,
+    state
   } = useStateData();
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
@@ -216,24 +220,13 @@ export default function MiniDrawer() {
               <ListItemText primary="Home" />
             </ListItem>
           </Link>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
-            <TextField id="standard-basic" label="Search" />
+            <SearchBy />
           </ListItem>
           {user ? <NotificationIcon /> : null}
-          <ListItem button>
-            <ListItemIcon>
-              <Avatar
-                alt="user"
-                className={classes.small}
-                src="https://www.blexar.com/avatar.png"
-              />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItem>
-
           {user ? (
             <Link to="/products">
               <ListItem button onClick={() => setSaleId(userGarage.id)}>
@@ -283,7 +276,8 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div" className={classes.container}>
-          <InfoMsg error={error} message={message} />
+          {loading ? <Alert severity="info">Loading...</Alert> : null}
+          <InfoMsg error={error} message={message} loading={loading} />
           <Switch>
             <Route path="/" exact component={SaleCardList} />
             <Route path="/products" exact component={SaleItemsPage} />

@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { CircularProgress, Grid } from '@material-ui/core';
+import moment from 'moment';
+
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useStateData } from '../../context/appContext';
@@ -23,10 +25,16 @@ const SaleCardList = () => {
     state,
     openNewGarageForm,
     handleGarageFormClose,
-    setSaleId
+    setSaleId,
+    searchByCityName
   } = useStateData();
 
   useEffect(() => {
+    const cityname = localStorage.getItem('cityname');
+    if (cityname) {
+      searchByCityName(cityname);
+      return;
+    }
     fetchSales();
   }, []);
 
@@ -43,9 +51,13 @@ const SaleCardList = () => {
         wrap="wrap"
         component="div"
       >
-        {state.sales.map(data => (
-          <Grid item key={data.id}>
-            <SaleCard selectSale={() => goToSale(data.id)} {...data} />
+        {state.sales.map(sale => (
+          <Grid item key={sale.id}>
+            <SaleCard
+              selectSale={() => goToSale(sale.id)}
+              {...sale}
+              daysAgo={moment(sale.created_at).fromNow()}
+            />
           </Grid>
         ))}
       </Grid>
