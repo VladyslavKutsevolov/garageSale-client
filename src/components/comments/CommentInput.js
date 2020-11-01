@@ -44,7 +44,7 @@ const CommentInput = () => {
   const handleSubmit = e => {
     e.preventDefault();
     if (authorId) {
-      createComment(authorId, productId, comment);
+      createComment(authorId, productId, comment, authorUsername);
 
       // Will need to add validation here when doing postman test
       const notification = { authorUsername, productTitle, comment };

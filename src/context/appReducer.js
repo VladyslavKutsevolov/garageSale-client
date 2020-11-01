@@ -81,6 +81,8 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === CREATE_COMMENT) {
+    payload.returnedComment.author = payload.authorUsername
+    console.log("reducse ceate comment", payload)
     return {
       ...state,
       comments: [...state.comments, payload.returnedComment]
