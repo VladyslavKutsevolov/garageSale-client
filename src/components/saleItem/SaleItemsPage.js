@@ -54,6 +54,8 @@ const SaleItemsPage = () => {
                 saleImg={state.saleInfo.cover_photo_url}
                 title={state.saleInfo.title}
                 description={state.saleInfo.description}
+                city={state.saleInfo.city}
+                province={state.saleInfo.province}
               />
             )}
           </div>

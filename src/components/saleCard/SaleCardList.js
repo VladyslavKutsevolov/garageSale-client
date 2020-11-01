@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
+import moment from 'moment';
+
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -49,9 +51,13 @@ const SaleCardList = () => {
         wrap="wrap"
         component="div"
       >
-        {state.sales.map(data => (
-          <Grid item key={data.id}>
-            <SaleCard selectSale={() => goToSale(data.id)} {...data} />
+        {state.sales.map(sale => (
+          <Grid item key={sale.id}>
+            <SaleCard
+              selectSale={() => goToSale(sale.id)}
+              {...sale}
+              daysAgo={moment(sale.created_at).fromNow()}
+            />
           </Grid>
         ))}
       </Grid>
