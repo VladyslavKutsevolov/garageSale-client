@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,6 +48,9 @@ const useStyles = makeStyles(theme => ({
   },
   filename: {
     marginLeft: '1rem'
+  },
+  validationStyle: {
+    color: 'red'
   }
 }));
 
@@ -64,6 +67,53 @@ const SaleItemForm = ({ handleClose, open }) => {
   const [modalStyle] = React.useState(getModalStyle);
   const [fileName, setFileName] = useState('');
   const { createProduct, saleId } = useStateData();
+  const [errorMsg, setErrorMsg] = useState({});
+  const [formValid, setFormValid] = useState(true);
+  const [imgValid, setImgValid] = useState(true);
+  const [imgError, setImgError] = useState('');
+
+  const validation = () => {
+    const errors = {};
+    let formIsValid = true;
+
+    // Name of Product
+    if (form.title.length > 20) {
+      formIsValid = false;
+      errors.title = 'Too long Name!';
+    }
+
+    if (form.title.length > 0) {
+      if (!form.title.match(/^[a-zA-Z0-9" "]+$/)) {
+        formIsValid = false;
+        errors.title = 'No special Characters!';
+      }
+    }
+
+    // Description Length
+    if (form.description.length > 100) {
+      formIsValid = false;
+      errors.description = 'Text cannot be more than 100 letters.';
+    }
+
+    // Price can only be number
+    if (form.price.length > 0) {
+      if (
+        !form.price.match(
+          /^(\$|)([1-9]\d{0,2}(\,\d{3})*|([1-9]\d*))(\.\d{2})?$/
+        )
+      ) {
+        formIsValid = false;
+        errors.price = 'Only Number for Price';
+      }
+    }
+
+    setErrorMsg({ errors });
+    setFormValid(formIsValid);
+  };
+
+  useEffect(() => {
+    validation();
+  }, [form]);
 
   const handleChange = ({ target }) => {
     setForm({
@@ -73,6 +123,13 @@ const SaleItemForm = ({ handleClose, open }) => {
   };
 
   const getImg = ({ target }) => {
+    setImgValid(true);
+    setImgError('');
+    const uploadFile = target.files[0].type.split('/');
+    if (uploadFile[0] !== 'image') {
+      setImgValid(false);
+      setImgError('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');
+    }
     setProductImg(target.files[0]);
     setFileName(target.files[0].name);
   };
@@ -82,17 +139,22 @@ const SaleItemForm = ({ handleClose, open }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const formData = new FormData();
 
-    formData.append('productImg', productImg);
-    formData.append('title', form.title);
-    formData.append('description', form.description);
-    formData.append('price', form.price);
-    formData.append('sale_id', saleId);
+    if (formValid && imgValid) {
+      const formData = new FormData();
 
-    createProduct(formData);
-    clearInputFields();
-    handleClose();
+      formData.append('productImg', productImg);
+      formData.append('title', form.title);
+      formData.append('description', form.description);
+      formData.append('price', form.price);
+      formData.append('sale_id', saleId);
+
+      createProduct(formData);
+      clearInputFields();
+      handleClose();
+    } else {
+      alert('Unvalid inputs!');
+    }
   };
 
   return (
@@ -115,18 +177,27 @@ const SaleItemForm = ({ handleClose, open }) => {
               label="Product Title"
               fullWidth
             />
+            <section className={classes.validationStyle}>
+              {!formValid && errorMsg.errors.title}
+            </section>
             <TextField
               onChange={handleChange}
               name="description"
               label="Product Description"
               fullWidth
             />
+            <section className={classes.validationStyle}>
+              {!formValid && errorMsg.errors.description}
+            </section>
             <TextField
               onChange={handleChange}
               name="price"
               label="Product Price"
               fullWidth
             />
+            <section className={classes.validationStyle}>
+              {!formValid && errorMsg.errors.price}
+            </section>
             <div className={classes.upload}>
               <label htmlFor="product-img">
                 <div className={classes.uploadButtonControl}>
@@ -150,6 +221,9 @@ const SaleItemForm = ({ handleClose, open }) => {
                   style={{ display: 'none' }}
                 />
               </label>
+              <section className={classes.validationStyle}>
+                {!imgValid && imgError}
+              </section>
             </div>
             <div className={classes.actionButtons}>
               <Button
