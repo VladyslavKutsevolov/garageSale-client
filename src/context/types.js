@@ -17,3 +17,4 @@ export const EDIT_GARAGE = 'EDIT_GARAGE';
 export const DELETE_GARAGE = 'DELETE_GARAGE';
 export const SEARCH_BY_CITYNAME = 'SEARCH_BY_CITYNAME';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const LOGOUT_USER = 'LOGOUT_USER';

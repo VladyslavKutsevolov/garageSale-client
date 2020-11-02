@@ -17,7 +17,8 @@ import {
   EDIT_GARAGE,
   DELETE_GARAGE,
   SEARCH_BY_CITYNAME,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  LOGOUT_USER
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -36,6 +37,13 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === GET_USER_DATA) {
+    return {
+      ...state,
+      loginUser: payload.userData
+    };
+  }
+
+  if (type === LOGOUT_USER) {
     return {
       ...state,
       loginUser: payload.userData
@@ -145,10 +153,6 @@ const appReducer = (state, { type, payload }) => {
         item => item.product_id !== payload.itemId
       )
     };
-  }
-
-  if (type === GET_USER_DATA) {
-    return { ...state, loginUser: payload.userData };
   }
 
   if (type === DELETE_COMMENT) {

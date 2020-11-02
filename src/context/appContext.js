@@ -27,7 +27,8 @@ import {
   DELETE_GARAGE,
   SEARCH_BY_CITYNAME,
   CLEAR_NOTIFICATIONS,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  LOGOUT_USER
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -157,6 +158,16 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const logOutUser = async () => {
+    try {
+      const {
+        data: { message: responseMsg }
+      } = await request(`http://localhost:3001/users/logout`);
+      dispatch({ type: LOGOUT_USER, payload: { userData: '' } });
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
   const createComment = async (
     authorId,
     itemId,
@@ -220,7 +231,6 @@ const StateProvider = ({ children }) => {
   };
 
   const editProduct = async (itemId, productData) => {
-    console.log('App Context', itemId, 'and product Data', productData);
     try {
       const {
         data: { message: responseMsg, product }
@@ -378,7 +388,8 @@ const StateProvider = ({ children }) => {
     setCityName,
     noHidden,
     setNoHidden,
-    getCategoriesForSale
+    getCategoriesForSale,
+    logOutUser
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
