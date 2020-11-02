@@ -120,8 +120,6 @@ export default function SaleItem({
     }
   };
 
-  console.log('STATE', state, 'HIdden', noHidden);
-
   // Handles chevron for product_summary
   const handleExpandClick = () => {
     getProductId();

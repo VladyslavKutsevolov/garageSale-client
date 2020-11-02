@@ -118,10 +118,12 @@ const SaleForm = ({ handleClose, open }) => {
     }
 
     // Province
+    /*
     if (!form.province) {
       formIsValid = false;
       errors.province = 'Please select the province';
     }
+    */
 
     setErrorMsg({ errors });
     setFormValid(formIsValid);
@@ -210,6 +212,7 @@ const SaleForm = ({ handleClose, open }) => {
             <TextField
               onChange={handleChange}
               value={form.city}
+              required
               name="city"
               label="City"
               fullWidth
@@ -225,6 +228,7 @@ const SaleForm = ({ handleClose, open }) => {
                 name="province"
                 value={form.province}
                 onChange={handleChange}
+                required
                 autoWidth
               >
                 <MenuItem value="Alberta">Alberta</MenuItem>
