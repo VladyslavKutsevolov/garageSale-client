@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SearchIcon from '@material-ui/icons/Search';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import {
   Container,
   Fab,
@@ -37,6 +38,7 @@ import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
 import NotificationIcon from '../Notifications/NotificationIcon';
+import EmptyNotificationIcon from '../Notifications/EmptyNotificationIcon';
 import NotificationModal from '../Notifications/NotificationModal';
 import InfoMsg from '../infoMsg/InfoMsg';
 import SearchBy from './SearchBy';
@@ -249,7 +251,13 @@ export default function MiniDrawer() {
             </ListItem>
           </Link>
           {user ? (
-            <NotificationIcon setNotificationsOpen={setNotificationsOpen} />
+            state.notifications && state.notifications.length ? (
+              <NotificationIcon setNotificationsOpen={setNotificationsOpen} />
+            ) : (
+              <EmptyNotificationIcon
+                setNotificationsOpen={setNotificationsOpen}
+              />
+            )
           ) : null}
           {user ? (
             !saleId ? (

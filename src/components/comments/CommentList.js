@@ -8,12 +8,10 @@ const CommentList = () => {
   const { state, productId } = useStateData();
   const [commentListId, setCommentListId] = useState(productId);
 
-  console.log("comment list state", productId, state)
+
   const filteredComments = state.comments.filter(
     comment => comment.product_id === commentListId
   );
-
-  console.log("filtered comments in commentlist", filteredComments)
 
   return (
     <>

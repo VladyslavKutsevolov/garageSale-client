@@ -25,7 +25,8 @@ import {
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
   DELETE_GARAGE,
-  SEARCH_BY_CITYNAME
+  SEARCH_BY_CITYNAME,
+  CLEAR_NOTIFICATIONS
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -197,6 +198,11 @@ const StateProvider = ({ children }) => {
     dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
   };
 
+  const clearNotifications = () => {
+    console.log("clear Notifications clicked")
+    dispatch({ type: CLEAR_NOTIFICATIONS });
+  };
+
   const editProduct = async (itemId, productData) => {
     console.log('App Context', itemId, 'and product Data', productData);
     try {
@@ -347,6 +353,7 @@ const StateProvider = ({ children }) => {
     setSaleId,
     soldOut,
     addNotification,
+    clearNotifications,
     getProductsForCategory,
     deleteGarage,
     editGarage,

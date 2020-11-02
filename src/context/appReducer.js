@@ -12,6 +12,7 @@ import {
   DELETE_COMMENT,
   CREATE_COMMENT,
   ADD_NOTIFICATION,
+  CLEAR_NOTIFICATIONS,
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
   DELETE_GARAGE,
@@ -102,6 +103,13 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       notifications: [...state.notifications, payload.notification]
+    };
+  }
+
+  if (type === CLEAR_NOTIFICATIONS) {
+    return {
+      ...state,
+      notifications: []
     };
   }
 

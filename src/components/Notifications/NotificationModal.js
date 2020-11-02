@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal } from '@material-ui/core';
 import NotificationList from './NotificationList';
+import { useStateData } from '../../context/appContext';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 
@@ -53,10 +54,12 @@ const NotificationModal = ({
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+  const { clearNotifications } = useStateData();
 
 
   const handleNotificationsClose = () => {
     setNotificationsOpen(false);
+    clearNotifications();
   };
 
   return (
