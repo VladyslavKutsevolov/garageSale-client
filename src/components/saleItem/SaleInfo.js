@@ -8,14 +8,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   media: {
-    width: '40rem',
+    width: '45rem',
     height: '20rem',
     marginBottom: '1rem'
   },
   boxStyle: {
     boxShadow: '4px 6px 15px -6px rgba(0,0,0,0.5)',
     borderRadius: '4px',
-    maxWidth: '40rem',
+    maxWidth: '45rem',
     marginTop: '2rem',
     flexBasis: '45%',
     justifyContent: 'center',
