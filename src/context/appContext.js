@@ -69,7 +69,7 @@ const StateProvider = ({ children }) => {
 
     ws.onopen = () => {
       ws.send(JSON.stringify({message: 'ping'}));
-      console.log("messagefrom server")
+
       ws.onmessage = e => {
 
         // Destructure comment info and dispatch
