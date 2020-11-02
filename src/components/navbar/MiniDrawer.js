@@ -22,7 +22,8 @@ import {
   Divider,
   ListItemText,
   ListItem,
-  ListItemIcon
+  ListItemIcon,
+  Snackbar
 } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -85,6 +86,11 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap'
+  },
+  snackBar: {
+    position: 'relative',
+    top: '.1rem',
+    marginBottom: '1rem'
   },
   drawerOpen: {
     width: drawerWidth,
@@ -267,7 +273,15 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div" className={classes.container}>
-          {loading ? <Alert severity="info">Loading...</Alert> : null}
+          <div className={classes.snackBar}>
+            <Snackbar
+              open={loading}
+              autoHideDuration={5000}
+              className={classes.snackBar}
+            >
+              <Alert severity="info">Loading...</Alert>
+            </Snackbar>
+          </div>
           <InfoMsg error={error} message={message} loading={loading} />
           <Switch>
             <Route path="/" exact component={SaleCardList} />
