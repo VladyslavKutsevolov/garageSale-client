@@ -39,16 +39,16 @@ const CommentInput = () => {
     p => p.product_id === productId
   )[0].product_title;
 
-
-
   const handleSubmit = e => {
+    console.log("loginuser", state.loginUser)
     e.preventDefault();
-    if (authorId) {
-      createComment(authorId, productId, comment, authorUsername);
-      const notification = { authorUsername, productTitle, comment };
+    createComment(authorId, productId, comment, authorUsername);
+    const notification = { authorUsername, productTitle, comment };
+    // Don't send seller notifications of their own comment
+    if (authorId !== state.loginUser.id) {
       addNotification(notification);
-      setComment('');
     }
+    setComment('');
   };
 
   return authorId ? (

@@ -73,7 +73,8 @@ const appReducer = (state, { type, payload }) => {
   if (type === FILTER_BY_CATEGORY) {
     return {
       ...state,
-      saleData: payload.listOfProducts
+      saleData: payload.listOfProducts,
+      comments: state.comments
     };
   }
 
