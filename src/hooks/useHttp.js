@@ -36,7 +36,8 @@ const useHttp = () => {
     message,
     clearError,
     clearMessage,
-    setMessage
+    setMessage,
+    setError
   };
 };
 
