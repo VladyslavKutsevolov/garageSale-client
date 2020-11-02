@@ -199,7 +199,6 @@ const StateProvider = ({ children }) => {
   };
 
   const clearNotifications = () => {
-    console.log("clear Notifications clicked")
     dispatch({ type: CLEAR_NOTIFICATIONS });
   };
 
