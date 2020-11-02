@@ -13,7 +13,7 @@ const LogOut = props => {
   const logoutReq = e => {
     e.preventDefault();
 
-    axios.post('/users/logout').then(res => {
+    axios.post('http://localhost:3001/users/logout').then(res => {
       props.setUser('');
       alert(res.data.message);
     });

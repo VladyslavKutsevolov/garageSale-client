@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 import { CardMedia, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,14 +10,14 @@ import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles({
   media: {
-    width: '40rem',
+    width: '45rem',
     height: '20rem',
     marginBottom: '1rem'
   },
   boxStyle: {
     boxShadow: '4px 6px 15px -6px rgba(0,0,0,0.5)',
     borderRadius: '4px',
-    maxWidth: '40rem',
+    maxWidth: '45rem',
     marginTop: '2rem',
     flexBasis: '45%',
     justifyContent: 'center',
@@ -33,6 +34,12 @@ const useStyles = makeStyles({
   description: {
     textAlign: 'center',
     color: '#444'
+  },
+  actions: {
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#0066ff'
+    }
   }
 });
 
@@ -69,8 +76,11 @@ const SaleInfo = ({
         {noHidden && (
           <Typography>
             <ListItemIcon>
-              <EditIcon onClick={handleOpenEdit} />
-              <DeleteIcon onClick={handleOpenDelete} />
+              <EditIcon className={classes.actions} onClick={handleOpenEdit} />
+              <DeleteIcon
+                className={classes.actions}
+                onClick={handleOpenDelete}
+              />
             </ListItemIcon>
           </Typography>
         )}

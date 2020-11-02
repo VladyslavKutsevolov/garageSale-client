@@ -12,8 +12,8 @@ const getModalStyle = () => {
   const left = 50 + rand();
 
   return {
-    top: `${top}%`,
-    left: `${left}%`,
+    top: `50%`,
+    left: `50%`,
     transform: `translate(-${top}%, -${left}%)`
   };
 };
@@ -48,14 +48,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NotificationModal = ({
-  notificationsOpen,
-  setNotificationsOpen
-}) => {
+const NotificationModal = ({ notificationsOpen, setNotificationsOpen }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const { clearNotifications } = useStateData();
-
 
   const handleNotificationsClose = () => {
     setNotificationsOpen(false);
