@@ -44,9 +44,7 @@ const CommentInput = () => {
   const handleSubmit = e => {
     e.preventDefault();
     if (authorId) {
-      createComment(authorId, productId, comment, );
-
-      // console.log("login user", state.loginUser)
+      createComment(authorId, productId, comment, authorUsername);
       const notification = { authorUsername, productTitle, comment };
       addNotification(notification);
       setComment('');

@@ -53,7 +53,6 @@ const SaleInfo = ({
   useEffect(() => {
     if (seller_id === state.loginUser.id) {
       setNoHidden(true);
-      console.log('Hidden Active');
     } else {
       setNoHidden(false);
     }

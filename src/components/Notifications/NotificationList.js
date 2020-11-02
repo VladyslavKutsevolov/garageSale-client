@@ -13,7 +13,6 @@ const useStyles = makeStyles(() => ({
 
 const NotificationList = () => {
   const { state } = useStateData();
-  console.log("state notification lit ", state)
   return (
     <>
       {state.notifications && state.notifications.length ? (

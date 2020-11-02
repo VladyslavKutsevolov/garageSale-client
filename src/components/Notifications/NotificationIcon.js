@@ -18,7 +18,6 @@ const useStyles = makeStyles(() => ({
 const NotificationIcon = ({ setNotificationsOpen }) => {
   const classes = useStyles();
   const { state } = useStateData();
-  console.log("state in notification icon", state)
 
   const handleNotificationClick = () => {
     setNotificationsOpen(true);
