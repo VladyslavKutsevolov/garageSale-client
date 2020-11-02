@@ -4,16 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useStateData } from '../../context/appContext';
 
 import SaleItem from './SaleItem';
-import SaleItemForm from './SaleItemForm';
 import SendMsg from './SendMsg';
 
 const SaleItemList = () => {
-  const {
-    state,
-    openNewProductForm,
-    handleProductClose,
-    setProductId
-  } = useStateData();
+  const { state, setProductId } = useStateData();
   const [itemId, setItemId] = useState(null);
   const [productInfo, setProductInfo] = useState({});
 
@@ -25,7 +19,7 @@ const SaleItemList = () => {
     const productData = filterItemData();
     if (productData.length > 0) {
       setProductInfo(productData[0]);
-    };
+    }
   }, [itemId]);
 
   const getProductId = id => {
@@ -52,10 +46,6 @@ const SaleItemList = () => {
           setItemId={setItemId}
         />
       ))}
-      <SaleItemForm
-        open={openNewProductForm}
-        handleClose={handleProductClose}
-      />
       <SendMsg
         open={Object.keys(productInfo).length !== 0}
         handleSendClose={() => setProductInfo({})}
