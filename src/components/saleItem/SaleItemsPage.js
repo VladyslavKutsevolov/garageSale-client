@@ -12,7 +12,7 @@ import SaleItemList from './saleItemList';
 import SaleInfo from './SaleInfo';
 import CategoryList from '../category';
 import { useStateData } from '../../context/appContext';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 import SaleEditForm from './SaleEditForm';
 
@@ -72,6 +72,7 @@ const SaleItemsPage = () => {
     handleCloseDelete();
     setGarageStatus(true);
     history.push('/');
+    setSaleId(null);
   };
 
   useEffect(() => {
