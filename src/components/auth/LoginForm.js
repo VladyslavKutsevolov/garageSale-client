@@ -72,7 +72,6 @@ const LoginForm = ({ handleClose, open, setUser }) => {
       .then(res => {
         getLoginUser(res.data.username);
         setUser(res.data.username);
-        alert(res.data.message);
       })
       .catch(err => {
         console.log(err);

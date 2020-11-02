@@ -117,14 +117,6 @@ const SaleForm = ({ handleClose, open }) => {
       errors.description = 'Text cannot be more than 60 letters.';
     }
 
-    // Province
-    /*
-    if (!form.province) {
-      formIsValid = false;
-      errors.province = 'Please select the province';
-    }
-    */
-
     setErrorMsg({ errors });
     setFormValid(formIsValid);
   };
