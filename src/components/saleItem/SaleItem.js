@@ -89,18 +89,23 @@ export default function SaleItem({
   productSummary,
   setItemId,
   sold,
-  getProductId
+  getProductId,
+  seller_id
 }) {
-  const { state, deleteProduct, setProductId } = useStateData();
+  const { state, deleteProduct, setProductId, noHidden } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
 
+
+  // Handle Buy Button
   const getProductInfo = () => {
     if (state.loginUser.username) {
+      // Save the item id on state inside global scope
       setProductId(id);
+      // Trigger for open/close buy button
       setItemId(id);
     } else {
       alert('Please Login First!');
@@ -146,10 +151,12 @@ export default function SaleItem({
             <div>
               <CardHeader className={classes.title} title={title} />
               <div>
-                <ListItemIcon>
-                  <EditIcon onClick={handleOpenEdit} />
-                  <DeleteIcon onClick={handleOpenDelete} />
-                </ListItemIcon>
+                {noHidden && (
+                  <ListItemIcon>
+                    <EditIcon onClick={handleOpenEdit} />
+                    <DeleteIcon onClick={handleOpenDelete} />
+                  </ListItemIcon>
+                )}
 
                 <SaleItemEdit
                   open={openEdit}

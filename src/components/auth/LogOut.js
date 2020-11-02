@@ -5,8 +5,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { ExitToApp } from '@material-ui/icons';
+import { useStateData } from '../../context/appContext';
 
 const LogOut = props => {
+  const { setNoHidden } = useStateData();
+
   const logoutReq = e => {
     e.preventDefault();
 
@@ -14,6 +17,8 @@ const LogOut = props => {
       props.setUser('');
       alert(res.data.message);
     });
+
+    setNoHidden(false);
   };
 
   return (

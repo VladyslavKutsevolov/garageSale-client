@@ -47,6 +47,7 @@ const SaleItemList = () => {
           productSummary={product.description}
           sold={product.sold}
           imageUrl={product.image_url}
+          seller_id={product.seller_id}
           getProductId={() => getProductId(product.product_id)}
           setItemId={setItemId}
         />
