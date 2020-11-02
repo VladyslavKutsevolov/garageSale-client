@@ -63,6 +63,30 @@ const StateProvider = ({ children }) => {
     message
   } = useHttp();
 
+  // Client websocket
+  useEffect(() => {
+    const ws = new WebSocket('ws://127.0.0.1:3001');
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({message: 'ping'}));
+      console.log("messagefrom server")
+      ws.onmessage = e => {
+
+        // Destructure comment info and dispatch
+        const { returnedComment, itemId, authorUsername } = JSON.parse(e.data);
+
+        dispatch({
+          type: CREATE_COMMENT,
+          payload: { returnedComment, itemId, authorUsername }
+        });
+      };
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
   const handleProductOpen = () => {
     setNewProductForm(true);
   };
@@ -145,7 +169,12 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createComment = async (authorId, itemId, commentData, authorUsername) => {
+  const createComment = async (
+    authorId,
+    itemId,
+    commentData,
+    authorUsername
+  ) => {
     const commentInfo = { authorId, commentData };
     try {
       const {
