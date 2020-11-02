@@ -250,10 +250,7 @@ const StateProvider = ({ children }) => {
     try {
       const {
         data: { message: responseMsg, product }
-      } = await request(
-        `http://localhost:3001/products/sold/${itemId}`,
-        'PATCH'
-      );
+      } = await request(`http://localhost:3001/products/sold/${itemId}`, 'PUT');
 
       dispatch({ type: SOLD_OUT, payload: { product, itemId } });
 
