@@ -203,7 +203,7 @@ export default function SaleItem({
 
             <div>
               <Typography variant="subtitle1" color="textSecondary">
-                {`Price ${price}`}
+                <strong>Price: </strong> {price}
               </Typography>
             </div>
             <div className={classes.actionButtons}>
