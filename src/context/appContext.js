@@ -68,24 +68,17 @@ const StateProvider = ({ children }) => {
     const ws = new WebSocket('ws://127.0.0.1:3001');
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({message: 'ping'}));
+      ws.send(JSON.stringify({ message: 'ping' }));
 
       ws.onmessage = e => {
+        console.log(JSON.parse(e.data));
+      };
 
-        // Destructure comment info and dispatch
-        const { returnedComment, itemId, authorUsername } = JSON.parse(e.data);
-
-        dispatch({
-          type: CREATE_COMMENT,
-          payload: { returnedComment, itemId, authorUsername }
-        });
+      return () => {
+        ws.close();
       };
     };
-
-    return () => {
-      ws.close();
-    };
-  }, []);
+  });
 
   const handleProductOpen = () => {
     setNewProductForm(true);
