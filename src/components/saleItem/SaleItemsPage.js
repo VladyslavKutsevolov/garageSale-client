@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -41,7 +40,8 @@ const SaleItemsPage = () => {
     getSaleData,
     setSaleId,
     fetchSales,
-    deleteGarage
+    deleteGarage,
+    getCategoriesForSale
   } = useStateData();
   let history = useHistory();
 
@@ -82,7 +82,12 @@ const SaleItemsPage = () => {
       fetchSales();
     }
     getSaleData(Number(saleId));
+    getCategoriesForSale(Number(saleId));
   }, [saleId]);
+
+  useEffect(() => {
+    getCategoriesForSale(Number(saleId));
+  }, [state.saleData]);
 
   const removedDuplications =
     state.categories &&
@@ -90,6 +95,7 @@ const SaleItemsPage = () => {
       const duplicate = acc.find(c => c.name === category.name);
       return duplicate ? acc : [category, ...acc];
     }, []);
+
   return (
     <>
       <Grid container className={classes.root} wrap="wrap" justify="center">
@@ -149,7 +155,11 @@ const SaleItemsPage = () => {
             ) : null}
           </Grid>
           <Grid item>
-            <SaleItemList />
+            {!state.saleData.length ? (
+              <p>There is no Items in the garage</p>
+            ) : (
+              <SaleItemList />
+            )}
           </Grid>
         </Grid>
       </Grid>

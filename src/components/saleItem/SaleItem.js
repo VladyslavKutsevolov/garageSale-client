@@ -27,9 +27,13 @@ import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
+    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.15)',
     minWidth: '45rem',
-    marginBottom: '2rem'
+    marginBottom: '2rem',
+    transition: 'all, 2s, ease-out',
+    '&:hover': {
+      boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.45)'
+    }
   },
   cardContentRoot: {
     padding: 0,
@@ -78,6 +82,12 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     padding: 0
+  },
+  actions: {
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#0066ff'
+    }
   }
 }));
 
@@ -89,8 +99,7 @@ export default function SaleItem({
   productSummary,
   setItemId,
   sold,
-  getProductId,
-  seller_id
+  getProductId
 }) {
   const { state, deleteProduct, setProductId, noHidden } = useStateData();
   const classes = useStyles();
@@ -98,7 +107,6 @@ export default function SaleItem({
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-
 
   // Handle Buy Button
   const getProductInfo = () => {
@@ -111,6 +119,8 @@ export default function SaleItem({
       alert('Please Login First!');
     }
   };
+
+  console.log('STATE', state, 'HIdden', noHidden);
 
   // Handles chevron for product_summary
   const handleExpandClick = () => {
@@ -153,8 +163,14 @@ export default function SaleItem({
               <div>
                 {noHidden && (
                   <ListItemIcon>
-                    <EditIcon onClick={handleOpenEdit} />
-                    <DeleteIcon onClick={handleOpenDelete} />
+                    <EditIcon
+                      className={classes.actions}
+                      onClick={handleOpenEdit}
+                    />
+                    <DeleteIcon
+                      className={classes.actions}
+                      onClick={handleOpenDelete}
+                    />
                   </ListItemIcon>
                 )}
 
@@ -198,7 +214,8 @@ export default function SaleItem({
 
             <div>
               <Typography variant="subtitle1" color="textSecondary">
-                {`Price ${price}`}
+                <strong>Price: </strong>
+                {price}
               </Typography>
             </div>
             <div className={classes.actionButtons}>

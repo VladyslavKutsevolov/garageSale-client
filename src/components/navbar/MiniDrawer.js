@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SearchIcon from '@material-ui/icons/Search';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import {
   Container,
   Fab,
@@ -22,7 +23,8 @@ import {
   Divider,
   ListItemText,
   ListItem,
-  ListItemIcon
+  ListItemIcon,
+  Snackbar
 } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -37,6 +39,8 @@ import LogOut from '../auth/LogOut';
 import LoginForm from '../auth/LoginForm';
 import SaleItemsPage from '../saleItem/SaleItemsPage';
 import NotificationIcon from '../Notifications/NotificationIcon';
+import EmptyNotificationIcon from '../Notifications/EmptyNotificationIcon';
+import NotificationModal from '../Notifications/NotificationModal';
 import InfoMsg from '../infoMsg/InfoMsg';
 import SearchBy from './SearchBy';
 
@@ -86,6 +90,11 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     whiteSpace: 'nowrap'
   },
+  snackBar: {
+    position: 'relative',
+    top: '.1rem',
+    marginBottom: '1rem'
+  },
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -115,6 +124,10 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3)
+  },
+  removeListStyle: {
+    textDecoration: 'none',
+    color: '#333'
   }
 }));
 
@@ -133,20 +146,33 @@ export default function MiniDrawer() {
     loading,
     state
   } = useStateData();
+
+  // Open state for login form
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
 
+  // Set user and sale data in state
   const [user, setUser] = useState('');
   const [userGarage, setUserGarage] = useState('');
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  // Open state for notifications modal
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+
+  // Handle notifications modal opening and closing
+  const handleNotificationsClose = () => {
+    setNotificationsOpen(false);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
+  // Handle drawer opening and closing
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  // Handle login closing
   const handleLoginClose = () => {
     setLoginForm(false);
   };
@@ -212,7 +238,7 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          <Link to="/">
+          <Link to="/" className={classes.removeListStyle}>
             <ListItem button onClick={() => setSaleId(null)}>
               <ListItemIcon>
                 <HomeIcon />
@@ -226,8 +252,7 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <SearchBy />
           </ListItem>
-          {user ? <NotificationIcon /> : null}
-          <Link to="/products">
+          <Link to="/products" className={classes.removeListStyle}>
             <ListItem button onClick={() => setSaleId(userGarage.id)}>
               <ListItemIcon>
                 <StorefrontIcon />
@@ -235,7 +260,15 @@ export default function MiniDrawer() {
               <ListItemText primary="MY GARAGE" />
             </ListItem>
           </Link>
-
+          {user ? (
+            state.notifications && state.notifications.length ? (
+              <NotificationIcon setNotificationsOpen={setNotificationsOpen} />
+            ) : (
+              <EmptyNotificationIcon
+                setNotificationsOpen={setNotificationsOpen}
+              />
+            )
+          ) : null}
           {user ? (
             !saleId ? (
               <ListItem button onClick={handleGarageFormOpen}>
@@ -267,7 +300,15 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div" className={classes.container}>
-          {loading ? <Alert severity="info">Loading...</Alert> : null}
+          <div className={classes.snackBar}>
+            <Snackbar
+              open={loading}
+              autoHideDuration={5000}
+              className={classes.snackBar}
+            >
+              <Alert severity="info">Loading...</Alert>
+            </Snackbar>
+          </div>
           <InfoMsg error={error} message={message} loading={loading} />
           <Switch>
             <Route path="/" exact component={SaleCardList} />
@@ -278,6 +319,10 @@ export default function MiniDrawer() {
             open={openLogin}
             handleClose={handleLoginClose}
             setUser={setUser}
+          />
+          <NotificationModal
+            notificationsOpen={notificationsOpen}
+            setNotificationsOpen={setNotificationsOpen}
           />
         </Container>
       </main>

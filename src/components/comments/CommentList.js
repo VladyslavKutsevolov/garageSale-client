@@ -4,14 +4,14 @@ import { useStateData } from '../../context/appContext';
 
 const CommentList = () => {
 
+  // const commentsList, setCommentsList = useState()
   const { state, productId } = useStateData();
+  const [commentListId, setCommentListId] = useState(productId);
 
-  console.log("comment list state", productId, state)
+
   const filteredComments = state.comments.filter(
-    comment => comment.product_id === productId
+    comment => comment.product_id === commentListId
   );
-
-  console.log("filtered comments in commentlist", filteredComments)
 
   return (
     <>

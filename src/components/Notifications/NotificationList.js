@@ -1,7 +1,8 @@
 import React from 'react';
-import { Snackbar } from '@material-ui/core/';
+import { Snackbar, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStateData } from '../../context/appContext';
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -10,31 +11,21 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const NotificationList = ({ notificationState, handleNotificationClose }) => {
-  const classes = useStyles();
+const NotificationList = () => {
   const { state } = useStateData();
-  const { vertical, horizontal, open } = notificationState;
-
+  console.log("state notification lit ", state)
   return (
     <>
-      {state.notifications.length ? (
+      {state.notifications && state.notifications.length ? (
         state.notifications.map(notification => (
-          <Snackbar
-            className={classes.root}
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={() => handleNotificationClose()}
-            message={`User ${notification.authorUsername} commented on ${notification.productTitle}: ${notification.comment}`}
-          />
+          <Typography variant='h6' >
+            {`${notification.authorUsername} commented on ${notification.productTitle}: ${notification.comment }`}
+          </Typography>
         ))
       ) : (
-        <Snackbar
-          anchorOrigin={{ vertical, horizontal }}
-          open={open}
-          onClose={() => handleNotificationClose()}
-          message="No new notifications"
-          key={vertical + horizontal}
-        />
+        <Typography variant='h6'>
+          No new notifications
+        </Typography>
       )}
     </>
   );

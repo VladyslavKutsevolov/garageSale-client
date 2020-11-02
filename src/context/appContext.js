@@ -25,7 +25,10 @@ import {
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
   DELETE_GARAGE,
-  SEARCH_BY_CITYNAME
+  SEARCH_BY_CITYNAME,
+  CLEAR_NOTIFICATIONS,
+  GET_CATEGORIES,
+  LOGOUT_USER
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -59,7 +62,8 @@ const StateProvider = ({ children }) => {
     clearError,
     clearMessage,
     setMessage,
-    message
+    message,
+    setError
   } = useHttp();
 
   const handleProductOpen = () => {
@@ -113,14 +117,23 @@ const StateProvider = ({ children }) => {
           data: { listOfComments }
         } = await request(`http://localhost:3001/comments/${id}`);
 
+        dispatch({
+          type: GET_SALE_DATA,
+          payload: { garageData, saleId: id, listOfComments }
+        });
+      } catch (e) {}
+    },
+    [request]
+  );
+
+  const getCategoriesForSale = useCallback(
+    async id => {
+      try {
         const {
           data: { categories }
         } = await request(`http://localhost:3001/products/categories/${id}`);
 
-        dispatch({
-          type: GET_SALE_DATA,
-          payload: { garageData, saleId: id, categories, listOfComments }
-        });
+        dispatch({ type: GET_CATEGORIES, payload: { categories } });
       } catch (e) {}
     },
     [request]
@@ -131,7 +144,7 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
-
+      console.log('dispatching', listOfComments);
       dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
@@ -145,7 +158,22 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const createComment = async (authorId, itemId, commentData) => {
+  const logOutUser = async () => {
+    try {
+      const {
+        data: { message: responseMsg }
+      } = await request(`http://localhost:3001/users/logout`);
+      dispatch({ type: LOGOUT_USER, payload: { userData: '' } });
+      setMessage(responseMsg);
+    } catch (e) {}
+  };
+
+  const createComment = async (
+    authorId,
+    itemId,
+    commentData,
+    authorUsername
+  ) => {
     const commentInfo = { authorId, commentData };
     try {
       const {
@@ -158,7 +186,7 @@ const StateProvider = ({ children }) => {
 
       dispatch({
         type: CREATE_COMMENT,
-        payload: { returnedComment, itemId }
+        payload: { returnedComment, itemId, authorUsername }
       });
     } catch (e) {}
   };
@@ -198,8 +226,11 @@ const StateProvider = ({ children }) => {
     dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
   };
 
+  const clearNotifications = () => {
+    dispatch({ type: CLEAR_NOTIFICATIONS });
+  };
+
   const editProduct = async (itemId, productData) => {
-    console.log('App Context', itemId, 'and product Data', productData);
     try {
       const {
         data: { message: responseMsg, product }
@@ -307,7 +338,7 @@ const StateProvider = ({ children }) => {
       } = await request(`http://localhost:3001/sales/city/${cityName}`);
 
       if (!sales.length) {
-        setMessage('There is no Garage Sales in this area.');
+        setError('There is no Garage Sales in this area.');
         return;
       }
 
@@ -348,6 +379,7 @@ const StateProvider = ({ children }) => {
     setSaleId,
     soldOut,
     addNotification,
+    clearNotifications,
     getProductsForCategory,
     deleteGarage,
     editGarage,
@@ -355,7 +387,9 @@ const StateProvider = ({ children }) => {
     cityname,
     setCityName,
     noHidden,
-    setNoHidden
+    setNoHidden,
+    getCategoriesForSale,
+    logOutUser
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
