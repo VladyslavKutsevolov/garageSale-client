@@ -40,7 +40,8 @@ const SaleItemsPage = () => {
     getSaleData,
     setSaleId,
     fetchSales,
-    deleteGarage
+    deleteGarage,
+    getCategoriesForSale
   } = useStateData();
 
   const [openEdit, setOpenEdit] = useState(false);
@@ -80,7 +81,12 @@ const SaleItemsPage = () => {
       fetchSales();
     }
     getSaleData(Number(saleId));
+    getCategoriesForSale(Number(saleId));
   }, [saleId]);
+
+  useEffect(() => {
+    getCategoriesForSale(Number(saleId));
+  }, [state.saleData]);
 
   const removedDuplications =
     state.categories &&
@@ -146,7 +152,11 @@ const SaleItemsPage = () => {
             ) : null}
           </Grid>
           <Grid item>
-            <SaleItemList />
+            {!state.saleData.length ? (
+              <p>There is no Items in the garage</p>
+            ) : (
+              <SaleItemList />
+            )}
           </Grid>
         </Grid>
       </Grid>

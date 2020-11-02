@@ -25,7 +25,8 @@ import {
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
   DELETE_GARAGE,
-  SEARCH_BY_CITYNAME
+  SEARCH_BY_CITYNAME,
+  GET_CATEGORIES
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -58,7 +59,8 @@ const StateProvider = ({ children }) => {
     clearError,
     clearMessage,
     setMessage,
-    message
+    message,
+    setError
   } = useHttp();
 
   const handleProductOpen = () => {
@@ -112,14 +114,23 @@ const StateProvider = ({ children }) => {
           data: { listOfComments }
         } = await request(`http://localhost:3001/comments/${id}`);
 
+        dispatch({
+          type: GET_SALE_DATA,
+          payload: { garageData, saleId: id, listOfComments }
+        });
+      } catch (e) {}
+    },
+    [request]
+  );
+
+  const getCategoriesForSale = useCallback(
+    async id => {
+      try {
         const {
           data: { categories }
         } = await request(`http://localhost:3001/products/categories/${id}`);
 
-        dispatch({
-          type: GET_SALE_DATA,
-          payload: { garageData, saleId: id, categories, listOfComments }
-        });
+        dispatch({ type: GET_CATEGORIES, payload: { categories } });
       } catch (e) {}
     },
     [request]
@@ -306,7 +317,7 @@ const StateProvider = ({ children }) => {
       } = await request(`http://localhost:3001/sales/city/${cityName}`);
 
       if (!sales.length) {
-        setMessage('There is no Garage Sales in this area.');
+        setError('There is no Garage Sales in this area.');
         return;
       }
 
@@ -352,7 +363,8 @@ const StateProvider = ({ children }) => {
     editGarage,
     searchByCityName,
     cityname,
-    setCityName
+    setCityName,
+    getCategoriesForSale
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
