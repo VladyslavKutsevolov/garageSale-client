@@ -27,11 +27,12 @@ import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
+    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.15)',
     minWidth: '45rem',
     marginBottom: '2rem',
+    transition: 'all, 2s, ease-out',
     '&:hover': {
-      boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.25)'
+      boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.45)'
     }
   },
   cardContentRoot: {
