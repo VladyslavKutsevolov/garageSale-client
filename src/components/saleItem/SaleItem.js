@@ -29,7 +29,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.75)',
     minWidth: '45rem',
-    marginBottom: '2rem'
+    marginBottom: '2rem',
+    '&:hover': {
+      boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.25)'
+    }
   },
   cardContentRoot: {
     padding: 0,
@@ -203,7 +206,8 @@ export default function SaleItem({
 
             <div>
               <Typography variant="subtitle1" color="textSecondary">
-                <strong>Price: </strong> {price}
+                <strong>Price: </strong>
+                {price}
               </Typography>
             </div>
             <div className={classes.actionButtons}>
