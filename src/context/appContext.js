@@ -144,7 +144,6 @@ const StateProvider = ({ children }) => {
       const {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
-      console.log('dispatching', listOfComments);
       dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
     } catch (e) {}
   };
@@ -152,9 +151,11 @@ const StateProvider = ({ children }) => {
   const getLoginUser = async username => {
     try {
       const {
-        data: { loginUser: userData }
+        data: { message: responseMsg, loginUser: userData }
       } = await request(`http://localhost:3001/users/${username}`);
       dispatch({ type: GET_USER_DATA, payload: { userData } });
+      console.log('Message in Context', responseMsg);
+      setMessage(responseMsg);
     } catch (e) {}
   };
 
@@ -164,6 +165,7 @@ const StateProvider = ({ children }) => {
         data: { message: responseMsg }
       } = await request(`http://localhost:3001/users/logout`);
       dispatch({ type: LOGOUT_USER, payload: { userData: '' } });
+      console.log('Message in Context', responseMsg);
       setMessage(responseMsg);
     } catch (e) {}
   };
@@ -250,10 +252,7 @@ const StateProvider = ({ children }) => {
     try {
       const {
         data: { message: responseMsg, product }
-      } = await request(
-        `http://localhost:3001/products/sold/${itemId}`,
-        'PATCH'
-      );
+      } = await request(`http://localhost:3001/products/sold/${itemId}`, 'PUT');
 
       dispatch({ type: SOLD_OUT, payload: { product, itemId } });
 

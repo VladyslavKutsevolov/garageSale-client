@@ -108,13 +108,6 @@ const SaleItemForm = ({ handleClose, open }) => {
       errors.description = 'Text cannot be more than 100 letters.';
     }
 
-    /*
-    if (!form.categoryName) {
-      formIsValid = false;
-      errors.categoryName = 'Please select the category';
-    }
-    */
-
     // Price can only be number
     if (form.price.length > 0) {
       if (
