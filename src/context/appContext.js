@@ -195,9 +195,7 @@ const StateProvider = ({ children }) => {
 
   const deleteComment = async commentId => {
     try {
-      const {
-        data: { listOfComments }
-      } = await request(
+      await request(
         `http://localhost:3001/comments/${commentId}/delete`,
         'DELETE'
       );
@@ -295,7 +293,6 @@ const StateProvider = ({ children }) => {
 
   const editGarage = async (garageId, garageData) => {
     try {
-      console.log('Garage Data is', garageData);
       const {
         data: { message: responseMsg, sale: garage }
       } = await request(
@@ -303,8 +300,6 @@ const StateProvider = ({ children }) => {
         'PUT',
         garageData
       );
-
-      console.log('Dispatching ', garage);
       dispatch({ type: EDIT_GARAGE, payload: { garage } });
 
       setMessage(responseMsg);

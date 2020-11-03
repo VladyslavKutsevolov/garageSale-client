@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -48,8 +48,8 @@ const Comment = ({
   productId
 }) => {
   const classes = useStyles();
-  const { state, deleteComment, fetchComments } = useStateData();
-  const sellerComment = false;
+  const { state, deleteComment } = useStateData();
+  let sellerComment = false;
   let myComment = false;
 
   // Validate if user wrote comment
@@ -57,16 +57,18 @@ const Comment = ({
     myComment = true;
   }
 
+  if (state.saleInfo.seller_id === authorId) {
+    sellerComment = true;
+  }
 
   const handleDelete = () => {
     deleteComment(commentId);
-    // fetchComments(productId);
   };
 
   return sellerComment ? (
     <>
       <div className={classes.seller}>
-        <Typography variant="caption">{`${author} (seller): `}</Typography>
+        <Typography variant="caption">{`${author} (seller): ${comment}`}</Typography>
         {myComment && (
           <IconButton className={classes.iconDiv} onClick={handleDelete}>
             <CancelIcon className={classes.icon} />

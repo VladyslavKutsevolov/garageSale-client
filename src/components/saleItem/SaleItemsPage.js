@@ -162,7 +162,7 @@ const SaleItemsPage = () => {
           </Grid>
           <Grid item>
             {!state.saleData.length ? (
-              <p>There is no Items in the garage</p>
+              <p>There are no items in this sale</p>
             ) : (
               <SaleItemList />
             )}

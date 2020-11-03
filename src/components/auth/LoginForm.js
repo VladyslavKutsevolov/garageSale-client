@@ -90,7 +90,7 @@ const LoginForm = ({ handleClose, open, setUser }) => {
       >
         <div style={modalStyle} className={classes.paper}>
           <Typography variant="h6" gutterBottom>
-            PLEASE LOG-IN
+            Enter your username and password
           </Typography>
           <form
             onSubmit={handleSubmit}

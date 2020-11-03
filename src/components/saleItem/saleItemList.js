@@ -26,10 +26,6 @@ const SaleItemList = () => {
     setProductId(id);
   };
 
-  useEffect(() => {
-    localStorage.setItem('state-data', JSON.stringify(state.saleData));
-  }, [state]);
-
   return (
     <>
       {state.saleData.map(product => (

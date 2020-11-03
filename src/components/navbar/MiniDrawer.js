@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SearchIcon from '@material-ui/icons/Search';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+
 import {
   Container,
   Fab,
@@ -158,11 +158,6 @@ export default function MiniDrawer() {
   // Open state for notifications modal
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
-  // Handle notifications modal opening and closing
-  const handleNotificationsClose = () => {
-    setNotificationsOpen(false);
-  };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -210,7 +205,10 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Welcome to Garage Sale App
+            Welcome to Garajiji! ...
+          </Typography>
+          <Typography variant="caption" noWrap>
+            Host virtual garage sales, buy awesome stuff!
           </Typography>
         </Toolbar>
       </AppBar>
@@ -252,14 +250,16 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <SearchBy />
           </ListItem>
-          <Link to="/products" className={classes.removeListStyle}>
-            <ListItem button onClick={() => setSaleId(userGarage.id)}>
-              <ListItemIcon>
-                <StorefrontIcon />
-              </ListItemIcon>
-              <ListItemText primary="MY GARAGE" />
-            </ListItem>
-          </Link>
+          {user ? (
+            <Link to="/products" className={classes.removeListStyle}>
+              <ListItem button onClick={() => setSaleId(userGarage.id)}>
+                <ListItemIcon>
+                  <StorefrontIcon />
+                </ListItemIcon>
+                <ListItemText primary="My sales" />
+              </ListItem>
+            </Link>
+          ) : null}
           {user ? (
             state.notifications && state.notifications.length ? (
               <NotificationIcon setNotificationsOpen={setNotificationsOpen} />
