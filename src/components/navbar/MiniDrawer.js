@@ -158,7 +158,6 @@ export default function MiniDrawer() {
   // Open state for notifications modal
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -248,14 +247,16 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <SearchBy />
           </ListItem>
-          <Link to="/products" className={classes.removeListStyle}>
-            <ListItem button onClick={() => setSaleId(userGarage.id)}>
-              <ListItemIcon>
-                <StorefrontIcon />
-              </ListItemIcon>
-              <ListItemText primary="MY GARAGE" />
-            </ListItem>
-          </Link>
+          {user ? (
+            <Link to="/products" className={classes.removeListStyle}>
+              <ListItem button onClick={() => setSaleId(userGarage.id)}>
+                <ListItemIcon>
+                  <StorefrontIcon />
+                </ListItemIcon>
+                <ListItemText primary="MY GARAGE" />
+              </ListItem>
+            </Link>
+          ) : null}
           {user ? (
             state.notifications && state.notifications.length ? (
               <NotificationIcon setNotificationsOpen={setNotificationsOpen} />
