@@ -1,15 +1,6 @@
 import React from 'react';
-import { Snackbar, Typography } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core/';
 import { useStateData } from '../../context/appContext';
-
-
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: '2px'
-    // position: 'absolute'
-  }
-}));
 
 const NotificationList = () => {
   const { state } = useStateData();

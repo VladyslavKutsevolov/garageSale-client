@@ -63,23 +63,6 @@ const StateProvider = ({ children }) => {
     message
   } = useHttp();
 
-  // Client websocket
-  useEffect(() => {
-    const ws = new WebSocket('ws://127.0.0.1:3001');
-
-    ws.onopen = () => {
-      ws.send(JSON.stringify({ message: 'ping' }));
-
-      ws.onmessage = e => {
-        console.log(JSON.parse(e.data));
-      };
-
-      return () => {
-        ws.close();
-      };
-    };
-  });
-
   const handleProductOpen = () => {
     setNewProductForm(true);
   };
@@ -187,9 +170,7 @@ const StateProvider = ({ children }) => {
 
   const deleteComment = async commentId => {
     try {
-      const {
-        data: { listOfComments }
-      } = await request(
+      await request(
         `http://localhost:3001/comments/${commentId}/delete`,
         'DELETE'
       );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -48,7 +48,7 @@ const Comment = ({
   productId
 }) => {
   const classes = useStyles();
-  const { state, deleteComment, fetchComments } = useStateData();
+  const { state, deleteComment } = useStateData();
   const sellerComment = false;
   let myComment = false;
 

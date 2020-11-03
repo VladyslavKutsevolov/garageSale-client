@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SearchIcon from '@material-ui/icons/Search';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+
 import {
   Container,
   Fab,
@@ -148,10 +148,6 @@ export default function MiniDrawer() {
   // Open state for notifications modal
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
-  // Handle notifications modal opening and closing
-  const handleNotificationsClose = () => {
-    setNotificationsOpen(false);
-  };
 
   const handleDrawerClose = () => {
     setOpen(false);

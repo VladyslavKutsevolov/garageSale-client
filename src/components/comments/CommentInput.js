@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
@@ -30,7 +29,6 @@ const CommentInput = () => {
 
   const authorId = state.loginUser.id;
   const authorUsername = state.loginUser.username;
-  const sellerId = state.loginUser.seller_id;
   const productInfoArray = state.saleData;
 
 
@@ -40,7 +38,6 @@ const CommentInput = () => {
   )[0].product_title;
 
   const handleSubmit = e => {
-    console.log("loginuser", state.loginUser)
     e.preventDefault();
     createComment(authorId, productId, comment, authorUsername);
     const notification = { authorUsername, productTitle, comment };
