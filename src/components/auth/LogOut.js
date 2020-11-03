@@ -14,7 +14,6 @@ const LogOut = props => {
 
     logOutUser();
     props.setUser('');
-    alert('Log out');
     setNoHidden(false);
   };
 
