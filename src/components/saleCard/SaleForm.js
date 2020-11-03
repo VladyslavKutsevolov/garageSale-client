@@ -275,7 +275,7 @@ const SaleForm = ({ handleClose, open }) => {
                 className={classes.submitButton}
                 type="submit"
               >
-                Create Product
+                Create Sale
               </Button>
               <Button
                 onClick={handleClose}
