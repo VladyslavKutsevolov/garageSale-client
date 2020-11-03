@@ -175,7 +175,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === DELETE_GARAGE) {
     return {
       ...state,
-      saleData: state.sales.filter(sale => sale.id !== payload.saleId)
+      sales: state.sales.filter(sale => sale.id !== payload.saleId)
     };
   }
 
