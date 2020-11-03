@@ -213,7 +213,7 @@ export default function SaleItem({
             <div>
               <Typography variant="subtitle1" color="textSecondary">
                 <strong>Price: </strong>
-                {price}
+                {`$${price}`}
               </Typography>
             </div>
             <div className={classes.actionButtons}>
@@ -223,7 +223,7 @@ export default function SaleItem({
                   className={classes.soldOutButton}
                   onClick={() => alert('Sorry Sold Out')}
                 >
-                  PENDING
+                  SALE PENDING
                 </Button>
               ) : (
                 <Button
@@ -231,7 +231,7 @@ export default function SaleItem({
                   className={classes.buttonCustomStyle}
                   onClick={getProductInfo}
                 >
-                  I WILL BUY!
+                  I'LL BUY IT!
                 </Button>
               )}
               <CardActions disableSpacing>

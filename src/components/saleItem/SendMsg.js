@@ -72,7 +72,7 @@ const SendMsg = props => {
     setMsg({
       text: {
         ...text,
-        textMessage: `${props.buyer} will buy ${props.title} by $ ${props.price} from ${props.seller}. `
+        textMessage: `${props.buyer} will buy ${props.title} for $ ${props.price} from ${props.seller}. `
       }
     });
     props.setItemId(null);
@@ -119,7 +119,12 @@ const SendMsg = props => {
       >
         <div style={modalStyle} className={classes.paper}>
           <Typography variant="h6" gutterBottom>
-            Send Text Message
+            Commit to buying
+          </Typography>
+          <Typography variant="caption" gutterBottom>
+            By sending this message you are committing to buying the product
+            from the seller. The seller will receive your contact details so
+            that you can arrange the transaction.
           </Typography>
           <TextField
             id="filled-read-only-input"
@@ -149,7 +154,7 @@ const SendMsg = props => {
               color="primary"
               className={classes.submitButton}
             >
-              Send BUY MSG!
+              Buy this item!
             </Button>
 
             <Dialog

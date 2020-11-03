@@ -22,7 +22,7 @@ const LogOut = props => {
       <ListItemIcon>
         <ExitToApp />
       </ListItemIcon>
-      <ListItemText primary="Logout" />
+      <ListItemText primary="Sign out" />
     </ListItem>
   );
 };

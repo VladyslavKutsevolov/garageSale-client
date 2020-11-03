@@ -1,12 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  ListItemIcon,
-  ListItem,
-  ListItemText
-} from '@material-ui/core/';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { useStateData } from '../../context/appContext';
+import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core/';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
 const useStyles = makeStyles(() => ({
@@ -17,8 +11,6 @@ const useStyles = makeStyles(() => ({
 
 const NotificationIcon = ({ setNotificationsOpen }) => {
   const classes = useStyles();
-  const { state } = useStateData();
-  console.log("state in notification icon", state)
 
   const handleNotificationClick = () => {
     setNotificationsOpen(true);
@@ -26,7 +18,7 @@ const NotificationIcon = ({ setNotificationsOpen }) => {
 
   return (
     <>
-      <ListItem button onClick={handleNotificationClick} >
+      <ListItem button onClick={handleNotificationClick}>
         <ListItemIcon>
           <NotificationsActiveIcon className={classes.root} />
         </ListItemIcon>

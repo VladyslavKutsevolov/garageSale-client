@@ -1,14 +1,10 @@
-import React, { makeStyles, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Comment from './Comment';
 import { useStateData } from '../../context/appContext';
 
 const CommentList = () => {
-
-  // const commentsList, setCommentsList = useState()
   const { state, productId } = useStateData();
-  const [commentListId, setCommentListId] = useState(productId);
-
-
+  const [commentListId] = useState(productId);
   const filteredComments = state.comments.filter(
     comment => comment.product_id === commentListId
   );
@@ -25,7 +21,6 @@ const CommentList = () => {
             comment={comment.comment_text}
             author={comment.author}
             createdAt={comment.created_at}
-            // saleData={saleData}
           />
         ))}
     </>

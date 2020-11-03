@@ -5,7 +5,6 @@ import {
   ListItemText
 } from '@material-ui/core/';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { useStateData } from '../../context/appContext';
 
 const EmptyNotificationIcon = ({ setNotificationsOpen }) => {
 

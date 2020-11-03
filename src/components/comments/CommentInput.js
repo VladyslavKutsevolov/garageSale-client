@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
@@ -30,7 +29,6 @@ const CommentInput = () => {
 
   const authorId = state.loginUser.id;
   const authorUsername = state.loginUser.username;
-  const sellerId = state.loginUser.seller_id;
   const productInfoArray = state.saleData;
 
 
@@ -39,18 +37,15 @@ const CommentInput = () => {
     p => p.product_id === productId
   )[0].product_title;
 
-
-
   const handleSubmit = e => {
     e.preventDefault();
-    if (authorId) {
-      createComment(authorId, productId, comment, );
-
-      // console.log("login user", state.loginUser)
-      const notification = { authorUsername, productTitle, comment };
+    createComment(authorId, productId, comment, authorUsername);
+    const notification = { authorUsername, productTitle, comment };
+    // Don't send seller notifications of their own comment
+    if (authorId !== state.loginUser.id) {
       addNotification(notification);
-      setComment('');
     }
+    setComment('');
   };
 
   return authorId ? (
