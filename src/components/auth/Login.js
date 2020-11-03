@@ -14,7 +14,7 @@ const LogIn = (props) => {
       <ListItemIcon>
         <TouchApp />
       </ListItemIcon>
-      <ListItemText primary="User Login" />
+      <ListItemText primary="Sign in" />
     </ListItem>
   );
 };

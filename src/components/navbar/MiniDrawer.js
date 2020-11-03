@@ -205,7 +205,10 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Welcome to Garage Sale App
+            Welcome to Garajiji! ...
+          </Typography>
+          <Typography variant="caption" noWrap>
+            Host virtual garage sales, buy awesome stuff!
           </Typography>
         </Toolbar>
       </AppBar>
@@ -253,7 +256,7 @@ export default function MiniDrawer() {
                 <ListItemIcon>
                   <StorefrontIcon />
                 </ListItemIcon>
-                <ListItemText primary="MY GARAGE" />
+                <ListItemText primary="My sales" />
               </ListItem>
             </Link>
           ) : null}

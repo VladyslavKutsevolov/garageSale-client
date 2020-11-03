@@ -116,7 +116,6 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === ADD_NOTIFICATION) {
-    console.log("reducer", payload.notification);
     return {
       ...state,
       notifications: [...state.notifications, payload.notification]
