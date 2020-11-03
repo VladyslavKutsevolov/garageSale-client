@@ -207,9 +207,9 @@ export default function MiniDrawer() {
           </IconButton>
           <Typography variant="h6" noWrap>
             Welcome to Garajiji! ...
-          </Typography>
-          <Typography variant="caption" noWrap>
-            Host virtual garage sales, buy awesome stuff!
+            <Typography variant="caption" noWrap>
+              Host virtual garage sales, buy awesome stuff!
+            </Typography>
           </Typography>
         </Toolbar>
       </AppBar>
