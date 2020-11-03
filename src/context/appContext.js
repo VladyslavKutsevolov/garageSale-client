@@ -163,7 +163,7 @@ const StateProvider = ({ children }) => {
     try {
       const {
         data: { message: responseMsg }
-      } = await request(`http://localhost:3001/users/logout`);
+      } = await request(`http://localhost:3001/users/logout`, 'POST');
       dispatch({ type: LOGOUT_USER, payload: { userData: '' } });
       console.log('Message in Context', responseMsg);
       setMessage(responseMsg);

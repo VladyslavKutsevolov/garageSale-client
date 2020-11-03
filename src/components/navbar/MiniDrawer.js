@@ -203,6 +203,7 @@ export default function MiniDrawer() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            data-testid="drawer-opener"
             className={classnames(classes.menuButton, {
               [classes.hide]: open
             })}
