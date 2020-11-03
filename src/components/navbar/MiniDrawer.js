@@ -203,6 +203,7 @@ export default function MiniDrawer() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            data-testid="drawer-opener"
             className={classnames(classes.menuButton, {
               [classes.hide]: open
             })}
@@ -319,6 +320,7 @@ export default function MiniDrawer() {
             open={openLogin}
             handleClose={handleLoginClose}
             setUser={setUser}
+            data-testid="login-form"
           />
           <NotificationModal
             notificationsOpen={notificationsOpen}
