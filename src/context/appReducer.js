@@ -16,7 +16,9 @@ import {
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
   DELETE_GARAGE,
-  SEARCH_BY_CITYNAME
+  SEARCH_BY_CITYNAME,
+  GET_CATEGORIES,
+  LOGOUT_USER
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -41,25 +43,37 @@ const appReducer = (state, { type, payload }) => {
     };
   }
 
+  if (type === LOGOUT_USER) {
+    return {
+      ...state,
+      loginUser: payload.userData
+    };
+  }
+
   if (type === GET_SALE_DATA) {
     const getSaleInfo = () =>
       state.sales.filter(sale => sale.id === Number(payload.saleId))[0];
 
-    const addAllToCategories = () => {
+    return {
+      ...state,
+      sales: state.sales,
+      comments: payload.listOfComments,
+      saleData: payload.garageData || payload.listOfProducts,
+      saleInfo: getSaleInfo()
+    };
+  }
+
+  if (type === GET_CATEGORIES) {
+    const addAllToCaregories = () => {
       // eslint-disable-next-line no-unused-expressions
       payload.categories &&
         payload.categories.push({ name: 'All', category_id: 0 });
-
       return payload.categories;
     };
 
     return {
       ...state,
-      sales: state.sales,
-      categories: addAllToCategories(),
-      comments: payload.listOfComments,
-      saleData: payload.garageData || payload.listOfProducts,
-      saleInfo: getSaleInfo()
+      categories: addAllToCaregories()
     };
   }
 
@@ -88,7 +102,8 @@ const appReducer = (state, { type, payload }) => {
   if (type === CREATE_PRODUCT) {
     return {
       ...state,
-      saleData: [...state.saleData, payload.product]
+      saleData: [...state.saleData, payload.product],
+      categories: state.categories
     };
   }
 
@@ -140,10 +155,6 @@ const appReducer = (state, { type, payload }) => {
         item => item.product_id !== payload.itemId
       )
     };
-  }
-
-  if (type === GET_USER_DATA) {
-    return { ...state, loginUser: payload.userData };
   }
 
   if (type === DELETE_COMMENT) {

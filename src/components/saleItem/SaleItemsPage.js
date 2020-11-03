@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,12 +8,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import { Link } from 'react-router-dom';
 import SaleItemList from './saleItemList';
 import SaleInfo from './SaleInfo';
 import CategoryList from '../category';
 import { useStateData } from '../../context/appContext';
-import { useHistory } from "react-router-dom";
+import SaleItemForm from './SaleItemForm';
 
 import SaleEditForm from './SaleEditForm';
 
@@ -40,7 +40,10 @@ const SaleItemsPage = () => {
     getSaleData,
     setSaleId,
     fetchSales,
-    deleteGarage
+    deleteGarage,
+    getCategoriesForSale,
+    openNewProductForm,
+    handleProductClose
   } = useStateData();
   let history = useHistory();
 
@@ -71,6 +74,7 @@ const SaleItemsPage = () => {
     handleCloseDelete();
     setGarageStatus(true);
     history.push('/');
+    setSaleId(null);
   };
 
   useEffect(() => {
@@ -81,7 +85,12 @@ const SaleItemsPage = () => {
       fetchSales();
     }
     getSaleData(Number(saleId));
+    getCategoriesForSale(Number(saleId));
   }, [saleId]);
+
+  useEffect(() => {
+    getCategoriesForSale(Number(saleId));
+  }, [state.saleData]);
 
   const removedDuplications =
     state.categories &&
@@ -110,7 +119,10 @@ const SaleItemsPage = () => {
           </div>
           <div>
             <SaleEditForm open={openEdit} handleClose={handleCloseEdit} />
-
+            <SaleItemForm
+              open={openNewProductForm}
+              handleClose={handleProductClose}
+            />
             <Dialog
               open={openDelete}
               onClose={handleCloseDelete}
@@ -149,7 +161,11 @@ const SaleItemsPage = () => {
             ) : null}
           </Grid>
           <Grid item>
-            <SaleItemList />
+            {!state.saleData.length ? (
+              <p>There is no Items in the garage</p>
+            ) : (
+              <SaleItemList />
+            )}
           </Grid>
         </Grid>
       </Grid>

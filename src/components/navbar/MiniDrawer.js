@@ -23,7 +23,8 @@ import {
   Divider,
   ListItemText,
   ListItem,
-  ListItemIcon
+  ListItemIcon,
+  Snackbar
 } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -89,6 +90,11 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     whiteSpace: 'nowrap'
   },
+  snackBar: {
+    position: 'relative',
+    top: '.1rem',
+    marginBottom: '1rem'
+  },
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -118,6 +124,10 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3)
+  },
+  removeListStyle: {
+    textDecoration: 'none',
+    color: '#333'
   }
 }));
 
@@ -224,7 +234,7 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          <Link to="/">
+          <Link to="/" className={classes.removeListStyle}>
             <ListItem button onClick={() => setSaleId(null)}>
               <ListItemIcon>
                 <HomeIcon />
@@ -238,7 +248,7 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <SearchBy />
           </ListItem>
-          <Link to="/products">
+          <Link to="/products" className={classes.removeListStyle}>
             <ListItem button onClick={() => setSaleId(userGarage.id)}>
               <ListItemIcon>
                 <StorefrontIcon />
@@ -286,7 +296,15 @@ export default function MiniDrawer() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container component="div" className={classes.container}>
-          {loading ? <Alert severity="info">Loading...</Alert> : null}
+          <div className={classes.snackBar}>
+            <Snackbar
+              open={loading}
+              autoHideDuration={5000}
+              className={classes.snackBar}
+            >
+              <Alert severity="info">Loading...</Alert>
+            </Snackbar>
+          </div>
           <InfoMsg error={error} message={message} loading={loading} />
           <Switch>
             <Route path="/" exact component={SaleCardList} />
