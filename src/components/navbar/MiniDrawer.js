@@ -144,7 +144,8 @@ export default function MiniDrawer() {
     message,
     error,
     loading,
-    state
+    state,
+    showMessage
   } = useStateData();
 
   // Open state for login form
@@ -251,16 +252,31 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <SearchBy />
           </ListItem>
+
           {user ? (
-            <Link to="/products" className={classes.removeListStyle}>
-              <ListItem button onClick={() => setSaleId(userGarage.id)}>
+            userGarage ? (
+              <Link to="/products" className={classes.removeListStyle}>
+                <ListItem button onClick={() => setSaleId(userGarage.id)}>
+                  <ListItemIcon>
+                    <StorefrontIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My sales" />
+                </ListItem>
+              </Link>
+            ) : (
+              <ListItem
+                button
+                onClick={() =>
+                  showMessage('No garage! Please create your awesome garage first')}
+              >
                 <ListItemIcon>
                   <StorefrontIcon />
                 </ListItemIcon>
                 <ListItemText primary="My sales" />
               </ListItem>
-            </Link>
+            )
           ) : null}
+
           {user ? (
             state.notifications && state.notifications.length ? (
               <NotificationIcon setNotificationsOpen={setNotificationsOpen} />

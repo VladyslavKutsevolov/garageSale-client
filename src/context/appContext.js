@@ -340,6 +340,10 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const showMessage = (msg) => {
+    setError(msg);
+  }
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -383,7 +387,8 @@ const StateProvider = ({ children }) => {
     noHidden,
     setNoHidden,
     getCategoriesForSale,
-    logOutUser
+    logOutUser,
+    showMessage
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
