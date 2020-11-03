@@ -75,6 +75,7 @@ const SaleItemsPage = () => {
     setGarageStatus(true);
     setSaleId(null);
     history.push('/');
+    fetchSales();
   };
 
   useEffect(() => {
