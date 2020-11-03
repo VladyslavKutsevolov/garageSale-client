@@ -49,7 +49,7 @@ const Comment = ({
 }) => {
   const classes = useStyles();
   const { state, deleteComment } = useStateData();
-  const sellerComment = false;
+  let sellerComment = false;
   let myComment = false;
 
   // Validate if user wrote comment
@@ -57,16 +57,18 @@ const Comment = ({
     myComment = true;
   }
 
+  if (state.saleInfo.seller_id === authorId) {
+    sellerComment = true;
+  }
 
   const handleDelete = () => {
     deleteComment(commentId);
-    // fetchComments(productId);
   };
 
   return sellerComment ? (
     <>
       <div className={classes.seller}>
-        <Typography variant="caption">{`${author} (seller): `}</Typography>
+        <Typography variant="caption">{`${author} (seller): ${comment}`}</Typography>
         {myComment && (
           <IconButton className={classes.iconDiv} onClick={handleDelete}>
             <CancelIcon className={classes.icon} />
