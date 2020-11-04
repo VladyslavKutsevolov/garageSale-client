@@ -12,11 +12,11 @@ Single Page Garajiji with following behaviours:
   - User can send text to the seller and after buying the item turns into 'Sale pending' mode
 
 ## Final Product
-!["Screenshot of Main Page"]()
-!["Screenshot of Items on Garage"]()
-!["Screenshot of Create Garage Sale"]()
-!["Screenshot of Comments on item"]()
-!["Screenshot of Send Text Messages to seller"]()
+!["Screenshot of Main Page"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Main_Page.png)
+!["Screenshot of Items on Garage"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Items_on_Garage.png)
+!["Screenshot of Create Garage Sale"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Create_Garage.png)
+!["Screenshot of Comments on item"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Comments.png)
+!["Screenshot of Send Text Messages to seller"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Send_Txt_Msg.png)
 
 ## Getting Started
 
