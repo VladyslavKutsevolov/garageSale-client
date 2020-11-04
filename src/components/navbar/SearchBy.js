@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SearchBy = () => {
+const SearchBy = ({ inputFocus }) => {
   const classes = useStyles();
   const { searchByCityName, cityname, setCityName } = useStateData();
 
@@ -37,6 +37,7 @@ const SearchBy = () => {
           name="city"
           id="cityname"
           label="City name"
+          inputRef={inputFocus}
         />
       </form>
     </div>

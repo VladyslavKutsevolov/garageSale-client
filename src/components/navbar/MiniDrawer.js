@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -152,6 +152,13 @@ export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
 
+  const focusSearchInput = useRef();
+  const focusInput = () => {
+    setOpen(true);
+
+    focusSearchInput.current.focus();
+  };
+
   // Set user and sale data in state
   const [user, setUser] = useState('');
   const [userGarage, setUserGarage] = useState('');
@@ -246,11 +253,11 @@ export default function MiniDrawer() {
               <ListItemText primary="Home" />
             </ListItem>
           </Link>
-          <ListItem>
+          <ListItem onClick={focusInput} button>
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
-            <SearchBy />
+            <SearchBy inputFocus={focusSearchInput} />
           </ListItem>
 
           {user ? (

@@ -102,6 +102,7 @@ const LoginForm = ({ handleClose, open, setUser }) => {
               value={username}
               name="username"
               label="USERNAME"
+              data-testid="username"
               fullWidth
             />
             <TextField
@@ -110,6 +111,7 @@ const LoginForm = ({ handleClose, open, setUser }) => {
               value={password}
               name="password"
               label="PASSWORD"
+              data-testid="password"
               fullWidth
             />
             <div className={classes.actionButtons}>
