@@ -101,7 +101,7 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state, deleteProduct, setProductId, noHidden } = useStateData();
+  const { state, deleteProduct, setProductId, noHidden, showMessage } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -116,7 +116,7 @@ export default function SaleItem({
       // Trigger for open/close buy button
       setItemId(id);
     } else {
-      alert('Please Login First!');
+      showMessage('Please Login First!');
     }
   };
 
@@ -221,7 +221,7 @@ export default function SaleItem({
                 <Button
                   variant="contained"
                   className={classes.soldOutButton}
-                  onClick={() => alert('Sorry Sold Out')}
+                  onClick={() => showMessage('Sorry Sold Out')}
                 >
                   SALE PENDING
                 </Button>

@@ -174,7 +174,7 @@ const StateProvider = ({ children }) => {
     try {
       const {
         data: { message: responseMsg }
-      } = await request(`http://localhost:3001/users/logout`);
+      } = await request(`http://localhost:3001/users/logout`, 'POST');
       dispatch({ type: LOGOUT_USER, payload: { userData: '' } });
       console.log('Message in Context', responseMsg);
       setMessage(responseMsg);
@@ -351,6 +351,10 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const showMessage = (msg) => {
+    setError(msg);
+  }
+
   useEffect(() => {
     clearError();
     clearMessage();
@@ -396,6 +400,7 @@ const StateProvider = ({ children }) => {
     getCategoriesForSale,
     logOutUser,
     getLatestComments
+    showMessage
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

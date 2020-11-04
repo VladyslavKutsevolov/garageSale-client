@@ -10,7 +10,7 @@ const LogIn = (props) => {
   };
 
   return (
-    <ListItem button onClick={handleLoginOpen}>
+    <ListItem button onClick={handleLoginOpen} data-testid="login-opener">
       <ListItemIcon>
         <TouchApp />
       </ListItemIcon>

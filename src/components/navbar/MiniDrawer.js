@@ -145,7 +145,7 @@ export default function MiniDrawer() {
     error,
     loading,
     state,
-    getLatestComments
+    showMessage
   } = useStateData();
 
   // Open state for login form
@@ -185,8 +185,6 @@ export default function MiniDrawer() {
     }
   }, [state]);
 
-
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -202,6 +200,7 @@ export default function MiniDrawer() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            data-testid="drawer-opener"
             className={classnames(classes.menuButton, {
               [classes.hide]: open
             })}
@@ -254,16 +253,33 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <SearchBy />
           </ListItem>
+
           {user ? (
-            <Link to="/products" className={classes.removeListStyle}>
-              <ListItem button onClick={() => setSaleId(userGarage.id)}>
+            userGarage ? (
+              <Link to="/products" className={classes.removeListStyle}>
+                <ListItem button onClick={() => setSaleId(userGarage.id)}>
+                  <ListItemIcon>
+                    <StorefrontIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My sales" />
+                </ListItem>
+              </Link>
+            ) : (
+              <ListItem
+                button
+                onClick={() =>
+                  showMessage(
+                    'No garage! Please create your awesome garage first'
+                  )}
+              >
                 <ListItemIcon>
                   <StorefrontIcon />
                 </ListItemIcon>
                 <ListItemText primary="My sales" />
               </ListItem>
-            </Link>
+            )
           ) : null}
+
           {user ? (
             state.latestComments &&
             state.latestComments.length &&

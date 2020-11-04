@@ -169,7 +169,12 @@ const SendMsg = props => {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={sendText} color="primary" autoFocus>
+                <Button
+                  onClick={sendText}
+                  color="primary"
+                  autoFocus
+                  data-testid="send-text"
+                >
                   BUY
                 </Button>
                 <Button onClick={handleDisagree} color="primary">

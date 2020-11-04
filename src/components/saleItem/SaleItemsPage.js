@@ -73,8 +73,9 @@ const SaleItemsPage = () => {
     deleteGarage(garageId);
     handleCloseDelete();
     setGarageStatus(true);
-    history.push('/');
     setSaleId(null);
+    history.push('/');
+    fetchSales();
   };
 
   useEffect(() => {
