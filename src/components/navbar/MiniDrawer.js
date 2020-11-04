@@ -214,9 +214,9 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h5" component="h6" noWrap>
             Welcome to Garajiji! ...
-            <Typography variant="caption" noWrap>
+            <Typography variant="subtitle1" component="span" noWrap>
               Host virtual garage sales, buy awesome stuff!
             </Typography>
           </Typography>
