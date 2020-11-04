@@ -399,7 +399,7 @@ const StateProvider = ({ children }) => {
     setNoHidden,
     getCategoriesForSale,
     logOutUser,
-    getLatestComments
+    getLatestComments,
     showMessage
   };
 
