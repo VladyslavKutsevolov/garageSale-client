@@ -28,7 +28,8 @@ import {
   SEARCH_BY_CITYNAME,
   CLEAR_NOTIFICATIONS,
   GET_CATEGORIES,
-  LOGOUT_USER
+  LOGOUT_USER,
+  GET_LATEST_COMMENTS
 } from './types';
 
 import useHttp from '../hooks/useHttp';
@@ -43,7 +44,8 @@ const initialState = {
   products: [],
   loginUser: [],
   comments: [],
-  notifications: []
+  notifications: [],
+  latestComments: []
 };
 
 const StateProvider = ({ children }) => {
@@ -145,6 +147,15 @@ const StateProvider = ({ children }) => {
         data: { listOfComments }
       } = await request(`http://localhost:3001/comments/${itemId}`);
       dispatch({ type: GET_ALL_COMMENTS, payload: { listOfComments, itemId } });
+    } catch (e) {}
+  };
+
+  const getLatestComments = async sellerId => {
+    try {
+      const {
+        data: { latestComments }
+      } = await request(`http://localhost:3001/comments/getlatestcomments/${sellerId}`);
+      dispatch({ type: GET_LATEST_COMMENTS, payload: { latestComments } });
     } catch (e) {}
   };
 
@@ -383,7 +394,8 @@ const StateProvider = ({ children }) => {
     noHidden,
     setNoHidden,
     getCategoriesForSale,
-    logOutUser
+    logOutUser,
+    getLatestComments
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;

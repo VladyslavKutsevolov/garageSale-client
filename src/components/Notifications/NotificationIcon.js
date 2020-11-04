@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core/';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import { useStateData } from '../../context/appContext';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -9,11 +10,14 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const NotificationIcon = ({ setNotificationsOpen }) => {
+const NotificationIcon = ({ setNotificationsOpen, setNotificationsRead }) => {
   const classes = useStyles();
-
+  const { getLatestComments, state } = useStateData();
   const handleNotificationClick = () => {
+
+    getLatestComments(state.loginUser.id);
     setNotificationsOpen(true);
+    setNotificationsRead(true);
   };
 
   return (

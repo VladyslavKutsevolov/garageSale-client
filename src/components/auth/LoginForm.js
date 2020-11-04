@@ -56,7 +56,7 @@ const LoginForm = ({ handleClose, open, setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [modalStyle] = React.useState(getModalStyle);
-  const { getLoginUser } = useStateData();
+  const { getLoginUser, getLatestComments, state } = useStateData();
 
   const clearInputFields = () => {
     setUsername('');
@@ -66,7 +66,6 @@ const LoginForm = ({ handleClose, open, setUser }) => {
   const handleSubmit = e => {
     e.preventDefault();
     const formData = { username, password };
-
     axios
       .post('http://localhost:3001/users/login', formData)
       .then(res => {

@@ -144,7 +144,8 @@ export default function MiniDrawer() {
     message,
     error,
     loading,
-    state
+    state,
+    getLatestComments
   } = useStateData();
 
   // Open state for login form
@@ -157,6 +158,7 @@ export default function MiniDrawer() {
 
   // Open state for notifications modal
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notificationsRead, setNotificationsRead] = useState(false);
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -182,6 +184,8 @@ export default function MiniDrawer() {
       setUserGarage(null);
     }
   }, [state]);
+
+
 
   return (
     <div className={classes.root}>
@@ -261,13 +265,18 @@ export default function MiniDrawer() {
             </Link>
           ) : null}
           {user ? (
-            state.notifications && state.notifications.length ? (
-              <NotificationIcon setNotificationsOpen={setNotificationsOpen} />
-            ) : (
-              <EmptyNotificationIcon
+            state.latestComments &&
+            state.latestComments.length &&
+            !notificationsRead ? (
+              <NotificationIcon
                 setNotificationsOpen={setNotificationsOpen}
+                setNotificationsRead={setNotificationsRead}
               />
-            )
+              ) : (
+              <EmptyNotificationIcon
+                  setNotificationsOpen={setNotificationsOpen}
+                />
+              )
           ) : null}
           {user ? (
             !saleId ? (
