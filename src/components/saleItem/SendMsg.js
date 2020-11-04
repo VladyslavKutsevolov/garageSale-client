@@ -68,6 +68,8 @@ const SendMsg = props => {
   const { soldOut, productId } = useStateData();
   const { text } = msg;
 
+  console.log('Props when send', props)
+
   useEffect(() => {
     setMsg({
       text: {
@@ -95,18 +97,21 @@ const SendMsg = props => {
   };
 
   const sendText = () => {
-    fetch(
-      `http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `
-    ).catch(err => console.error(err));
+    if (props.title) {
+      fetch(
+        `http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `
+      ).catch(err => console.error(err));
 
-    fetch(
-      `http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `
-    ).catch(err => console.error(err));
+      fetch(
+        `http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `
+      ).catch(err => console.error(err));
 
-    soldOut(productId);
+      soldOut(productId);
 
-    clearInputFields();
-    props.handleSendClose();
+      clearInputFields();
+      props.handleSendClose();
+    }
+
   };
 
   return (
