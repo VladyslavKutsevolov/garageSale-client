@@ -38,6 +38,8 @@ const SaleCardList = () => {
     fetchSales();
   }, []);
 
+
+
   const goToSale = id => {
     setSaleId(id);
   };

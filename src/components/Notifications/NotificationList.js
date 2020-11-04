@@ -1,21 +1,27 @@
 import React from 'react';
 import { Typography } from '@material-ui/core/';
 import { useStateData } from '../../context/appContext';
+import { DateTime } from "luxon";
 
 const NotificationList = () => {
   const { state } = useStateData();
+
   return (
     <>
-      {state.notifications && state.notifications.length ? (
-        state.notifications.map(notification => (
-          <Typography variant='h6' >
-            {`${notification.authorUsername} commented on ${notification.productTitle}: ${notification.comment }`}
+      {state.latestComments && state.latestComments.length ? (
+        <Typography variant="h4">Latest activity on your sales:</Typography>
+      ) : null}
+      {state.latestComments && state.latestComments.length ? (
+        state.latestComments.map(comment => (
+          <Typography variant="h6">
+            {`${comment.username} commented on ${comment.title} on ${DateTime.fromISO(comment.created_at).toFormat('ff')}: `}
+            <Typography variant="h6">
+              {`${comment.comment}`}
+            </Typography>
           </Typography>
         ))
       ) : (
-        <Typography variant='h6'>
-          No new notifications
-        </Typography>
+        <Typography variant="h6">No new notifications</Typography>
       )}
     </>
   );

@@ -18,7 +18,8 @@ import {
   DELETE_GARAGE,
   SEARCH_BY_CITYNAME,
   GET_CATEGORIES,
-  LOGOUT_USER
+  LOGOUT_USER,
+  GET_LATEST_COMMENTS
 } from './types';
 
 const appReducer = (state, { type, payload }) => {
@@ -96,6 +97,14 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       comments: payload.listOfComments
+    };
+  }
+
+  if (type === GET_LATEST_COMMENTS) {
+    console.log("reducer payload", payload.latestComments)
+    return {
+      ...state,
+      latestComments: payload.latestComments
     };
   }
 
