@@ -1,68 +1,40 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Garajiji
 
-## Available Scripts
+Single page virtual garage sale platform. Users can browse, ask questions and finalize transactions without ever leaving the house.
+Single Page Garajiji with following behaviours:
+  - User can browse existing garage sales by name of city
+  - Logged in user can create new garage sale, or can edit/delete existing owned garage sales
+  - Logged in user can create new items on existing garage sales, or can edit/delete existing items
+  - Items on garage sales can be filtered by item categories
+  - User can click the details to see description of the item or can write the comments about the item
+  - Author of comment can delete the comment
+  - Owner of garage sale can receive the notification when there is new comments on item
+  - User can send text to the seller and after buying the item turns into 'Sale pending' mode
 
-In the project directory, you can run:
+## Final Product
+!["Screenshot of Main Page"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Main_Page.png)
+!["Screenshot of Items on Garage"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Items_on_Garage.png)
+!["Screenshot of Create Garage Sale"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Create_Garage.png)
+!["Screenshot of Comments on item"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Comments.png)
+!["Screenshot of Send Text Messages to seller"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Send_Txt_Msg.png)
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Fork this repository, then clone your fork of this repository.
+2. Install dependencies using the `npm install` command.
+3. Fork https://github.com/9boogie/garagesale-server , then clone your fork to this repository.
+4. Install dependencies using the `npm install` command.
+5. Creatae database on postregres and run the schema and seeds.
+6. Start the server using the `npm run dev` command. The app will be served at <http://localhost:3001/>.
+6. Start the web client using the `npm start` command. The app will be served at <http://localhost:3000/>.
+7. Go to <http://localhost:3000/> in your browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Setup
 
-### `npm test`
+Install dependencies with `npm install`.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Running Webpack Development Server
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```sh
+npm start
+```
