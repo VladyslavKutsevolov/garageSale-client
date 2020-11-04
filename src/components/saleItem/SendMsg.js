@@ -68,8 +68,6 @@ const SendMsg = props => {
   const { soldOut, productId } = useStateData();
   const { text } = msg;
 
-  console.log('Props when send', props)
-
   useEffect(() => {
     setMsg({
       text: {
