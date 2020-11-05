@@ -36,7 +36,7 @@ import useHttp from '../hooks/useHttp';
 
 import appReducer from './appReducer';
 
-const appContext = createContext();
+export const appContext = createContext();
 
 const initialState = {
   sales: [],
