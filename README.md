@@ -17,9 +17,9 @@ Single Page Garajiji with following behaviours:
   - Vladyslav Kutsevolov
 
 ## Tech Stack
-Back End: NodeJs, Express, Postgres
-Front End: React, Material UI
-Test: Jest, Cypress
+  - Back End: NodeJs, Express, Postgres
+  - Front End: React, Material UI
+  - Test: Jest, Cypress
 
 ## Final Product
 !["Screenshot of Main Page"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Main_Page.png)
