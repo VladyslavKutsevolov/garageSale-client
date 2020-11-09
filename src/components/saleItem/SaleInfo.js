@@ -79,6 +79,7 @@ const SaleInfo = ({
               <DeleteIcon
                 className={classes.actions}
                 onClick={handleOpenDelete}
+                data-testid="delete-garage"
               />
             </ListItemIcon>
           </Typography>
