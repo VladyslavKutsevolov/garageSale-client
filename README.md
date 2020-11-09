@@ -11,6 +11,16 @@ Single Page Garajiji with following behaviours:
   - Owner of garage sale can receive the notification when there is new comments on item
   - User can send text to the seller and after buying the item turns into 'Sale pending' mode
 
+## Group Member
+  - Jaeyoung Kim
+  - James Brown
+  - Vladyslav Kutsevolov
+
+## Tech Stack
+Back End: NodeJs, Express, Postgres
+Front End: React, Material UI
+Test: Jest, Cypress
+
 ## Final Product
 !["Screenshot of Main Page"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Main_Page.png)
 !["Screenshot of Items on Garage"](https://github.com/VladyslavKutsevolov/garagesale-client/blob/master/docs/Items_on_Garage.png)
