@@ -72,7 +72,7 @@ const SendMsg = props => {
     setMsg({
       text: {
         ...text,
-        textMessage: `${props.buyer} will buy ${props.title} for $ ${props.price} from ${props.seller}. `
+        textMessage: `${props.buyer} will buy ${props.title} for $ ${props.price}. `
       }
     });
     props.setItemId(null);

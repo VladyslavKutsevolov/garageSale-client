@@ -33,9 +33,7 @@ const CommentInput = () => {
 
 
 
-  const productTitle = productInfoArray.filter(
-    p => p.product_id === productId
-  )[0].product_title;
+  const productTitle = "Teddy Bear"
 
   const handleSubmit = e => {
     e.preventDefault();
