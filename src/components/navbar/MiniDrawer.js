@@ -264,7 +264,11 @@ export default function MiniDrawer() {
           {user ? (
             userGarage ? (
               <Link to="/products" className={classes.removeListStyle}>
-                <ListItem button onClick={() => setSaleId(userGarage.id)}>
+                <ListItem
+                  button
+                  onClick={() => setSaleId(userGarage.id)}
+                  data-testid="my-sales"
+                >
                   <ListItemIcon>
                     <StorefrontIcon />
                   </ListItemIcon>

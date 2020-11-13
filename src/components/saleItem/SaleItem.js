@@ -101,7 +101,13 @@ export default function SaleItem({
   sold,
   getProductId
 }) {
-  const { state, deleteProduct, setProductId, noHidden, showMessage } = useStateData();
+  const {
+    state,
+    deleteProduct,
+    setProductId,
+    noHidden,
+    showMessage
+  } = useStateData();
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -157,7 +163,11 @@ export default function SaleItem({
           <CardMedia className={classes.cover} image={imageUrl} />
           <div className={classes.productInfo}>
             <div>
-              <CardHeader className={classes.title} title={title} />
+              <CardHeader
+                className={classes.title}
+                title={title}
+                data-testid="item-title"
+              />
               <div>
                 {noHidden && (
                   <ListItemIcon>
@@ -166,6 +176,7 @@ export default function SaleItem({
                       onClick={handleOpenEdit}
                     />
                     <DeleteIcon
+                      data-testid="delete-item"
                       className={classes.actions}
                       onClick={handleOpenDelete}
                     />
