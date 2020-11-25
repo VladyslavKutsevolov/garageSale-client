@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button, Modal } from '@material-ui/core';
 import { useStateData } from '../../context/appContext';
+import { loginFormStyles } from './styles';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 
@@ -21,38 +21,8 @@ const getModalStyle = () => {
   };
 };
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    position: 'absolute',
-    width: 500,
-    backgroundColor: theme.palette.background.paper,
-    outline: 'none',
-    borderRadius: '5px',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  },
-  actionButtons: {
-    display: 'flex',
-    marginTop: '1.2rem',
-    justifyContent: 'center'
-  },
-  submitButton: {
-    marginRight: '.5rem'
-  },
-  upload: {
-    marginTop: '1.2rem'
-  },
-  uploadButtonControl: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  filename: {
-    marginLeft: '1rem'
-  }
-}));
-
 const LoginForm = ({ handleClose, open, setUser }) => {
-  const classes = useStyles();
+  const classes = loginFormStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [modalStyle] = React.useState(getModalStyle);
