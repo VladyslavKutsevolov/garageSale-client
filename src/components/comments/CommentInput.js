@@ -1,29 +1,13 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
 import { useStateData } from '../../context/appContext';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    maxWidth: '100%',
-
-    display: 'flex',
-    '& > *': {
-      margin: theme.spacing(1)
-    }
-  },
-  icon: {
-    height: '30px',
-    padding: 0,
-    margin: '20px 0px'
-  }
-}));
+import { commentContainerStyles } from './styles';
 
 const CommentInput = () => {
-  const classes = useStyles();
+  const classes = commentContainerStyles();
   const { createComment, state, productId, addNotification } = useStateData();
   const [comment, setComment] = useState('');
 
@@ -31,9 +15,7 @@ const CommentInput = () => {
   const authorUsername = state.loginUser.username;
   const productInfoArray = state.saleData;
 
-
-
-  const productTitle = "Teddy Bear"
+  const productTitle = 'Teddy Bear';
 
   const handleSubmit = e => {
     e.preventDefault();

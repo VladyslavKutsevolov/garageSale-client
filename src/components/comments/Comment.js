@@ -1,43 +1,9 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
 import { useStateData } from '../../context/appContext';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    border: '1px solid #cacccc',
-    borderRadius: '5px',
-    padding: '7px',
-    margin: '5px',
-    backgroundColor: '#ebeded',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    position: 'relative'
-  },
-  seller: {
-    border: '1px solid #ebd173',
-    borderRadius: '5px',
-    padding: '7px',
-    margin: '5px',
-    backgroundColor: '#f0e1aa',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    position: 'relative'
-  },
-  iconDiv: {
-    position: 'absolute',
-    top: '-17px',
-    right: '-20px'
-  },
-  icon: {
-    color: '#9c9c9c',
-    maxHeight: '1rem'
-  }
-}));
+import { commentStyles } from './styles';
 
 const Comment = ({
   comment,
@@ -47,7 +13,7 @@ const Comment = ({
   commentId,
   productId
 }) => {
-  const classes = useStyles();
+  const classes = commentStyles();
   const { state, deleteComment } = useStateData();
   let sellerComment = false;
   let myComment = false;
