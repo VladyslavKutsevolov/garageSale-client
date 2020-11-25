@@ -6,27 +6,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useSpring, animated } from 'react-spring';
+import { saleCardStyles } from './styles';
 import './styles.scss';
 
-const useStyles = makeStyles({
-  title: {
-    textAlign: 'center'
-  },
-  city: {
-    textAlign: 'center',
-    marginTop: '.5rem',
-    marginBottom: '.5rem'
-  },
-  description: {
-    textAlign: 'center',
-    color: '#444'
-  },
-  time: {
-    textAlign: 'right'
-  }
-});
 // Animation
 const calc = (x, y) => [
   -(y - window.innerHeight / 2) / 800,
@@ -45,7 +28,7 @@ const SaleCard = ({
   province,
   daysAgo
 }) => {
-  const classes = useStyles();
+  const classes = saleCardStyles();
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 5, tension: 500, friction: 300 }

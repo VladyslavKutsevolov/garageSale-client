@@ -3,23 +3,15 @@ import React, { useEffect } from 'react';
 import moment from 'moment';
 
 import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { saleCardListStyles } from './styles';
 
 import { useStateData } from '../../context/appContext';
 
 import SaleCard from './SaleCard';
 import SaleForm from './SaleForm';
 
-const useStyles = makeStyles({
-  root: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(30rem, 1fr))',
-    justifyItems: 'center'
-  }
-});
-
 const SaleCardList = () => {
-  const classes = useStyles();
+  const classes = saleCardListStyles();
   const {
     fetchSales,
     state,
@@ -37,8 +29,6 @@ const SaleCardList = () => {
     }
     fetchSales();
   }, []);
-
-
 
   const goToSale = id => {
     setSaleId(id);
