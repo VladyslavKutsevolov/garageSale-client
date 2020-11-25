@@ -31,6 +31,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+import { miniDrawerStyles } from './styles';
 
 import SaleCardList from '../saleCard/SaleCardList';
 import { useStateData } from '../../context/appContext';
@@ -44,97 +45,10 @@ import NotificationModal from '../Notifications/NotificationModal';
 import InfoMsg from '../infoMsg/InfoMsg';
 import SearchBy from './SearchBy';
 
-const drawerWidth = 340;
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex'
-  },
-  container: {
-    maxWidth: '96%',
-    margin: 'auto'
-  },
-  small: {
-    width: theme.spacing(5),
-    height: theme.spacing(5)
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7)
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    background:
-      'linear-gradient(135deg, rgba(164,66,255,1) 0%, rgba(68,17,187,1) 39%, rgba(38,70,227,1) 69%, rgba(38,70,227,1) 88%)',
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginRight: 36
-  },
-  hide: {
-    display: 'none'
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap'
-  },
-  snackBar: {
-    position: 'relative',
-    top: '.1rem',
-    marginBottom: '1rem'
-  },
-  drawerOpen: {
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1
-    }
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  },
-  removeListStyle: {
-    textDecoration: 'none',
-    color: '#333'
-  }
-}));
-
 const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
 
 export default function MiniDrawer() {
-  const classes = useStyles();
+  const classes = miniDrawerStyles();
   const theme = useTheme();
   const {
     handleGarageFormOpen,
@@ -281,7 +195,8 @@ export default function MiniDrawer() {
                 onClick={() =>
                   showMessage(
                     'No garage! Please create your awesome garage first'
-                  )}
+                  )
+                }
               >
                 <ListItemIcon>
                   <StorefrontIcon />
@@ -299,11 +214,11 @@ export default function MiniDrawer() {
                 setNotificationsOpen={setNotificationsOpen}
                 setNotificationsRead={setNotificationsRead}
               />
-              ) : (
+            ) : (
               <EmptyNotificationIcon
-                  setNotificationsOpen={setNotificationsOpen}
-                />
-              )
+                setNotificationsOpen={setNotificationsOpen}
+              />
+            )
           ) : null}
           {user ? (
             !saleId ? (
