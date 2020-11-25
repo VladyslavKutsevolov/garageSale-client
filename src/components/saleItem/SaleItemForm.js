@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import {
   Fab,
@@ -14,6 +13,7 @@ import {
   InputLabel
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { saleItemFromStyles } from './styles';
 import { useStateData } from '../../context/appContext';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
@@ -29,43 +29,6 @@ const getModalStyle = () => {
   };
 };
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    position: 'absolute',
-    width: 500,
-    backgroundColor: theme.palette.background.paper,
-    outline: 'none',
-    borderRadius: '5px',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  },
-  actionButtons: {
-    display: 'flex',
-    marginTop: '1.2rem',
-    justifyContent: 'center'
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  submitButton: {
-    marginRight: '.5rem'
-  },
-  upload: {
-    marginTop: '1.2rem'
-  },
-  uploadButtonControl: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  filename: {
-    marginLeft: '1rem'
-  },
-  validationStyle: {
-    color: 'red'
-  }
-}));
-
 const initialState = {
   title: '',
   description: '',
@@ -74,7 +37,7 @@ const initialState = {
 };
 
 const SaleItemForm = ({ handleClose, open }) => {
-  const classes = useStyles();
+  const classes = saleItemFromStyles();
   const [form, setForm] = useState(initialState);
   const [productImg, setProductImg] = useState(null);
   const [modalStyle] = React.useState(getModalStyle);

@@ -1,47 +1,12 @@
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 import { CardMedia, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import React, { useEffect } from 'react';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { saleInfoStyles } from './styles';
 import { useStateData } from '../../context/appContext';
-
-const useStyles = makeStyles({
-  media: {
-    width: '45rem',
-    height: '20rem',
-    marginBottom: '1rem'
-  },
-  boxStyle: {
-    boxShadow: '4px 6px 15px -6px rgba(0,0,0,0.5)',
-    borderRadius: '4px',
-    maxWidth: '45rem',
-    marginTop: '2rem',
-    flexBasis: '45%',
-    justifyContent: 'center',
-    paddingBottom: '1rem'
-  },
-  title: {
-    textAlign: 'center'
-  },
-  city: {
-    textAlign: 'center',
-    marginTop: '.5rem',
-    marginBottom: '.5rem'
-  },
-  description: {
-    textAlign: 'center',
-    color: '#444'
-  },
-  actions: {
-    cursor: 'pointer',
-    '&:hover': {
-      color: '#0066ff'
-    }
-  }
-});
 
 const SaleInfo = ({
   saleImg,
@@ -53,7 +18,7 @@ const SaleInfo = ({
   province,
   seller_id
 }) => {
-  const classes = useStyles();
+  const classes = saleInfoStyles();
   const { state, noHidden, setNoHidden } = useStateData();
 
   // Activate Edit/Delete button for seller

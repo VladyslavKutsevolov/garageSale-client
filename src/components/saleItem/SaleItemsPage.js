@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Grid, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,27 +12,12 @@ import SaleInfo from './SaleInfo';
 import CategoryList from '../category';
 import { useStateData } from '../../context/appContext';
 import SaleItemForm from './SaleItemForm';
+import { saleItemPageStyles } from './styles';
 
 import SaleEditForm from './SaleEditForm';
 
-const useStyle = makeStyles({
-  innerContainer: {
-    marginTop: '6rem',
-    flexBasis: '25%'
-  },
-  root: {
-    justifyContent: 'space-evenly'
-  },
-  category: {
-    marginBottom: '2rem'
-  },
-  saleInfo: {
-    marginTop: '6rem'
-  }
-});
-
 const SaleItemsPage = () => {
-  const classes = useStyle();
+  const classes = saleItemPageStyles();
   const {
     state,
     saleId,

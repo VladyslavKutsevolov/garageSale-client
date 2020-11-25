@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Fab, Button, Modal } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { useStateData } from '../../context/appContext';
+import { saleItemEditStyles } from './styles';
 
 const rand = () => Math.round(Math.random() * 20) - 10;
 
@@ -21,36 +21,6 @@ const getModalStyle = () => {
   };
 };
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    position: 'absolute',
-    width: 500,
-    backgroundColor: theme.palette.background.paper,
-    outline: 'none',
-    borderRadius: '5px',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  },
-  actionButtons: {
-    display: 'flex',
-    marginTop: '1.2rem',
-    justifyContent: 'center'
-  },
-  submitButton: {
-    marginRight: '.5rem'
-  },
-  upload: {
-    marginTop: '1.2rem'
-  },
-  uploadButtonControl: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  filename: {
-    marginLeft: '1rem'
-  }
-}));
-
 const SaleItemEdit = props => {
   const initialState = {
     title: props.title,
@@ -59,7 +29,7 @@ const SaleItemEdit = props => {
     image_url: props.imageUrl,
     sold: props.sold
   };
-  const classes = useStyles();
+  const classes = saleItemEditStyles();
   const [form, setForm] = useState(initialState);
   const [productImg, setProductImg] = useState(null);
   const [modalStyle] = React.useState(getModalStyle);

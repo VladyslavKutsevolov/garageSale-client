@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -24,72 +23,7 @@ import SaleItemEdit from './SaleItemEdit';
 import CommentContainer from '../comments/CommentContainer';
 import CardDropDown from './DropDownBox';
 import { useStateData } from '../../context/appContext';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.15)',
-    minWidth: '45rem',
-    marginBottom: '2rem',
-    transition: 'all, 2s, ease-out',
-    '&:hover': {
-      boxShadow: '4px 13px 20px -6px rgba(0,0,0,0.45)'
-    }
-  },
-  cardContentRoot: {
-    padding: 0,
-    '&:last-child': {
-      paddingBottom: 0
-    }
-  },
-  productInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyItems: 'center',
-    marginLeft: '1rem',
-    marginRight: '1rem'
-  },
-  actionButtons: {
-    display: 'flex',
-    marginTop: '1rem'
-  },
-  buttonCustomStyle: {
-    background:
-      'linear-gradient(135deg, rgba(164,66,255,1) 0%, rgba(68,17,187,1) 39%, rgba(38,70,227,1) 69%, rgba(38,70,227,1) 88%)',
-    color: '#fff'
-  },
-  soldOutButton: {
-    background:
-      'linear-gradient(135deg, rgba(160,166,10,1) 0%, rgba(200,117,87,1) 39%, rgba(200,70,27,1) 69%, rgba(255,70,27,1) 88%)',
-    color: '#fff'
-  },
-  details: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  cover: {
-    width: '25rem',
-    height: '15rem'
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
-  },
-  title: {
-    padding: 0
-  },
-  actions: {
-    cursor: 'pointer',
-    '&:hover': {
-      color: '#0066ff'
-    }
-  }
-}));
+import { saleItem } from './styles';
 
 export default function SaleItem({
   id,
@@ -108,7 +42,7 @@ export default function SaleItem({
     noHidden,
     showMessage
   } = useStateData();
-  const classes = useStyles();
+  const classes = saleItem();
 
   const [expanded, setExpanded] = React.useState(false);
   const [openDelete, setOpenDelete] = useState(false);
