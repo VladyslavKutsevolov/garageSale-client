@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Category from './Category';
 import { useStateData } from '../../context/appContext';
@@ -41,6 +41,11 @@ const CategoryList = ({ categories }) => {
         ))}
     </div>
   );
+};
+
+CategoryList.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]))
+    .isRequired
 };
 
 export default CategoryList;
