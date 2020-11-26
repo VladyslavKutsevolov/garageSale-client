@@ -29,7 +29,7 @@ const SaleItemsPage = () => {
     openNewProductForm,
     handleProductClose
   } = useStateData();
-  let history = useHistory();
+  const history = useHistory();
 
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);

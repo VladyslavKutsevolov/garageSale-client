@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Fab, Button, Modal } from '@material-ui/core';
@@ -21,13 +20,21 @@ const getModalStyle = () => {
   };
 };
 
-const SaleItemEdit = props => {
+const SaleItemEdit = ({
+  title,
+  productSummary,
+  price,
+  imageUrl,
+  sold,
+  handleClose,
+  open
+}) => {
   const initialState = {
-    title: props.title,
-    description: props.productSummary,
-    price: props.price,
-    image_url: props.imageUrl,
-    sold: props.sold
+    title,
+    description: productSummary,
+    price,
+    image_url: imageUrl,
+    sold
   };
   const classes = saleItemEditStyles();
   const [form, setForm] = useState(initialState);
@@ -63,14 +70,14 @@ const SaleItemEdit = props => {
 
     editProduct(productId, formData);
     clearInputFields();
-    props.handleClose();
+    handleClose();
   };
 
   return (
     <>
       <Modal
-        open={props.open}
-        onClose={props.handleClose}
+        open={open}
+        onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -82,21 +89,21 @@ const SaleItemEdit = props => {
             <TextField
               onChange={handleChange}
               name="title"
-              placeholder={props.title}
+              placeholder={title}
               label="Product Title"
               fullWidth
             />
             <TextField
               onChange={handleChange}
               name="description"
-              placeholder={props.productSummary}
+              placeholder={productSummary}
               label="Product Description"
               fullWidth
             />
             <TextField
               onChange={handleChange}
               name="price"
-              placeholder={props.price}
+              placeholder={price}
               label="Product Price"
               fullWidth
             />
@@ -120,7 +127,7 @@ const SaleItemEdit = props => {
                   name="product-img"
                   type="file"
                   onChange={getImg}
-                  placeholder={props.imageUrl}
+                  placeholder={imageUrl}
                   style={{ display: 'none' }}
                 />
               </label>
@@ -135,7 +142,7 @@ const SaleItemEdit = props => {
                 Edit Product
               </Button>
               <Button
-                onClick={props.handleClose}
+                onClick={handleClose}
                 variant="outlined"
                 color="secondary"
               >
@@ -147,6 +154,16 @@ const SaleItemEdit = props => {
       </Modal>
     </>
   );
+};
+
+SaleItemEdit.propTypes = {
+  imageUrl: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  productSummary: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  sold: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired
 };
 
 export default SaleItemEdit;

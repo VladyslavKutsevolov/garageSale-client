@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -25,7 +25,7 @@ import CardDropDown from './DropDownBox';
 import { useStateData } from '../../context/appContext';
 import { saleItem } from './styles';
 
-export default function SaleItem({
+const SaleItem = ({
   id,
   imageUrl,
   title,
@@ -34,7 +34,7 @@ export default function SaleItem({
   setItemId,
   sold,
   getProductId
-}) {
+}) => {
   const {
     state,
     deleteProduct,
@@ -216,4 +216,17 @@ export default function SaleItem({
       </Collapse>
     </Card>
   );
-}
+};
+
+SaleItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  productSummary: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  sold: PropTypes.bool.isRequired,
+  setItemId: PropTypes.func.isRequired,
+  getProductId: PropTypes.func.isRequired
+};
+
+export default SaleItem;
