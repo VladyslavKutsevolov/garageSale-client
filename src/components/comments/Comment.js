@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
@@ -52,6 +53,15 @@ const Comment = ({
       )}
     </div>
   );
+};
+
+Comment.propTypes = {
+  comment: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  authorId: PropTypes.number.isRequired,
+  createdAt: PropTypes.instanceOf(Date).isRequired,
+  commentId: PropTypes.number.isRequired,
+  productId: PropTypes.number.isRequired
 };
 
 export default Comment;
