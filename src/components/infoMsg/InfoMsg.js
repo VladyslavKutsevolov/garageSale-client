@@ -32,11 +32,11 @@ const InfoMsg = ({ error, message }) => {
   );
 };
 
-InfoMsg.defaultProps = { error: null };
+InfoMsg.defaultProps = { error: null, message: '' };
 
 InfoMsg.propTypes = {
   error: PropTypes.bool,
-  message: PropTypes.string.isRequired
+  message: PropTypes.string
 };
 
 export default InfoMsg;
