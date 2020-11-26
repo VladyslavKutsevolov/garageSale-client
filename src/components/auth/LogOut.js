@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,4 +26,9 @@ const LogOut = props => {
     </ListItem>
   );
 };
+
+LogOut.propTypes = {
+  setUser: PropTypes.func.isRequired
+};
+
 export default LogOut;

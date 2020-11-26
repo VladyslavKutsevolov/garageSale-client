@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -105,6 +105,12 @@ const LoginForm = ({ handleClose, open, setUser }) => {
       </Modal>
     </>
   );
+};
+
+LoginForm.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired
 };
 
 export default LoginForm;
