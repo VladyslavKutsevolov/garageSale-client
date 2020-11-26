@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import { useStateData } from '../../context/appContext';
@@ -42,6 +43,12 @@ const SearchBy = ({ inputFocus }) => {
       </form>
     </div>
   );
+};
+
+SearchBy.propTypes = {
+  inputFocus: PropTypes.shape({
+    current: PropTypes.instanceOf(Element)
+  }).isRequired
 };
 
 export default SearchBy;
