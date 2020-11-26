@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,6 +30,11 @@ const InfoMsg = ({ error, message }) => {
       </Snackbar>
     </div>
   );
+};
+
+InfoMsg.propTypes = {
+  error: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired
 };
 
 export default InfoMsg;
