@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -253,6 +253,11 @@ const SaleForm = ({ handleClose, open }) => {
       </Modal>
     </>
   );
+};
+
+SaleForm.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired
 };
 
 export default SaleForm;

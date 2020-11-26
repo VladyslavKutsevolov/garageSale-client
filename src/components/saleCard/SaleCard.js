@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { useSpring, animated } from 'react-spring';
@@ -40,6 +40,7 @@ const SaleCard = ({
         className="card"
         onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
         onMouseLeave={() => set({ xys: [0, 0, 1] })}
+        // eslint-disable-next-line react/prop-types
         style={{ transform: props.xys.interpolate(trans) }}
       >
         <Link to="/products">
@@ -77,6 +78,16 @@ const SaleCard = ({
       </animated.div>
     </>
   );
+};
+
+SaleCard.propTypes = {
+  selectSale: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  cover_photo_url: PropTypes.string.isRequired,
+  province: PropTypes.string.isRequired,
+  daysAgo: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired
 };
 
 export default SaleCard;
