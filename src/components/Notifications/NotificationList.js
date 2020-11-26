@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core/';
+import { DateTime } from 'luxon';
 import { useStateData } from '../../context/appContext';
-import { DateTime } from "luxon";
 
 const NotificationList = () => {
   const { state } = useStateData();
@@ -14,10 +14,10 @@ const NotificationList = () => {
       {state.latestComments && state.latestComments.length ? (
         state.latestComments.map(comment => (
           <Typography variant="h6">
-            {`${comment.username} commented on ${comment.title} on ${DateTime.fromISO(comment.created_at).toFormat('ff')}: `}
-            <Typography variant="h6">
-              {`${comment.comment}`}
-            </Typography>
+            {`${comment.username} commented on ${
+              comment.title
+            } on ${DateTime.fromISO(comment.created_at).toFormat('ff')}: `}
+            <Typography variant="h6">{`${comment.comment}`}</Typography>
           </Typography>
         ))
       ) : (

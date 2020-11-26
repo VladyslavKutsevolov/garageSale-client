@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from '@material-ui/core';
 import NotificationList from './NotificationList';
 import { useStateData } from '../../context/appContext';
@@ -36,6 +37,11 @@ const NotificationModal = ({ notificationsOpen, setNotificationsOpen }) => {
       </Modal>
     </>
   );
+};
+
+NotificationModal.propTypes = {
+  notificationsOpen: PropTypes.bool.isRequired,
+  setNotificationsOpen: PropTypes.func.isRequired
 };
 
 export default NotificationModal;
