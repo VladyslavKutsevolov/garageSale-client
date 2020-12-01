@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
@@ -17,7 +17,7 @@ const CommentInput = () => {
 
   const productTitle = 'Teddy Bear';
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     createComment(authorId, productId, comment, authorUsername);
     const notification = { authorUsername, productTitle, comment };
@@ -46,7 +46,6 @@ const CommentInput = () => {
               }
             }}
             value={comment}
-            className={classes.inputStyle}
             id="filled-multiline-static"
             label="Write a comment..."
             variant="standard"
