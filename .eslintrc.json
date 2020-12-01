@@ -19,12 +19,21 @@
   "parserOptions": {
     "ecmaFeatures": {
       "js": true,
-      "jsx": true
+      "jsx": true,
+      "tsx": true
     },
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
   "plugins": ["prettier"],
+  "overrides": [
+    {
+      "files": ["**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "prettier/prettier": [

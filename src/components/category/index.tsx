@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Category from './Category';
 import { useStateData } from '../../context/appContext';
@@ -14,14 +13,22 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
+interface categoriesInterface {
+  category_id: number;
+  name: string;
+}
 
-const CategoryList = ({ categories }) => {
+interface ICategoryList {
+  categories: categoriesInterface[];
+}
+
+const CategoryList: React.FC<ICategoryList> = ({ categories }) => {
   const { getProductsForCategory, saleId } = useStateData();
 
   const [categoryId, setCategoryId] = useState(0);
   const classes = useStyles();
 
-  const getCategoryInfo = (idCategory, name) => {
+  const getCategoryInfo = (idCategory: number, name: string) => {
     getProductsForCategory(name, saleId);
     setCategoryId(idCategory);
   };
@@ -41,11 +48,6 @@ const CategoryList = ({ categories }) => {
         ))}
     </div>
   );
-};
-
-CategoryList.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]))
-    .isRequired
 };
 
 export default CategoryList;
