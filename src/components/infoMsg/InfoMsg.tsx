@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
-const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
+const Alert = (props: AlertProps) => (
+  <MuiAlert elevation={6} variant="filled" {...props} />
+);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     position: 'relative',
     top: '.1rem',
@@ -15,9 +16,14 @@ const useStyles = makeStyles(theme => ({
   snackBarPosition: {
     width: '10rem'
   }
-}));
+});
 
-const InfoMsg = ({ error, message }) => {
+interface IInfoMsg {
+  error: boolean;
+  message: string;
+}
+
+const InfoMsg: FC<IInfoMsg> = ({ error, message }) => {
   const classes = useStyles();
 
   // eslint-disable-next-line no-unneeded-ternary
@@ -30,13 +36,6 @@ const InfoMsg = ({ error, message }) => {
       </Snackbar>
     </div>
   );
-};
-
-InfoMsg.defaultProps = { error: null, message: '' };
-
-InfoMsg.propTypes = {
-  error: PropTypes.bool,
-  message: PropTypes.string
 };
 
 export default InfoMsg;
