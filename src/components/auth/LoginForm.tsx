@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -21,20 +20,26 @@ const getModalStyle = () => {
   };
 };
 
-const LoginForm = ({ handleClose, open, setUser }) => {
+interface ILoginForm {
+  handleClose(): void;
+  open: boolean;
+  setUser(name: string): void;
+}
+
+const LoginForm: FC<ILoginForm> = ({ handleClose, open, setUser }) => {
   const classes = loginFormStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [modalStyle] = React.useState(getModalStyle);
-  const { getLoginUser, getLatestComments, state } = useStateData();
+  const { getLoginUser } = useStateData();
 
   const clearInputFields = () => {
     setUsername('');
     setPassword('');
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
     const formData = { username, password };
     axios
       .post('http://localhost:3001/users/login', formData)
@@ -105,12 +110,6 @@ const LoginForm = ({ handleClose, open, setUser }) => {
       </Modal>
     </>
   );
-};
-
-LoginForm.propTypes = {
-  handleClose: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
 };
 
 export default LoginForm;
