@@ -1,19 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import Typography from '@material-ui/core/Typography';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
 import { useStateData } from '../../context/appContext';
 import { commentStyles } from './styles';
 
-const Comment = ({
-  comment,
-  author,
-  authorId,
-  createdAt,
-  commentId,
-  productId
-}) => {
+interface IComment {
+  comment: string;
+  author: string;
+  authorId: number;
+  createdAt: Date;
+  productId: number;
+  commentId: number;
+}
+
+const Comment: FC<IComment> = ({ comment, author, authorId, commentId }) => {
   const classes = commentStyles();
   const { state, deleteComment } = useStateData();
   let sellerComment = false;
@@ -53,15 +54,6 @@ const Comment = ({
       )}
     </div>
   );
-};
-
-Comment.propTypes = {
-  comment: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  authorId: PropTypes.number.isRequired,
-  createdAt: PropTypes.instanceOf(Date).isRequired,
-  commentId: PropTypes.number.isRequired,
-  productId: PropTypes.number.isRequired
 };
 
 export default Comment;
