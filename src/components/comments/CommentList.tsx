@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
+// eslint-disable-next-line import/extensions
 import Comment from './Comment';
 import { useStateData } from '../../context/appContext';
 
-const CommentList = () => {
+interface IComments {
+  author: string;
+  author_id: number;
+  created_at: Date;
+  productId: number;
+  commentId: number;
+  comment_text: string;
+  id: number;
+}
+
+const CommentList: FC = () => {
   const { state, productId } = useStateData();
   const [commentListId] = useState(productId);
-  const filteredComments = state.comments.filter(
-    comment => comment.product_id === commentListId
+
+  const filteredComments: IComments[] = state.comments.filter(
+    (comment: { product_id: number }) => comment.product_id === commentListId
   );
 
   return (
