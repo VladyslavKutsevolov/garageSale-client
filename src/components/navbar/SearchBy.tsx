@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ChangeEvent, FC, FormEvent, RefObject } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import { useStateData } from '../../context/appContext';
@@ -10,15 +9,19 @@ const useStyles = makeStyles({
   }
 });
 
-const SearchBy = ({ inputFocus }) => {
+interface ISearchBy {
+  inputFocus: RefObject<HTMLInputElement>;
+}
+
+const SearchBy: FC<ISearchBy> = ({ inputFocus }) => {
   const classes = useStyles();
   const { searchByCityName, cityname, setCityName } = useStateData();
 
-  const handleChange = ({ target }) => {
-    setCityName(target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCityName(e.target.value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     localStorage.setItem('cityname', cityname);
     searchByCityName(cityname);
@@ -43,12 +46,6 @@ const SearchBy = ({ inputFocus }) => {
       </form>
     </div>
   );
-};
-
-SearchBy.propTypes = {
-  inputFocus: PropTypes.shape({
-    current: PropTypes.instanceOf(Element)
-  }).isRequired
 };
 
 export default SearchBy;
