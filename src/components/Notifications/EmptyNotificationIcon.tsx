@@ -1,10 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core/';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { useStateData } from '../../context/appContext';
 
-const EmptyNotificationIcon = ({ setNotificationsOpen }) => {
+interface INotificationIcon {
+  setNotificationsOpen(n: boolean): void;
+}
+
+const EmptyNotificationIcon: FC<INotificationIcon> = ({
+  setNotificationsOpen
+}) => {
   const { getLatestComments, state } = useStateData();
 
   const handleNotificationClick = () => {
@@ -22,10 +27,6 @@ const EmptyNotificationIcon = ({ setNotificationsOpen }) => {
       </ListItem>
     </>
   );
-};
-
-EmptyNotificationIcon.propTypes = {
-  setNotificationsOpen: PropTypes.func.isRequired
 };
 
 export default EmptyNotificationIcon;
