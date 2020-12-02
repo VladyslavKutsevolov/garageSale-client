@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItemIcon, ListItem, ListItemText } from '@material-ui/core/';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
@@ -11,7 +10,15 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const NotificationIcon = ({ setNotificationsOpen, setNotificationsRead }) => {
+interface IIcon {
+  setNotificationsOpen(val: boolean): void;
+  setNotificationsRead(val: boolean): void;
+}
+
+const NotificationIcon: FC<IIcon> = ({
+  setNotificationsOpen,
+  setNotificationsRead
+}) => {
   const classes = useStyles();
   const { getLatestComments, state } = useStateData();
   const handleNotificationClick = () => {
@@ -30,11 +37,6 @@ const NotificationIcon = ({ setNotificationsOpen, setNotificationsRead }) => {
       </ListItem>
     </>
   );
-};
-
-NotificationIcon.propTypes = {
-  setNotificationsOpen: PropTypes.func.isRequired,
-  setNotificationsRead: PropTypes.func.isRequired
 };
 
 export default NotificationIcon;
