@@ -1,10 +1,7 @@
-/* eslint-disable import/no-duplicates */
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -26,7 +23,7 @@ import {
   ListItemIcon,
   Snackbar
 } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
@@ -45,7 +42,17 @@ import NotificationModal from '../Notifications/NotificationModal';
 import InfoMsg from '../infoMsg/InfoMsg';
 import SearchBy from './SearchBy';
 
-const Alert = props => <MuiAlert elevation={6} variant="filled" {...props} />;
+const Alert = (props: AlertProps) => (
+  <MuiAlert elevation={6} variant="filled" {...props} />
+);
+
+interface IGarage {
+  id: number | null;
+}
+
+interface RefObject<T> {
+  current: T | null;
+}
 
 export default function MiniDrawer() {
   const classes = miniDrawerStyles();
@@ -66,16 +73,20 @@ export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [openLogin, setLoginForm] = useState(false);
 
-  const focusSearchInput = useRef();
+  const focusSearchInput: RefObject<any> = useRef<HTMLDivElement>();
   const focusInput = () => {
     setOpen(true);
-
-    focusSearchInput.current.focus();
+    if (
+      focusSearchInput.current &&
+      focusSearchInput.current instanceof HTMLElement
+    ) {
+      focusSearchInput.current.focus();
+    }
   };
 
   // Set user and sale data in state
   const [user, setUser] = useState('');
-  const [userGarage, setUserGarage] = useState('');
+  const [userGarage, setUserGarage] = useState<IGarage>({ id: null });
 
   // Open state for notifications modal
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -97,12 +108,12 @@ export default function MiniDrawer() {
 
   useEffect(() => {
     const garageData = state.sales.filter(
-      sale => sale.seller_id === state.loginUser.id
+      (sale: { seller_id: number }) => sale.seller_id === state.loginUser.id
     );
     if (garageData) {
       setUserGarage(garageData[0]);
     } else {
-      setUserGarage(null);
+      setUserGarage({ id: null });
     }
   }, [state]);
 
@@ -260,7 +271,7 @@ export default function MiniDrawer() {
               <Alert severity="info">Loading...</Alert>
             </Snackbar>
           </div>
-          <InfoMsg error={error} message={message} loading={loading} />
+          <InfoMsg error={error} message={message} />
           <Switch>
             <Route path="/" exact component={SaleCardList} />
             <Route path="/products" exact component={SaleItemsPage} />
