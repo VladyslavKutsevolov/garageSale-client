@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { FormEvent, FC, useState, ChangeEvent } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -37,30 +36,40 @@ const initialState = {
   province: ''
 };
 
-const SaleForm = ({ handleClose, open }) => {
+interface ISaleForm {
+  handleClose(): void;
+  open: true;
+}
+type img = Blob | string;
+
+const SaleForm: FC<ISaleForm> = ({ handleClose, open }) => {
   const classes = editFormStyles();
   const { editGarage, saleId } = useStateData();
   const [form, setForm] = useState(initialState);
-  const [saleImg, setSaleImg] = useState(null);
+  const [saleImg, setSaleImg] = useState<img>('');
   const [modalStyle] = useState(getModalStyle);
   const [fileName, setFileName] = useState('');
 
-  const handleChange = ({ target }) => {
+  const handleChange = ({
+    target
+  }: ChangeEvent<{ name?: any; value?: any }>) => {
     setForm({
       ...form,
       [target.name]: target.value
     });
   };
 
-  const getImg = ({ target }) => {
-    setSaleImg(target.files[0]);
-    setFileName(target.files[0].name);
+  const getImg = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (target.files && target.files[0]) {
+      setSaleImg(target.files[0]);
+      setFileName(target.files[0].name);
+    }
   };
   const clearInputFields = () => {
     setForm(initialState);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
 
@@ -180,11 +189,6 @@ const SaleForm = ({ handleClose, open }) => {
       </Modal>
     </>
   );
-};
-
-SaleForm.propTypes = {
-  handleClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
 };
 
 export default SaleForm;
