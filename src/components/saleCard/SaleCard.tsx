@@ -2,8 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { useSpring, animated } from 'react-spring';
@@ -11,15 +10,26 @@ import { saleCardStyles } from './styles';
 import './styles.scss';
 
 // Animation
-const calc = (x, y) => [
+const calc = (x: number, y: number) => [
   -(y - window.innerHeight / 2) / 800,
   (x - window.innerWidth / 2) / 800,
   1.1
 ];
-const trans = (x, y, s) =>
+
+const trans = (x: number, y: number, s: number) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
-const SaleCard = ({
+interface ISaleCard {
+  selectSale(): void;
+  title: string;
+  description: string;
+  cover_photo_url: string;
+  city: string;
+  province: string;
+  daysAgo: string;
+}
+
+const SaleCard: FC<ISaleCard> = ({
   selectSale,
   title,
   description,
@@ -41,7 +51,8 @@ const SaleCard = ({
         onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
         onMouseLeave={() => set({ xys: [0, 0, 1] })}
         // eslint-disable-next-line react/prop-types
-        style={{ transform: props.xys.interpolate(trans) }}
+        // interpolate error
+        // style={{ transform: props.xys.interpolate(trans) }}
       >
         <Link to="/products">
           <div className="img-card-wrapper" onClick={selectSale}>
@@ -78,16 +89,6 @@ const SaleCard = ({
       </animated.div>
     </>
   );
-};
-
-SaleCard.propTypes = {
-  selectSale: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  cover_photo_url: PropTypes.string.isRequired,
-  province: PropTypes.string.isRequired,
-  daysAgo: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired
 };
 
 export default SaleCard;
