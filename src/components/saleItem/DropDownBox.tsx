@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -7,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-function TabPanel(props) {
+function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -27,7 +26,7 @@ function TabPanel(props) {
   );
 }
 
-function a11yProps(index) {
+function a11yProps(index: any) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`
@@ -41,11 +40,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CardDropDown = ({ description, comments }) => {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+interface IDropDown {
+  description: string;
+  comments: string;
+}
 
-  const handleChange = (event, newValue) => {
+const CardDropDown: FC<IDropDown> = ({ description, comments }) => {
+  const classes = useStyles();
+  const [value, setValue] = React.useState<number>(0);
+
+  const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
     setValue(newValue);
   };
 
@@ -69,17 +73,6 @@ const CardDropDown = ({ description, comments }) => {
       </TabPanel>
     </div>
   );
-};
-
-CardDropDown.propTypes = {
-  description: PropTypes.string.isRequired,
-  comments: PropTypes.shape({}).isRequired
-};
-
-TabPanel.propTypes = {
-  children: PropTypes.node.isRequired,
-  value: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired
 };
 
 export default CardDropDown;
