@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Typography } from '@material-ui/core/';
 import { DateTime } from 'luxon';
 import { useStateData } from '../../context/appContext';
 
-const NotificationList = () => {
+interface ILatestcomments {
+  username: string;
+  title: string;
+  created_at: string;
+  comment: string;
+}
+
+const NotificationList: FC = () => {
   const { state } = useStateData();
+  const latestComments: ILatestcomments[] = state.latestComments;
 
   return (
     <>
@@ -12,7 +20,7 @@ const NotificationList = () => {
         <Typography variant="h4">Latest activity on your sales:</Typography>
       ) : null}
       {state.latestComments && state.latestComments.length ? (
-        state.latestComments.map(comment => (
+        latestComments.map(comment => (
           <Typography variant="h6">
             {`${comment.username} commented on ${
               comment.title
