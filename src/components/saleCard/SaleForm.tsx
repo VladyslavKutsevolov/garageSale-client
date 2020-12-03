@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, FormEvent, FC, ChangeEvent } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -37,97 +36,55 @@ const initialState = {
   province: ''
 };
 
-const SaleForm = ({ handleClose, open }) => {
+interface ISaleForm {
+  handleClose(): void;
+  open: boolean;
+}
+
+type img = Blob | string;
+
+const SaleForm: FC<ISaleForm> = ({ handleClose, open }) => {
   const classes = saleFormStyles();
   const { createSale, state } = useStateData();
   const [form, setForm] = useState(initialState);
-  const [saleImg, setSaleImg] = useState(null);
+  const [saleImg, setSaleImg] = useState<img>('');
   const [modalStyle] = useState(getModalStyle);
   const [fileName, setFileName] = useState('');
-  const [errorMsg, setErrorMsg] = useState({});
-  const [formValid, setFormValid] = useState(true);
-  const [imgValid, setImgValid] = useState(true);
-  const [imgError, setImgError] = useState('');
 
-  const validation = () => {
-    const errors = {};
-    let formIsValid = true;
-
-    // Name of Product
-    if (form.title.length > 20) {
-      formIsValid = false;
-      errors.title = 'Too long Name!';
-    }
-
-    if (form.title.length > 0) {
-      if (!form.title.match(/^[a-zA-Z0-9" "]+$/)) {
-        formIsValid = false;
-        errors.title = 'No special Characters!';
-      }
-    }
-
-    // City
-    if (form.city.length > 0) {
-      if (!form.city.match(/^[a-zA-Z" "]+$/)) {
-        formIsValid = false;
-        errors.city = 'Please enter valid city name!';
-      }
-    }
-
-    // Description Length
-    if (form.description.length > 60) {
-      formIsValid = false;
-      errors.description = 'Text cannot be more than 60 letters.';
-    }
-
-    setErrorMsg({ errors });
-    setFormValid(formIsValid);
-  };
-
-  useEffect(() => {
-    validation();
-  }, [form]);
-
-  const handleChange = ({ target }) => {
+  const handleChange = ({
+    target
+  }: ChangeEvent<{ name?: any; value?: any }>) => {
     setForm({
       ...form,
       [target.name]: target.value
     });
   };
-
-  const getImg = ({ target }) => {
-    setImgValid(true);
-    setImgError('');
-    const uploadFile = target.files[0].type.split('/');
-    if (uploadFile[0] !== 'image') {
-      setImgValid(false);
-      setImgError('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');
+  const getImg = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (target.files && target.files[0]) {
+      const image: img = target.files[0];
+      setSaleImg(image);
+      setFileName(target.files[0].name);
     }
-    setSaleImg(target.files[0]);
-    setFileName(target.files[0].name);
   };
+
   const clearInputFields = () => {
     setForm(initialState);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (formValid && imgValid) {
-      const formData = new FormData();
+    const formData = new FormData();
 
-      formData.append('seller_id', state.loginUser.id);
-      formData.append('saleImg', saleImg);
-      formData.append('title', form.title);
-      formData.append('description', form.description);
-      formData.append('city', form.city);
-      formData.append('province', form.province);
+    formData.append('seller_id', state.loginUser.id);
+    formData.append('saleImg', saleImg);
+    formData.append('title', form.title);
+    formData.append('description', form.description);
+    formData.append('city', form.city);
+    formData.append('province', form.province);
 
-      createSale(formData);
-      clearInputFields();
-      handleClose();
-    } else {
-      alert('Unvalid inputs!');
-    }
+    createSale(formData);
+    clearInputFields();
+    handleClose();
   };
 
   return (
@@ -151,9 +108,6 @@ const SaleForm = ({ handleClose, open }) => {
               label="Title"
               fullWidth
             />
-            <section className={classes.validationStyle}>
-              {!formValid && errorMsg.errors.title}
-            </section>
             <TextField
               onChange={handleChange}
               value={form.description}
@@ -161,9 +115,6 @@ const SaleForm = ({ handleClose, open }) => {
               label="Description"
               fullWidth
             />
-            <section className={classes.validationStyle}>
-              {!formValid && errorMsg.errors.description}
-            </section>
             <TextField
               onChange={handleChange}
               value={form.city}
@@ -172,9 +123,6 @@ const SaleForm = ({ handleClose, open }) => {
               label="City"
               fullWidth
             />
-            <section className={classes.validationStyle}>
-              {!formValid && errorMsg.errors.city}
-            </section>
             <FormControl className={classes.formControl}>
               <InputLabel id="select-province">Province</InputLabel>
               <Select
@@ -200,9 +148,6 @@ const SaleForm = ({ handleClose, open }) => {
                 <MenuItem value="Quebec">Quebec</MenuItem>
                 <MenuItem value="Saskatchewan">Saskatchewan</MenuItem>
               </Select>
-              <section className={classes.validationStyle}>
-                {!formValid && errorMsg.errors.province}
-              </section>
             </FormControl>
             <div className={classes.upload}>
               <label htmlFor="product-img">
@@ -227,9 +172,6 @@ const SaleForm = ({ handleClose, open }) => {
                   style={{ display: 'none' }}
                 />
               </label>
-              <section className={classes.validationStyle}>
-                {!imgValid && imgError}
-              </section>
             </div>
             <div className={classes.actionButtons}>
               <Button
@@ -253,11 +195,6 @@ const SaleForm = ({ handleClose, open }) => {
       </Modal>
     </>
   );
-};
-
-SaleForm.propTypes = {
-  handleClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
 };
 
 export default SaleForm;
