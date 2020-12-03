@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from 'react';
-import ProptTypes from 'prop-types';
+import React, { FC, useEffect } from 'react';
 import { CardMedia, Typography } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EditIcon from '@material-ui/icons/Edit';
@@ -8,7 +7,18 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { saleInfoStyles } from './styles';
 import { useStateData } from '../../context/appContext';
 
-const SaleInfo = ({
+interface ISaleInfo {
+  saleImg: string;
+  title: string;
+  city: string;
+  province: string;
+  description: string;
+  handleOpenDelete(): void;
+  handleOpenEdit(): void;
+  seller_id: number;
+}
+
+const SaleInfo: FC<ISaleInfo> = ({
   saleImg,
   title,
   description,
@@ -28,7 +38,7 @@ const SaleInfo = ({
     } else {
       setNoHidden(false);
     }
-  }, [state]);
+  }, [seller_id, setNoHidden, state]);
 
   return (
     <div className={classes.boxStyle}>
@@ -65,17 +75,6 @@ const SaleInfo = ({
       </div>
     </div>
   );
-};
-
-SaleInfo.propTypes = {
-  saleImg: ProptTypes.string.isRequired,
-  title: ProptTypes.string.isRequired,
-  city: ProptTypes.string.isRequired,
-  province: ProptTypes.string.isRequired,
-  description: ProptTypes.string.isRequired,
-  seller_id: ProptTypes.number.isRequired,
-  handleOpenDelete: ProptTypes.func.isRequired,
-  handleOpenEdit: ProptTypes.func.isRequired
 };
 
 export default SaleInfo;
