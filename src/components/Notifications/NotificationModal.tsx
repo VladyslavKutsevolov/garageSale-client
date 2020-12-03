@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, useState } from 'react';
 import { Modal } from '@material-ui/core';
 import NotificationList from './NotificationList';
 import { useStateData } from '../../context/appContext';
@@ -18,7 +17,15 @@ const getModalStyle = () => {
   };
 };
 
-const NotificationModal = ({ notificationsOpen, setNotificationsOpen }) => {
+interface INotificationModal {
+  notificationsOpen: boolean;
+  setNotificationsOpen(val: boolean): void;
+}
+
+const NotificationModal: FC<INotificationModal> = ({
+  notificationsOpen,
+  setNotificationsOpen
+}) => {
   const classes = modalStyles();
   const [modalStyle] = useState(getModalStyle);
   const { clearNotifications } = useStateData();
@@ -37,11 +44,6 @@ const NotificationModal = ({ notificationsOpen, setNotificationsOpen }) => {
       </Modal>
     </>
   );
-};
-
-NotificationModal.propTypes = {
-  notificationsOpen: PropTypes.bool.isRequired,
-  setNotificationsOpen: PropTypes.func.isRequired
 };
 
 export default NotificationModal;
