@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import moment from 'moment';
 
 import { Grid } from '@material-ui/core';
@@ -10,7 +10,18 @@ import { useStateData } from '../../context/appContext';
 import SaleCard from './SaleCard';
 import SaleForm from './SaleForm';
 
-const SaleCardList = () => {
+interface ISales {
+  province: string;
+  city: string;
+  cover_photo_url: string;
+  description: string;
+  id: number;
+  title: string;
+  seller_id: number;
+  created_at: string;
+}
+
+const SaleCardList: FC = () => {
   const classes = saleCardListStyles();
   const {
     fetchSales,
@@ -30,9 +41,10 @@ const SaleCardList = () => {
     fetchSales();
   }, []);
 
-  const goToSale = id => {
+  const goToSale = (id: number) => {
     setSaleId(id);
   };
+  const allSales: ISales[] = state.sales;
 
   return (
     <>
@@ -43,7 +55,7 @@ const SaleCardList = () => {
         wrap="wrap"
         component="div"
       >
-        {state.sales.map(sale => (
+        {allSales.map(sale => (
           <Grid item key={sale.id}>
             <SaleCard
               selectSale={() => goToSale(sale.id)}
