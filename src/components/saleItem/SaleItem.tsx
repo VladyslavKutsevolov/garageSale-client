@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -20,12 +19,22 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 
 import SaleItemEdit from './SaleItemEdit';
 
-import CommentContainer from '../comments/CommentContainer';
 import CardDropDown from './DropDownBox';
 import { useStateData } from '../../context/appContext';
 import { saleItem } from './styles';
 
-const SaleItem = ({
+interface ISaleItem {
+  id: number;
+  imageUrl: string;
+  title: string;
+  price: string;
+  productSummary: string;
+  setItemId(id: number): void;
+  sold: boolean;
+  getProductId(): void;
+}
+
+const SaleItem: FC<ISaleItem> = ({
   id,
   imageUrl,
   title,
@@ -75,7 +84,7 @@ const SaleItem = ({
     setOpenDelete(false);
   };
 
-  const deleteItem = productId => {
+  const deleteItem = (productId: number) => {
     deleteProduct(productId);
     handleCloseDelete();
   };
@@ -120,7 +129,7 @@ const SaleItem = ({
                 <SaleItemEdit
                   open={openEdit}
                   handleClose={handleCloseEdit}
-                  productId={id}
+                  // productId={id}
                   title={title}
                   price={price}
                   sold={sold}
@@ -176,7 +185,7 @@ const SaleItem = ({
                   className={classes.buttonCustomStyle}
                   onClick={getProductInfo}
                 >
-                  I'LL BUY IT!
+                  I&apos;LL BUY IT!
                 </Button>
               )}
               <CardActions disableSpacing>
@@ -201,32 +210,13 @@ const SaleItem = ({
         </div>
       </CardContent>
 
-      <Collapse
-        in={expanded}
-        timeout="auto"
-        unmountOnExit
-        onClick={getProductId}
-      >
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <CardDropDown
-            comments={<CommentContainer />}
-            description={productSummary}
-          />
+          <CardDropDown description={productSummary} />
         </CardContent>
       </Collapse>
     </Card>
   );
-};
-
-SaleItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  productSummary: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  sold: PropTypes.bool.isRequired,
-  setItemId: PropTypes.func.isRequired,
-  getProductId: PropTypes.func.isRequired
 };
 
 export default SaleItem;
