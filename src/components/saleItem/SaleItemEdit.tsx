@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, FC, ChangeEvent, FormEvent } from 'react';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Fab, Button, Modal } from '@material-ui/core';
@@ -20,7 +19,19 @@ const getModalStyle = () => {
   };
 };
 
-const SaleItemEdit = ({
+type img = Blob | string;
+
+interface ISaleItemEdit {
+  title: string;
+  productSummary: string;
+  imageUrl: string;
+  sold: string;
+  handleClose(): void;
+  open: boolean;
+  price: string;
+}
+
+const SaleItemEdit: FC<ISaleItemEdit> = ({
   title,
   productSummary,
   price,
@@ -33,32 +44,35 @@ const SaleItemEdit = ({
     title,
     description: productSummary,
     price,
-    image_url: imageUrl,
-    sold
+    image_url: imageUrl
   };
   const classes = saleItemEditStyles();
   const [form, setForm] = useState(initialState);
-  const [productImg, setProductImg] = useState(null);
+  const [productImg, setProductImg] = useState<img>('');
   const [modalStyle] = React.useState(getModalStyle);
   const [fileName, setFileName] = useState('');
   const { editProduct, productId } = useStateData();
 
-  const handleChange = ({ target }) => {
+  const handleChange = ({
+    target
+  }: ChangeEvent<{ name?: any; value?: any }>) => {
     setForm({
       ...form,
       [target.name]: target.value
     });
   };
 
-  const getImg = ({ target }) => {
-    setProductImg(target.files[0]);
-    setFileName(target.files[0].name);
+  const getImg = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (target.files && target.files[0]) {
+      setProductImg(target.files[0]);
+      setFileName(target.files[0].name);
+    }
   };
   const clearInputFields = () => {
     setForm(initialState);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
 
@@ -66,7 +80,7 @@ const SaleItemEdit = ({
     formData.append('title', form.title);
     formData.append('description', form.description);
     formData.append('price', form.price);
-    formData.append('sold', form.sold);
+    formData.append('sold', sold);
 
     editProduct(productId, formData);
     clearInputFields();
@@ -154,16 +168,6 @@ const SaleItemEdit = ({
       </Modal>
     </>
   );
-};
-
-SaleItemEdit.propTypes = {
-  imageUrl: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  productSummary: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  sold: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
 };
 
 export default SaleItemEdit;
