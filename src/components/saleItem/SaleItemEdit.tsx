@@ -25,7 +25,7 @@ interface ISaleItemEdit {
   title: string;
   productSummary: string;
   imageUrl: string;
-  sold: string;
+  // sold: boolean;
   handleClose(): void;
   open: boolean;
   price: string;
@@ -36,7 +36,7 @@ const SaleItemEdit: FC<ISaleItemEdit> = ({
   productSummary,
   price,
   imageUrl,
-  sold,
+  // sold,
   handleClose,
   open
 }) => {
@@ -80,7 +80,7 @@ const SaleItemEdit: FC<ISaleItemEdit> = ({
     formData.append('title', form.title);
     formData.append('description', form.description);
     formData.append('price', form.price);
-    formData.append('sold', sold);
+    // formData.append('sold', sold);
 
     editProduct(productId, formData);
     clearInputFields();

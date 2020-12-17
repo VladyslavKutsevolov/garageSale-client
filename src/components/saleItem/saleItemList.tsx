@@ -1,20 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { useStateData } from '../../context/appContext';
 
 import SaleItem from './SaleItem';
 import SendMsg from './SendMsg';
 
-const SaleItemList = () => {
+interface ISaleData {
+  product_id: number;
+  product_title: string;
+  title: string;
+  price: string;
+  description: string;
+  sold: boolean;
+  image_url: string;
+  seller_id?: number;
+}
+
+interface IProductInfo {
+  product_title?: string;
+  price?: string;
+  username?: string;
+  phone?: number;
+}
+
+const SaleItemList: FC = () => {
   const { state, setProductId } = useStateData();
-  const [itemId, setItemId] = useState(null);
-  const [productInfo, setProductInfo] = useState({});
+  const [itemId, setItemId] = useState<number>(-1);
+  const [productInfo, setProductInfo] = useState<IProductInfo>({});
+
+  const saledata: ISaleData[] = state.saleData;
 
   useEffect(() => {
-    const filterItemData = () => {
-      return state.saleData.filter(item => item.product_id === itemId);
-    };
+    const filterItemData = () =>
+      saledata.filter(item => item.product_id === itemId);
 
     const productData = filterItemData();
     if (productData.length > 0) {
@@ -22,13 +41,13 @@ const SaleItemList = () => {
     }
   }, [itemId]);
 
-  const getProductId = id => {
+  const getProductId = (id: number) => {
     setProductId(id);
   };
 
   return (
     <>
-      {state.saleData.map(product => (
+      {saledata.map(product => (
         <SaleItem
           key={product.product_id}
           id={product.product_id}
@@ -37,7 +56,7 @@ const SaleItemList = () => {
           productSummary={product.description}
           sold={product.sold}
           imageUrl={product.image_url}
-          seller_id={product.seller_id}
+          // seller_id={product.seller_id}
           getProductId={() => getProductId(product.product_id)}
           setItemId={setItemId}
         />
