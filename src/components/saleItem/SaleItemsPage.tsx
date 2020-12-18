@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Grid, Button } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,7 +16,7 @@ import { saleItemPageStyles } from './styles';
 
 import SaleEditForm from './SaleEditForm';
 
-const SaleItemsPage = () => {
+const SaleItemsPage: FC = () => {
   const classes = saleItemPageStyles();
   const {
     state,
@@ -33,7 +33,7 @@ const SaleItemsPage = () => {
 
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [garageStatus, setGarageStatus] = useState(false);
+  // const [garageStatus, setGarageStatus] = useState(false);
 
   // Handle Edit
   const handleOpenEdit = () => {
@@ -53,10 +53,10 @@ const SaleItemsPage = () => {
     setOpenDelete(false);
   };
 
-  const deleteSale = garageId => {
+  const deleteSale = (garageId: number) => {
     deleteGarage(garageId);
     handleCloseDelete();
-    setGarageStatus(true);
+    // setGarageStatus(true);
     setSaleId(null);
     history.push('/');
     fetchSales();
@@ -79,10 +79,13 @@ const SaleItemsPage = () => {
 
   const removedDuplications =
     state.categories &&
-    state.categories.reduce((acc, category) => {
-      const duplicate = acc.find(c => c.name === category.name);
-      return duplicate ? acc : [category, ...acc];
-    }, []);
+    state.categories.reduce(
+      (acc: [{ name: string }], category: { name: string }) => {
+        const duplicate = acc.find(c => c.name === category.name);
+        return duplicate ? acc : [category, ...acc];
+      },
+      []
+    );
 
   return (
     <>
@@ -136,7 +139,7 @@ const SaleItemsPage = () => {
                 </Button>
               </DialogActions>
             </Dialog>
-            <Link to="/" open={garageStatus} />
+            <Link to="/" />
           </div>
         </Grid>
         <Grid className={classes.innerContainer} container justify="center">

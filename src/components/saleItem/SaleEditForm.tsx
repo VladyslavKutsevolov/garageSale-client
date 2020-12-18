@@ -38,7 +38,7 @@ const initialState = {
 
 interface ISaleForm {
   handleClose(): void;
-  open: true;
+  open: boolean;
 }
 type img = Blob | string;
 

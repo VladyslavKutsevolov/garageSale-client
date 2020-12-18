@@ -132,7 +132,7 @@ const SaleItem: FC<ISaleItem> = ({
                   // productId={id}
                   title={title}
                   price={price}
-                  sold={sold}
+                  // sold={sold}
                   imageUrl={imageUrl}
                   productSummary={productSummary}
                 />
