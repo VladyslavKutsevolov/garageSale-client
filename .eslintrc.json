@@ -16,6 +16,13 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js",".jsx",".ts",".tsx"]
+      }
+    }
+  },
   "parserOptions": {
     "ecmaFeatures": {
       "js": true,
@@ -35,7 +42,17 @@
     }
   ],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
+      }
+    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "prettier/prettier": [
       "error",
       {
@@ -92,6 +109,7 @@
     "function-paren-newline": 0,
     "no-alert": 0,
     "react/jsx-props-no-spreading": "off",
-    "object-curly-newline": 0
+    "object-curly-newline": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
