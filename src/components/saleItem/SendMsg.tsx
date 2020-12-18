@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Button, Modal } from '@material-ui/core';
@@ -24,7 +24,15 @@ const getModalStyle = () => {
   };
 };
 
-const SendMsg = props => {
+function SendMsg({
+  buyer,
+  title,
+  price,
+  setItemId,
+  buyerPhone,
+  sellerPhone,
+  handleSendClose
+}: InferProps<typeof SendMsg.propTypes>) {
   const initialMsg = {
     text: {
       textMessage: '',
@@ -42,11 +50,11 @@ const SendMsg = props => {
     setMsg({
       text: {
         ...text,
-        textMessage: `${props.buyer} will buy ${props.title} for $ ${props.price}. `
+        textMessage: `${buyer} will buy ${title} for $ ${price}. `
       }
     });
-    props.setItemId(null);
-  }, [props]);
+    setItemId(null);
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,27 +73,27 @@ const SendMsg = props => {
   };
 
   const sendText = () => {
-    if (props.title) {
+    if (title) {
       fetch(
-        `http://127.0.0.1:3001/send-text?recipient=${props.buyerPhone}&textMessage=Seller: ${props.sellerPhone}, ${text.textMessage} ${text.textComment}. `
+        `http://127.0.0.1:3001/send-text?recipient=${buyerPhone}&textMessage=Seller: ${sellerPhone}, ${text.textMessage} ${text.textComment}. `
       ).catch(err => console.error(err));
 
       fetch(
-        `http://127.0.0.1:3001/send-text?recipient=${props.sellerPhone}&textMessage=Buyer: ${props.buyerPhone}, ${text.textMessage} ${text.textComment}. `
+        `http://127.0.0.1:3001/send-text?recipient=${sellerPhone}&textMessage=Buyer: ${buyerPhone}, ${text.textMessage} ${text.textComment}. `
       ).catch(err => console.error(err));
 
       soldOut(productId);
 
       clearInputFields();
-      props.handleSendClose();
+      handleSendClose();
     }
   };
 
   return (
     <>
       <Modal
-        open={props.open}
-        onClose={props.handleSendClose}
+        open={open}
+        onClose={handleSendClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -156,7 +164,7 @@ const SendMsg = props => {
             </Dialog>
 
             <Button
-              onClick={props.handleSendClose}
+              onClick={handleSendClose}
               variant="outlined"
               color="secondary"
             >
@@ -167,6 +175,16 @@ const SendMsg = props => {
       </Modal>
     </>
   );
+}
+
+SendMsg.propTypes = {
+  buyer: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  setItemId: PropTypes.func.isRequired,
+  buyerPhone: PropTypes.number.isRequired,
+  sellerPhone: PropTypes.number.isRequired,
+  handleSendClose: PropTypes.func.isRequired
 };
 
 export default SendMsg;
