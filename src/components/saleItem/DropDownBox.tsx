@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import CommentContainer from '../comments/CommentContainer';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -42,10 +43,9 @@ const useStyles = makeStyles(theme => ({
 
 interface IDropDown {
   description: string;
-  comments: string;
 }
 
-const CardDropDown: FC<IDropDown> = ({ description, comments }) => {
+const CardDropDown: FC<IDropDown> = ({ description }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState<number>(0);
 
@@ -69,7 +69,7 @@ const CardDropDown: FC<IDropDown> = ({ description, comments }) => {
         {description}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {comments}
+        <CommentContainer />
       </TabPanel>
     </div>
   );
