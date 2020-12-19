@@ -15,19 +15,27 @@ interface ISaleData {
   sold: boolean;
   image_url: string;
   seller_id?: number;
+  username: string;
+  phone: number;
 }
 
-interface IProductInfo {
-  product_title?: string;
-  price?: string;
-  username?: string;
-  phone?: number;
-}
+const productInfoState: ISaleData = {
+  description: '',
+  image_url: '',
+  product_id: 0,
+  seller_id: 0,
+  sold: false,
+  title: '',
+  phone: 0,
+  price: '',
+  product_title: '',
+  username: ''
+};
 
 const SaleItemList: FC = () => {
   const { state, setProductId } = useStateData();
-  const [itemId, setItemId] = useState<number>(-1);
-  const [productInfo, setProductInfo] = useState<IProductInfo>({});
+  const [itemId, setItemId] = useState<number>(0);
+  const [productInfo, setProductInfo] = useState<ISaleData>(productInfoState);
 
   const saledata: ISaleData[] = state.saleData;
 
@@ -62,13 +70,13 @@ const SaleItemList: FC = () => {
         />
       ))}
       <SendMsg
-        open={Object.keys(productInfo).length !== 0}
-        handleSendClose={() => setProductInfo({})}
+        // open={Object.keys(productInfo).length !== 0}
+        handleSendClose={() => setProductInfo(productInfoState)}
         title={productInfo.product_title}
         price={productInfo.price}
         buyer={state.loginUser.username}
         buyerPhone={state.loginUser.phone}
-        seller={productInfo.username}
+        // seller={productInfo.username}
         sellerPhone={productInfo.phone}
         setItemId={setItemId}
       />
