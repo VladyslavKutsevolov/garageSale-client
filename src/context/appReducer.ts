@@ -22,7 +22,27 @@ import {
   GET_LATEST_COMMENTS
 } from './types';
 
-const appReducer = (state, { type, payload }) => {
+export interface IReducer {
+  type: string;
+  payload: {
+    [prop: string]: any;
+  };
+}
+
+export interface IAppState {
+  sales: any[];
+  saleData: any[];
+  products: any[];
+  loginUser: any[];
+  comments: any[];
+  categories: any[];
+  notifications: any[];
+  latestComments: any[];
+}
+
+type productType = { product_id?: number; id?: number };
+
+const appReducer = (state: IAppState, { type, payload }: IReducer) => {
   if (type === GET_ALL_SALES) {
     return {
       ...state,
@@ -53,7 +73,9 @@ const appReducer = (state, { type, payload }) => {
 
   if (type === GET_SALE_DATA) {
     const getSaleInfo = () =>
-      state.sales.filter(sale => sale.id === Number(payload.saleId))[0];
+      state.sales.filter(
+        (sale: productType) => sale.id === Number(payload.saleId)
+      )[0];
 
     return {
       ...state,
@@ -101,7 +123,6 @@ const appReducer = (state, { type, payload }) => {
   }
 
   if (type === GET_LATEST_COMMENTS) {
-    console.log("reducer payload", payload.latestComments)
     return {
       ...state,
       latestComments: payload.latestComments
@@ -141,7 +162,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === EDIT_PRODUCT) {
     return {
       ...state,
-      saleData: state.saleData.map(item =>
+      saleData: state.saleData.map((item: productType) =>
         item.product_id === payload.itemId ? payload.product : item
       )
     };
@@ -150,7 +171,7 @@ const appReducer = (state, { type, payload }) => {
   if (type === SOLD_OUT) {
     return {
       ...state,
-      saleData: state.saleData.map(item =>
+      saleData: state.saleData.map((item: productType) =>
         item.product_id === payload.itemId ? payload.product : item
       )
     };
@@ -160,7 +181,7 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       saleData: state.saleData.filter(
-        item => item.product_id !== payload.itemId
+        (item: productType) => item.product_id !== payload.itemId
       )
     };
   }
@@ -169,7 +190,7 @@ const appReducer = (state, { type, payload }) => {
     return {
       ...state,
       comments: state.comments.filter(
-        comment => comment.id !== payload.commentId
+        (comment: productType) => comment.id !== payload.commentId
       )
     };
   }
@@ -184,7 +205,9 @@ const appReducer = (state, { type, payload }) => {
   if (type === DELETE_GARAGE) {
     return {
       ...state,
-      saleData: state.sales.filter(sale => sale.id !== payload.saleId)
+      saleData: state.sales.filter(
+        (sale: productType) => sale.id !== payload.saleId
+      )
     };
   }
 
