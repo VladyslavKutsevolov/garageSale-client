@@ -110,6 +110,7 @@
     "no-alert": 0,
     "react/jsx-props-no-spreading": "off",
     "object-curly-newline": "off",
+    "react/jsx-curly-newline": "off",
     "react-hooks/exhaustive-deps": "off"
   }
 }
