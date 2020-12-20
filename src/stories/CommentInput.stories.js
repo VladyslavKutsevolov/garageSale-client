@@ -1,6 +1,5 @@
 import React from 'react';
-import CommentInput from '../components/comments/CommentInput.js';
-
+import CommentInput from '../components/comments/CommentInput';
 
 export default {
   title: 'Example/CommentInput',

@@ -1,6 +1,5 @@
 import React from 'react';
-import Comment from '../components/comments/Comment.js';
-
+import Comment from '../components/comments/Comment';
 
 export default {
   title: 'Example/Comment',

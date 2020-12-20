@@ -1,6 +1,5 @@
 import React from 'react';
-import CommentContainer from '../components/comments/CommentContainer.js';
-
+import CommentContainer from '../components/comments/CommentContainer';
 
 export default {
   title: 'Example/CommentContainer',
