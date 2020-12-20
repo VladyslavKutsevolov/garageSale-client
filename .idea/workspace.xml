@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="885566e1-94ed-49f8-8df9-b80a3eacb48c" name="Default Changelist" comment="converted to typescript">
+      <change beforePath="$PROJECT_DIR$/src/components/navbar/MiniDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/MiniDrawer.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
+  <component name="ProjectId" id="1l1vYa7OFsBo1GmQPpuGfE3YO1d" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowServices.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="885566e1-94ed-49f8-8df9-b80a3eacb48c" name="Default Changelist" comment="" />
+      <created>1606777460503</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606777460503</updated>
+      <workItem from="1606777463453" duration="7106000" />
+      <workItem from="1606840083586" duration="77000" />
+      <workItem from="1606840201769" duration="9910000" />
+      <workItem from="1606930939466" duration="21541000" />
+      <workItem from="1607800565982" duration="2732000" />
+      <workItem from="1608169183377" duration="4890000" />
+      <workItem from="1608250909870" duration="4114000" />
+      <workItem from="1608400359545" duration="14766000" />
+    </task>
+    <task id="LOCAL-00001" summary="converted to typescript">
+      <created>1606782735331</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606782735331</updated>
+    </task>
+    <task id="LOCAL-00002" summary="converted to typescript">
+      <created>1606845850495</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606845850495</updated>
+    </task>
+    <task id="LOCAL-00003" summary="converted to typescript">
+      <created>1606845856858</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606845856858</updated>
+    </task>
+    <task id="LOCAL-00004" summary="converted to typescript">
+      <created>1606852600361</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606852600361</updated>
+    </task>
+    <task id="LOCAL-00005" summary="converted to typescript">
+      <created>1606852963015</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1606852963015</updated>
+    </task>
+    <task id="LOCAL-00006" summary="converted to typescript">
+      <created>1606853498491</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1606853498491</updated>
+    </task>
+    <task id="LOCAL-00007" summary="converted to typescript">
+      <created>1606853645168</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1606853645168</updated>
+    </task>
+    <task id="LOCAL-00008" summary="converted to typescript">
+      <created>1606858414191</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1606858414192</updated>
+    </task>
+    <task id="LOCAL-00009" summary="converted to typescript">
+      <created>1606859144103</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1606859144104</updated>
+    </task>
+    <task id="LOCAL-00010" summary="converted to typescript">
+      <created>1606859153179</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1606859153179</updated>
+    </task>
+    <task id="LOCAL-00011" summary="converted to typescript">
+      <created>1606859500729</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1606859500729</updated>
+    </task>
+    <task id="LOCAL-00012" summary="converted to typescript">
+      <created>1606932936892</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1606932936892</updated>
+    </task>
+    <task id="LOCAL-00013" summary="converted to typescript">
+      <created>1606938889451</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1606938889451</updated>
+    </task>
+    <task id="LOCAL-00014" summary="converted to typescript">
+      <created>1606939120426</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1606939120426</updated>
+    </task>
+    <task id="LOCAL-00015" summary="converted to typescript">
+      <created>1606952722624</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1606952722624</updated>
+    </task>
+    <task id="LOCAL-00016" summary="converted to typescript">
+      <created>1606952888329</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1606952888329</updated>
+    </task>
+    <task id="LOCAL-00017" summary="converted to typescript">
+      <created>1606953608679</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1606953608679</updated>
+    </task>
+    <task id="LOCAL-00018" summary="converted to typescript">
+      <created>1606953861352</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1606953861352</updated>
+    </task>
+    <task id="LOCAL-00019" summary="converted to typescript">
+      <created>1606953898928</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1606953898928</updated>
+    </task>
+    <task id="LOCAL-00020" summary="converted to typescript">
+      <created>1607013937711</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1607013937712</updated>
+    </task>
+    <task id="LOCAL-00021" summary="converted to typescript">
+      <created>1607014409492</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1607014409492</updated>
+    </task>
+    <task id="LOCAL-00022" summary="converted to typescript">
+      <created>1607035486746</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1607035486746</updated>
+    </task>
+    <task id="LOCAL-00023" summary="converted to typescript">
+      <created>1607036087832</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1607036087833</updated>
+    </task>
+    <task id="LOCAL-00024" summary="converted to typescript">
+      <created>1607037394989</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1607037394990</updated>
+    </task>
+    <task id="LOCAL-00025" summary="converted to typescript">
+      <created>1607037878251</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1607037878251</updated>
+    </task>
+    <task id="LOCAL-00026" summary="converted to typescript">
+      <created>1607039008634</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1607039008634</updated>
+    </task>
+    <task id="LOCAL-00027" summary="converted to typescript">
+      <created>1607803242137</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1607803242137</updated>
+    </task>
+    <task id="LOCAL-00028" summary="converted to typescript">
+      <created>1608170780361</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1608170780364</updated>
+    </task>
+    <task id="LOCAL-00029" summary="converted to typescript">
+      <created>1608171345316</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1608171345316</updated>
+    </task>
+    <task id="LOCAL-00030" summary="converted to typescript">
+      <created>1608173894108</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1608173894108</updated>
+    </task>
+    <task id="LOCAL-00031" summary="converted to typescript">
+      <created>1608252253947</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1608252253947</updated>
+    </task>
+    <task id="LOCAL-00032" summary="converted to typescript">
+      <created>1608253932697</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1608253932697</updated>
+    </task>
+    <task id="LOCAL-00033" summary="converted to typescript">
+      <created>1608254009861</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1608254009861</updated>
+    </task>
+    <task id="LOCAL-00034" summary="object-curly-newline: off and react-hooks/exhaustive-deps: off">
+      <created>1608254066002</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1608254066002</updated>
+    </task>
+    <task id="LOCAL-00035" summary="converted to typescript">
+      <created>1608415624185</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1608415624185</updated>
+    </task>
+    <task id="LOCAL-00036" summary="converted to typescript">
+      <created>1608415799345</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1608415799345</updated>
+    </task>
+    <task id="LOCAL-00037" summary="converted to typescript">
+      <created>1608498141647</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1608498141647</updated>
+    </task>
+    <task id="LOCAL-00038" summary="converted to typescript">
+      <created>1608498146599</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1608498146599</updated>
+    </task>
+    <task id="LOCAL-00039" summary="converted to typescript">
+      <created>1608498150290</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1608498150290</updated>
+    </task>
+    <task id="LOCAL-00040" summary="converted to typescript">
+      <created>1608499886263</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1608499886263</updated>
+    </task>
+    <task id="LOCAL-00041" summary="converted to typescript">
+      <created>1608499891584</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1608499891584</updated>
+    </task>
+    <task id="LOCAL-00042" summary="react/jsx-curly-newline =&gt; off">
+      <created>1608499906325</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1608499906325</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/no_alert" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="object-curly-newline: off and react-hooks/exhaustive-deps: off" />
+    <MESSAGE value="converted to typescript" />
+    <MESSAGE value="react/jsx-curly-newline =&gt; off" />
+    <option name="LAST_COMMIT_MESSAGE" value="react/jsx-curly-newline =&gt; off" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="javascript-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

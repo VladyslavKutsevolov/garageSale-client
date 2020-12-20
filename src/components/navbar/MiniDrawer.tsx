@@ -185,7 +185,6 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <SearchBy inputFocus={focusSearchInput} />
           </ListItem>
-
           {user ? (
             userGarage ? (
               <Link to="/products" className={classes.removeListStyle}>
@@ -216,21 +215,20 @@ export default function MiniDrawer() {
               </ListItem>
             )
           ) : null}
-
-          {user ? (
-            state.latestComments &&
-            state.latestComments.length &&
-            !notificationsRead ? (
-              <NotificationIcon
-                setNotificationsOpen={setNotificationsOpen}
-                setNotificationsRead={setNotificationsRead}
-              />
-            ) : (
-              <EmptyNotificationIcon
-                setNotificationsOpen={setNotificationsOpen}
-              />
-            )
-          ) : null}
+          {/* {user ? ( */}
+          {/*  state.latestComments && */}
+          {/*  state.latestComments.length && */}
+          {/*  !notificationsRead ? ( */}
+          {/*    <NotificationIcon */}
+          {/*      setNotificationsOpen={setNotificationsOpen} */}
+          {/*      setNotificationsRead={setNotificationsRead} */}
+          {/*    /> */}
+          {/*  ) : ( */}
+          {/*    <EmptyNotificationIcon */}
+          {/*      setNotificationsOpen={setNotificationsOpen} */}
+          {/*    /> */}
+          {/*  ) */}
+          {/* ) : null} */}
           {user ? (
             !saleId ? (
               <ListItem button onClick={handleGarageFormOpen}>
