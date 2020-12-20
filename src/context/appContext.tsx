@@ -7,7 +7,8 @@ import React, {
   useContext,
   useReducer,
   useEffect,
-  useCallback
+  useCallback,
+  ReactNode
 } from 'react';
 import {
   GET_ALL_SALES,
@@ -21,34 +22,38 @@ import {
   EDIT_PRODUCT,
   SOLD_OUT,
   DELETE_COMMENT,
-  ADD_NOTIFICATION,
+  // ADD_NOTIFICATION,
   FILTER_BY_CATEGORY,
   EDIT_GARAGE,
   DELETE_GARAGE,
   SEARCH_BY_CITYNAME,
-  CLEAR_NOTIFICATIONS,
+  // CLEAR_NOTIFICATIONS,
   GET_CATEGORIES,
   LOGOUT_USER,
   GET_LATEST_COMMENTS
 } from './types';
 
 import useHttp from '../hooks/useHttp';
+import appReducer, { IAppState } from './appReducer';
 
-import appReducer from './appReducer';
-
-export const appContext = createContext();
-
-const initialState = {
+const initialState: IAppState = {
   sales: [],
   saleData: [],
   products: [],
   loginUser: [],
   comments: [],
+  categories: [],
   notifications: [],
   latestComments: []
 };
 
-const StateProvider = ({ children }) => {
+const appContext = createContext<any>(null);
+
+type Props = {
+  children: ReactNode;
+};
+
+const StateProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   const [saleId, setSaleId] = useState(null);
   const [openNewGarageForm, setNewGarageForm] = useState(false);
@@ -141,7 +146,7 @@ const StateProvider = ({ children }) => {
     [request]
   );
 
-  const fetchComments = async itemId => {
+  const fetchComments = async (itemId: number) => {
     try {
       const {
         data: { listOfComments }
@@ -150,16 +155,18 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const getLatestComments = async sellerId => {
+  const getLatestComments = async (sellerId: number) => {
     try {
       const {
         data: { latestComments }
-      } = await request(`http://localhost:3001/comments/getlatestcomments/${sellerId}`);
+      } = await request(
+        `http://localhost:3001/comments/getlatestcomments/${sellerId}`
+      );
       dispatch({ type: GET_LATEST_COMMENTS, payload: { latestComments } });
     } catch (e) {}
   };
 
-  const getLoginUser = async username => {
+  const getLoginUser = async (username: string) => {
     try {
       const {
         data: { message: responseMsg, loginUser: userData }
@@ -182,10 +189,10 @@ const StateProvider = ({ children }) => {
   };
 
   const createComment = async (
-    authorId,
-    itemId,
-    commentData,
-    authorUsername
+    authorId: number,
+    itemId: number,
+    commentData: {},
+    authorUsername: number
   ) => {
     const commentInfo = { authorId, commentData };
     try {
@@ -204,7 +211,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const deleteComment = async commentId => {
+  const deleteComment = async (commentId: number) => {
     try {
       await request(
         `http://localhost:3001/comments/${commentId}/delete`,
@@ -233,15 +240,15 @@ const StateProvider = ({ children }) => {
     [request]
   );
 
-  const addNotification = notification => {
-    dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
-  };
+  // const addNotification = notification => {
+  //   dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
+  // };
+  //
+  // const clearNotifications = () => {
+  //   dispatch({ type: CLEAR_NOTIFICATIONS });
+  // };
 
-  const clearNotifications = () => {
-    dispatch({ type: CLEAR_NOTIFICATIONS });
-  };
-
-  const editProduct = async (itemId, productData) => {
+  const editProduct = async (itemId: number, productData: any) => {
     try {
       const {
         data: { message: responseMsg, product }
@@ -257,7 +264,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const soldOut = async itemId => {
+  const soldOut = async (itemId: number) => {
     try {
       const {
         data: { message: responseMsg, product }
@@ -269,7 +276,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const deleteProduct = async itemId => {
+  const deleteProduct = async (itemId: number) => {
     try {
       const {
         data: { message: responseMsg }
@@ -284,7 +291,10 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const getProductsForCategory = async (categoryName, idOfSale) => {
+  const getProductsForCategory = async (
+    categoryName: string,
+    idOfSale: number
+  ) => {
     try {
       if (categoryName === 'All') {
         return getSaleData(idOfSale);
@@ -302,7 +312,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const editGarage = async (garageId, garageData) => {
+  const editGarage = async (garageId: number, garageData: any) => {
     try {
       const {
         data: { message: responseMsg, sale: garage }
@@ -317,7 +327,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const deleteGarage = async garageId => {
+  const deleteGarage = async (garageId: number) => {
     try {
       const {
         data: { message: responseMsg }
@@ -332,7 +342,7 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const searchByCityName = async cityName => {
+  const searchByCityName = async (cityName: string) => {
     try {
       if (cityName === 'All' || !cityName) {
         return fetchSales();
@@ -351,16 +361,16 @@ const StateProvider = ({ children }) => {
     } catch (e) {}
   };
 
-  const showMessage = (msg) => {
+  const showMessage = (msg: string) => {
     setError(msg);
-  }
+  };
 
   useEffect(() => {
     clearError();
     clearMessage();
   }, [error, clearError, message, clearMessage]);
 
-  const value = {
+  const value: any = {
     loading,
     message,
     error,
@@ -387,8 +397,8 @@ const StateProvider = ({ children }) => {
     saleId,
     setSaleId,
     soldOut,
-    addNotification,
-    clearNotifications,
+    // addNotification,
+    // clearNotifications,
     getProductsForCategory,
     deleteGarage,
     editGarage,
