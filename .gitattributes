@@ -1,4 +1,0 @@
-* linguist-vendored
-*.js linguist-vendored=true
-*.ts linguist-vendored=true
-*.tsx linguist-vendored=true
