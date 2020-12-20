@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Grid, Button } from '@material-ui/core';
