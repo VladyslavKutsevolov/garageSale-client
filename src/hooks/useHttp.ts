@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const useHttp = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState('');
 
   const request = useCallback(async (url, method = 'GET', body = null) => {
@@ -25,7 +25,7 @@ const useHttp = () => {
     []
   );
   const clearMessage = useCallback(
-    () => setTimeout(() => setMessage(null), 5000),
+    () => setTimeout(() => setMessage(''), 5000),
     []
   );
 
