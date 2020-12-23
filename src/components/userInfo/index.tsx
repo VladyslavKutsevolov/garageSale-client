@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Avatar, Button, Typography } from '@material-ui/core';
 import { userStyle } from './styles';
 
-const UserInfo = () => {
+const UserInfo: FC = () => {
   const classes = userStyle();
   return (
     <div className={classes.container}>
